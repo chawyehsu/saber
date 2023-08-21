@@ -5,6 +5,7 @@
   "files": [
     "cli.js"
   ],
+  "type": "module",
   "dependencies": {
     "create-site": "^0.4.0"
   },
@@ -12,5 +13,8 @@
   "author": {
     "name": "EGOIST",
     "email": "0x142857@gmail.com"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
