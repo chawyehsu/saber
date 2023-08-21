@@ -14,21 +14,21 @@
   "author": "egoist<0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "commitizen": "4.0.3",
+    "commitizen": "^4.3.0",
     "conf": "6.2.0",
-    "cz-conventional-changelog": "3.0.2",
-    "enquirer": "^2.3.1",
-    "eslint": "^6.6.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "enquirer": "^2.4.1",
+    "eslint": "7.32.0",
     "husky": "3.0.9",
     "jest": "^24.9.0",
-    "lerna": "3.18.3",
+    "lerna": "5.1.8",
     "lint-staged": "8.1.6",
     "prettier": "1.18.2",
-    "typedoc": "^0.15.0",
-    "typescript": "^3.8.0-dev.20191031"
+    "typedoc": "^0.24.8",
+    "typescript": "^5.1.6"
   },
   "resolutions": {
-    "typedoc/typescript": "^3.8.0-dev.20191031"
+    "typedoc/typescript": "^5.1.6"
   },
   "husky": {
     "hooks": {
@@ -60,5 +60,8 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "volta": {
+    "node": "16.20.2"
   }
 }

@@ -68,18 +68,18 @@
     "vue-router-prefetch": "^1.6.0",
     "vue-server-renderer": "^2.6.10",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.42.1",
-    "webpack-chain": "^6.0.0",
-    "webpack-dev-middleware": "^3.5.0",
-    "webpack-hot-middleware": "^2.24.3",
-    "webpack-node-externals": "^1.7.2"
+    "webpack": "^4.46.0",
+    "webpack-chain": "^6.5.1",
+    "webpack-dev-middleware": "5.2.2",
+    "webpack-hot-middleware": "^2.25.4",
+    "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "8.0.0",
     "@types/hash-sum": "^1.0.0",
     "@types/lodash.merge": "^4.6.6",
     "@types/resolve-from": "5.0.1",
-    "@types/webpack": "4.39.8",
+    "@types/webpack": "4.41.33",
     "markdown-it-footnote": "3.0.2"
   },
   "engines": {

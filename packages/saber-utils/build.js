@@ -11,7 +11,7 @@ main().catch(error => {
 
 async function main() {
   for (const file of files) {
-    const res = await require('@zeit/ncc')(path.normalize(file), {
+    const res = await require('@vercel/ncc')(path.normalize(file), {
       minify: true,
       sourceMap: false,
       watch: false
@@ -25,15 +25,12 @@ async function main() {
 
   await fs.outputFile(
     path.join(__dirname, 'dist/index.js'),
-    `
-  module.exports = { ${files
+    `module.exports = { ${files
     .map(file => {
       const name = path.basename(file, path.extname(file))
       return `get ${name}() { return require('./${name}') }`
     })
-    .join(',')}
-  }
-  `,
+    .join(',')}}`,
     'utf8'
   )
 }

@@ -1,4 +1,9 @@
-module.exports = ({ types: t }) => {
+import { types as t } from "@babel/core"
+import { declare } from "@babel/helper-plugin-utils"
+
+export default declare(api => {
+  api.assertVersion(7)
+
   return {
     visitor: {
       StringLiteral(
@@ -10,7 +15,8 @@ module.exports = ({ types: t }) => {
         }
       ) {
         if (
-          filename.endsWith('/html_re.js') &&
+          // removed `/` to make it work under Windows
+          filename.endsWith('html_re.js') &&
           path.node.value === '[a-zA-Z_:][a-zA-Z0-9:._-]*'
         ) {
           console.log('support @ in attribute names!')
@@ -46,4 +52,4 @@ module.exports = ({ types: t }) => {
       }
     }
   }
-}
+})

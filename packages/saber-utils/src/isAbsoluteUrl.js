@@ -1,1 +1,1 @@
-module.exports = require('is-absolute-url')
+export { isAbsoluteUrl } from 'is-absolute-url'

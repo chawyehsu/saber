@@ -271,7 +271,7 @@ export class Saber {
               log.verbose(msg)
             }
 
-            return fn(...args)
+            return fn(...args as [arg1: any, arg2: any, arg3: any, ...args: any[]])
           }
 
           return tapInfo
@@ -477,6 +477,11 @@ export class Saber {
     const chain = require('./webpack/webpack.config')(this, opts)
     this.hooks.chainWebpack.call(chain, opts)
     const config = this.hooks.getWebpackConfig.call(chain.toConfig(), opts)
+
+    // https://github.com/webpack/webpack-dev-middleware/blob/master/CHANGELOG.md#breaking-changes
+    config.infrastructureLogging = {
+      level: 'warn'
+    }
 
     if (this.opts.inspectWebpack) {
       require('./utils/inspectWebpack')(config, opts.type)

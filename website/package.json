@@ -18,5 +18,8 @@
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"
+  },
+  "volta": {
+    "node": "16.20.2"
   }
 }

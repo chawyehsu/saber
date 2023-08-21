@@ -179,7 +179,7 @@ export class VueRenderer {
         config.externals(
           externals.concat([
             require('webpack-node-externals')({
-              whitelist: [
+              allowlist: [
                 'saber/config',
                 'saber/variables',
                 /\.(?!(?:jsx?|json)$).{1,5}(\?.+)?$/i
@@ -426,7 +426,6 @@ export class VueRenderer {
     const clientCompiler = webpack(clientConfig)
 
     const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
-      logLevel: 'silent',
       publicPath: clientConfig.output.publicPath
     })
 

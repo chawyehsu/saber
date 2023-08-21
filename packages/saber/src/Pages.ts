@@ -260,7 +260,7 @@ export class Pages extends Map<string, Page> {
       internal: undefined
     })
     // TODO: remove in 1.0
-    result.attributes = result
+    result!.attributes = result!
 
     return result as Omit<Page, 'content' | 'internal'>
   }
