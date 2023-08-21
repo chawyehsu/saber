@@ -1,7 +1,13 @@
-// @ts-check
-const path = require('path')
-const fs = require('fs')
-const JoyCon = require('joycon').default
+import path from 'path'
+import fs from 'fs'
+import JoyCon from 'joycon'
+
+export const CONFIG_FILES = [
+  'saber-config.json',
+  'saber-config.js',
+  'saber-config.yml',
+  'saber-config.toml'
+]
 
 const joycon = new JoyCon({
   stopDir: path.dirname(process.cwd())
@@ -19,12 +25,12 @@ joycon.addLoader({
     require('./toml.min').parse(fs.readFileSync(filepath, 'utf8'))
 })
 
-module.exports = {
+export default {
   /**
    * Load config files synchronously
    * @param {import('joycon').Options} opts
    */
-  load(opts) {
+  load(opts: any) {
     joycon.clearCache()
     return joycon.loadSync(opts)
   },
@@ -32,14 +38,10 @@ module.exports = {
    * Resolve config files synchronously
    * @param {import('joycon').Options} opts
    */
-  resolve(opts) {
+  resolve(opts: any) {
     joycon.clearCache()
     return joycon.resolveSync(opts)
   },
-  CONFIG_FILES: [
-    'saber-config.json',
-    'saber-config.js',
-    'saber-config.yml',
-    'saber-config.toml'
-  ]
+
+  CONFIG_FILES
 }

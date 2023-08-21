@@ -1,6 +1,7 @@
-const { setNodeEnv, handleError } = require('./utils')
+import { setNodeEnv, handleError } from './utils'
+import { createSaber } from '..'
 
-module.exports = function(cli) {
+export default function(cli: any) {
   cli
     .command('[app-path]', 'Run the application in dev mode', {
       ignoreOptionDefaultValue: true
@@ -12,15 +13,14 @@ module.exports = function(cli) {
     .option('--inspect-webpack', 'Inspect webpack config in your editor')
     .option('--no-cache', 'Disable cache')
     .action(
-      handleError((cwd = '.', options) => {
+      handleError((cwd = '.', options: any) => {
         setNodeEnv('development')
 
         const { host, port, lazy, cache } = options
         delete options.host
         delete options.port
         delete options.lazy
-        return require('..')
-          .createSaber(Object.assign({ cwd, dev: true }, options), {
+        return createSaber(Object.assign({ cwd, dev: true }, options), {
             server: {
               host,
               port

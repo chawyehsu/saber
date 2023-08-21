@@ -1,17 +1,17 @@
-const path = require('path')
-const { spawnSync } = require('child_process')
-const { fs } = require('saber-utils')
-const { log } = require('saber-log')
-const normalizeRepo = require('normalize-repo')
-const downloadGitRepo = require('download-git-repo')
-const configLoader = require('../utils/configLoader')
-const resolvePackage = require('../utils/resolvePackage')
-const { handleError, spawn } = require('./utils')
+import path from 'path'
+import configLoader from '../utils/configLoader'
+import { spawnSync } from 'child_process'
+import { fs } from 'saber-utils'
+import { log } from 'saber-log'
+import resolvePackage from '../utils/resolvePackage'
+import normalizeRepo from 'normalize-repo'
+import downloadGitRepo from 'download-git-repo'
+import { handleError, spawn } from './utils'
 
 const downloadRepo = (url, dest, opts) =>
   new Promise(resolve => downloadGitRepo(url, dest, opts, resolve))
 
-module.exports = function(cli) {
+export default function(cli) {
   cli
     .command(
       'eject-theme [app-path]',

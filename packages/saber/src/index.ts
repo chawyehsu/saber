@@ -17,6 +17,7 @@ import { WebpackUtils } from './WebpackUtils'
 import { hooks } from './hooks'
 import { VueRenderer } from './vue-renderer'
 import { validateConfig, ValidatedSaberConfig } from './utils/validateConfig'
+import serveDir from './utils/serveDir'
 
 export interface SaberConstructorOptions {
   cwd?: string
@@ -42,9 +43,23 @@ export interface ThemeConfig {
   [k: string]: any
 }
 
+/**
+ * A Saber plugin
+ */
 export interface SaberPlugin {
+  /**
+   * The name of the plugin
+   */
   name: string
+
+  /**
+   * The callback function that will be called when applying the plugin
+   * @param api The Saber instance context
+   * @param options The plugin options
+   * @returns `void` or `Promise<void>`
+   */
   apply: (api: Saber, options: any) => void | Promise<void>
+
   filterPlugins?: (
     plugins: ResolvedSaberPlugin[],
     options?: any
@@ -366,6 +381,9 @@ export class Saber {
     return this.dev && this.config.build.lazy
   }
 
+  /**
+   * Load plugins
+   */
   async prepare() {
     // Load built-in plugins
     for (const plugin of builtinPlugins) {
@@ -552,7 +570,7 @@ export class Saber {
     await this.prepare()
     await this.run()
 
-    const server = http.createServer(this.renderer.getRequestHandler())
+    const server = http.createServer(this.renderer.getRequestHandler() as http.RequestListener)
 
     // Make sure the port is available
     const { host, port = 3000 } = this.config.server
@@ -566,7 +584,7 @@ export class Saber {
 
   async serveOutDir() {
     await this.prepare()
-    return require('./utils/serveDir')({
+    return serveDir({
       dir: this.resolveOutDir(),
       host: this.config.server.host,
       port: this.config.server.port

@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-const cac = require('cac')
+import { cac } from 'cac'
+import { log } from 'saber-log'
+import commands from './cli-commands'
 
 const cli = cac()
-require('./cli-commands')(cli)
+commands(cli)
 
 cli.option('-V, --verbose', 'Output verbose logs')
 cli.option('--no-progress', 'Disable progress bar')
@@ -14,14 +16,12 @@ cli.help()
 cli.parse()
 
 process.on('SIGINT', () => {
-  const { log } = require('saber-log')
   log.log('')
   log.info(`See you later, master!`) // <-- Saber says
   process.exit()
 })
 
-process.on('unhandledRejection', error => {
-  const { log } = require('saber-log')
+process.on('unhandledRejection', (error: any) => {
   log.error(error.stack)
   process.exitCode = 1
 })

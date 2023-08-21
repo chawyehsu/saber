@@ -1,6 +1,8 @@
-const { setNodeEnv, handleError } = require('./utils')
+import { log } from 'saber-log'
+import { setNodeEnv, handleError } from './utils'
+import { createSaber } from '..'
 
-module.exports = function(cli) {
+export default function(cli: any) {
   cli
     .command(
       'build [app-path]',
@@ -14,11 +16,11 @@ module.exports = function(cli) {
     .option('--inspect-webpack', 'Inspect webpack config in your editor')
     .option('--no-cache', 'Disable cache')
     .action(
-      handleError((cwd = '.', options) => {
+      handleError((cwd = '.', options: any) => {
         setNodeEnv('production')
 
         if (cli.matchedCommandName === 'generate') {
-          require('saber-log').log.warn(
+          log.warn(
             `The "generate" command is now deprecated, please use "build" instead.`
           )
         }
@@ -27,8 +29,7 @@ module.exports = function(cli) {
         delete options.skipCompilation
         delete options.cache
 
-        return require('..')
-          .createSaber(Object.assign({ cwd, dev: false }, options), {
+        return createSaber(Object.assign({ cwd, dev: false }, options), {
             build: {
               cache
             }

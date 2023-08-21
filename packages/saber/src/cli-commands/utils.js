@@ -1,27 +1,28 @@
-const { spawn } = require('child_process')
+import { spawn as spawnProcess } from 'child_process'
+import { log } from 'saber-log'
 
-module.exports = {
-  setNodeEnv(env) {
-    if (!process.env.NODE_ENV) {
-      process.env.NODE_ENV = env
-    }
-  },
-  handleError(fn) {
-    return async (...args) => {
-      try {
-        await fn(...args)
-      } catch (error) {
-        const message = typeof error === 'string' ? error : error.stack
-        require('saber-log').log.error(message)
-        process.exit(1) // eslint-disable-line
-      }
-    }
-  },
-  spawn(...args) {
-    return new Promise((resolve, reject) => {
-      const childProcess = spawn(...args)
-      childProcess.on('close', resolve)
-      childProcess.on('error', reject)
-    })
+export function setNodeEnv(env) {
+  if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = env
   }
+}
+
+export function handleError(fn) {
+  return async (...args) => {
+    try {
+      await fn(...args)
+    } catch (error) {
+      const message = typeof error === 'string' ? error : error.stack
+      log.error(message)
+      process.exit(1) // eslint-disable-line
+    }
+  }
+}
+
+export function spawn(...args) {
+  return new Promise((resolve, reject) => {
+    const childProcess = spawnProcess(...args)
+    childProcess.on('close', resolve)
+    childProcess.on('error', reject)
+  })
 }
