@@ -2,6 +2,7 @@
 const path = require('path')
 const os = require('os')
 const { fs } = require('saber-utils')
+const { inspect } = require('util')
 
 const ID = Math.round(Math.random() * 1000)
 
@@ -15,6 +16,10 @@ module.exports = async (config, type) => {
     os.tmpdir(),
     `saber-webpack-config-${type}-${ID}.js`
   )
-  await fs.writeFile(tempFile, `var config = ${config.toString()}`, 'utf8')
+  await fs.writeFile(
+    tempFile,
+    `var config = ${JSON.stringify(inspect(config), null, 2)}`,
+    'utf8'
+  )
   await require('open')(tempFile)
 }
