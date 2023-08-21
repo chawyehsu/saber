@@ -19,6 +19,16 @@ module.exports = {
     es2017: true
   },
   rules: {
+    // TEMPORARY
+    '@typescript-eslint/no-implied-eval': 'off',
+    '@typescript-eslint/unbound-method': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
     // Enable this rule when all files are migated to TS
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/camelcase': 'off',

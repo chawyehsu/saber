@@ -1,3 +1,5 @@
+import typescript from 'rollup-plugin-typescript2'
+
 export default {
   input: 'src/index.ts',
   output: {
@@ -5,7 +7,7 @@ export default {
     format: 'cjs'
   },
   plugins: [
-    require('rollup-plugin-typescript2')({
+    typescript({
       tsconfigOverride: {
         compilerOptions: {
           declaration: true

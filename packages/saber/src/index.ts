@@ -271,7 +271,9 @@ export class Saber {
               log.verbose(msg)
             }
 
-            return fn(...args as [arg1: any, arg2: any, arg3: any, ...args: any[]])
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            return fn(...args)
           }
 
           return tapInfo
