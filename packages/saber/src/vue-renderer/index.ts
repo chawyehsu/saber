@@ -1,12 +1,22 @@
 import path from 'path'
 import { fs, slash } from 'saber-utils'
 import { log } from 'saber-log'
+import polka from 'polka'
+import serveStatic from 'serve-static'
+import webpack from 'webpack'
+import { Compiler } from 'webpack'
+// @ts-ignore
+import webpackDevMiddleware from 'webpack-dev-middleware'
+// @ts-ignore
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import { createBundleRenderer, BundleRenderer } from 'vue-server-renderer'
 import { SyncWaterfallHook } from 'tapable'
 import { readJSON } from './utils'
 import renderHTML from './render-html'
 import TemplatePlugins from './template-plugins'
+import { Saber } from '..'
 
-function runCompiler(compiler) {
+function runCompiler(compiler: Compiler) {
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) return reject(err)
@@ -15,11 +25,11 @@ function runCompiler(compiler) {
   })
 }
 
-function resolveVueApp(...args) {
+function resolveVueApp(...args: string[]) {
   return path.join(__dirname, '../../vue-app', ...args)
 }
 
-function removeTrailingSlash(input) {
+function removeTrailingSlash(input: string) {
   if (input === '/') {
     return input
   }
@@ -30,7 +40,15 @@ function removeTrailingSlash(input) {
 const ID = 'vue-renderer'
 
 export class VueRenderer {
-  init(api) {
+  api: Saber
+  visitedRoutes: Set<unknown>
+  builtRoutes: Set<unknown>
+  hooks: any
+  private _writingRoutes: boolean | undefined
+  prevRoutes: string | undefined
+  renderer: BundleRenderer | undefined
+
+  constructor(api: Saber) {
     this.api = api
     // In dev mode pages will be built when visited
     this.visitedRoutes = new Set()
@@ -51,7 +69,7 @@ export class VueRenderer {
       if (api.hasDependency('vue')) {
         config.resolve.alias.set(
           'vue',
-          path.dirname(api.localResolve('vue/package.json'))
+          path.dirname(api.localResolve('vue/package.json')!)
         )
       } else {
         // Otherwise use the one shipped with Saber
@@ -87,8 +105,8 @@ export class VueRenderer {
       )
 
       const pageLoaderOptions = {
-        getPageById: pageId => api.pages.get(pageId),
-        getTransformerByContentType: contentType =>
+        getPageById: (pageId: string) => api.pages.get(pageId),
+        getTransformerByContentType: (contentType: string) =>
           api.transformers.get(contentType),
         resolveCache: api.resolveCache.bind(api)
       }
@@ -111,7 +129,7 @@ export class VueRenderer {
         .rule('js')
         .oneOf('saber-page')
           .before('normal')
-          .resourceQuery(query => {
+          .resourceQuery((query: any) => {
             return /saberPage/.test(query) && !/type=script/.test(query)
           })
           .use('vue-loader')
@@ -147,7 +165,7 @@ export class VueRenderer {
       config.module
         .rule('saber-page')
         .test(pageExtensions)
-        .resourceQuery(query => {
+        .resourceQuery((query: any) => {
           return /saberPage/.test(query)
         })
         .use('vue-loader')
@@ -217,8 +235,8 @@ export class VueRenderer {
 
     const routesFromPages = pages
       .map(page => {
-        const relativePath = slash(page.internal.relative)
-        const absolutePath = slash(page.internal.absolute)
+        const relativePath = slash(page.internal.relative!)
+        const absolutePath = slash(page.internal.absolute!)
         const chunkNameComment = `/* webpackChunkName: "page--${
           page.internal.isFile
             ? path
@@ -287,17 +305,15 @@ export class VueRenderer {
     // Remove dist-client
     await fs.remove(this.api.resolveCache('dist-client'))
 
-    const clientCompiler = require('webpack')(clientConfig)
-    const serverCompiler = require('webpack')(serverConfig)
+    const clientCompiler = webpack(clientConfig)
+    const serverCompiler = webpack(serverConfig)
     await Promise.all([
       runCompiler(clientCompiler),
       runCompiler(serverCompiler)
     ])
   }
 
-  async initRenderer({ clientManifest, serverBundle } = {}) {
-    const { createBundleRenderer } = require('vue-server-renderer')
-
+  async initRenderer({ clientManifest, serverBundle }: any = {}) {
     const isFirstTime = !this.renderer
 
     if (serverBundle && clientManifest) {
@@ -315,7 +331,7 @@ export class VueRenderer {
     return this.renderer
   }
 
-  async renderPageContent(url, { scoped = false } = {}) {
+  async renderPageContent(url: string, { scoped = false } = {}) {
     const random = 'asdhkBJKAbjkf@3^1_a=--+'
     const startingMark = `__mark_page_content_start__${random}`
     const endingMark = `__mark_page_content_stop__${random}`
@@ -323,7 +339,7 @@ export class VueRenderer {
       url,
       markPageContent: [startingMark, endingMark]
     }
-    const html = await this.renderer.renderToString(context)
+    const html = await this.renderer!.renderToString(context)
     const content = html.slice(
       html.indexOf(startingMark) + startingMark.length,
       html.indexOf(endingMark)
@@ -348,7 +364,7 @@ export class VueRenderer {
     )
     const renderer = await this.initRenderer({ serverBundle, clientManifest })
 
-    const getOutputFilePath = permalink => {
+    const getOutputFilePath = (permalink: string) => {
       const filename = permalink.endsWith('.html')
         ? permalink
         : permalink.replace(/\/?$/, '/index.html')
@@ -358,9 +374,9 @@ export class VueRenderer {
     /**
      * @param {Array<{permalink:string, outputFilePath: string}>} routes
      */
-    const writeFiles = routes =>
+    const writeFiles = (routes: Array<any>) =>
       Promise.all(
-        routes.map(async route => {
+        routes.map(async (route: any) => {
           log.info('Generating', path.relative(outDir, route.outputFilePath))
           try {
             const { context, html } = await renderHTML(renderer, {
@@ -402,7 +418,7 @@ export class VueRenderer {
     )
 
     // Copy static files to outDir
-    const copyStaticFiles = async dir => {
+    const copyStaticFiles = async (dir: string) => {
       if (await fs.pathExists(dir)) {
         await fs.copy(dir, outDir)
       }
@@ -415,8 +431,7 @@ export class VueRenderer {
   }
 
   async getRequestHandler() {
-    const webpack = require('webpack')
-    const server = require('polka')()
+    const server = polka()
 
     this.api.hooks.onCreateServer.call(server)
 
@@ -426,24 +441,25 @@ export class VueRenderer {
 
     const clientCompiler = webpack(clientConfig)
 
-    const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
+    const devMiddleware = webpackDevMiddleware(clientCompiler, {
       publicPath: clientConfig.output.publicPath
     })
 
-    const hotMiddleware = require('webpack-hot-middleware')(clientCompiler, {
+    const hotMiddleware = webpackHotMiddleware(clientCompiler, {
       log: false
     })
 
     const serverConfig = await this.api.getWebpackConfig({ type: 'server' })
     const serverCompiler = webpack(serverConfig)
+    // @ts-ignore
     const mfs = new webpack.MemoryOutputFileSystem()
     serverCompiler.outputFileSystem = mfs
 
-    let serverBundle
-    let clientManifest
+    let serverBundle: string | undefined
+    let clientManifest: object
 
-    const onceAllCompilersAreReady = handler => {
-      const listener = ({ allCompilers }) => {
+    const onceAllCompilersAreReady = (handler: any) => {
+      const listener = ({ allCompilers }: { allCompilers: any }) => {
         if (allCompilers.ready) {
           Object.values(this.api.compilers).forEach(compiler => {
             compiler.off('status-changed', listener)
@@ -471,6 +487,7 @@ export class VueRenderer {
       if (status === 'success') {
         clientManifest = readJSON(
           this.api.resolveCache('bundle-manifest/client.json'),
+          // @ts-ignore
           clientCompiler.outputFileSystem.readFileSync.bind(
             clientCompiler.outputFileSystem
           )
@@ -485,7 +502,7 @@ export class VueRenderer {
       }
     })
 
-    server.get('/_saber/pages', (req, res) => {
+    server.get('/_saber/pages', (_: any, res: any) => {
       res.setHeader('content-type', 'text/html')
       res.end(`
       <script>
@@ -495,7 +512,7 @@ export class VueRenderer {
       `)
     })
 
-    server.get('/_saber/visit-page', async (req, res) => {
+    server.get('/_saber/visit-page', async (req: any, res: any) => {
       // eslint-disable-next-line
       let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
       pathname = removeTrailingSlash(pathname)
@@ -513,7 +530,7 @@ export class VueRenderer {
         })
       } else {
         log.info(`Compiling ${fullPath}`)
-        onceAllCompilersAreReady(({ hasError }) => {
+        onceAllCompilersAreReady(({ hasError }: { hasError: any}) => {
           log.info(`Navigating to ${fullPath}`)
           this.builtRoutes.add(pathname)
           hotMiddleware.publish({
@@ -529,12 +546,12 @@ export class VueRenderer {
     })
 
     server.use(
-      require('serve-static')(this.api.resolveCwd('static'), {
+      serveStatic(this.api.resolveCwd('static'), {
         dotfiles: 'allow'
       })
     )
     server.use(
-      require('serve-static')(path.join(this.api.theme, 'static'), {
+      serveStatic(path.join(this.api.theme, 'static'), {
         dotfiles: 'allow'
       })
     )
@@ -542,7 +559,7 @@ export class VueRenderer {
     server.use(devMiddleware)
     server.use(hotMiddleware)
 
-    server.get('*', async (req, res) => {
+    server.get('*', async (req: any, res: any) => {
       if (!req.headers.accept || !req.headers.accept.includes('text/html')) {
         res.statusCode = 404
         return res.end('404')

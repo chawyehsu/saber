@@ -329,8 +329,7 @@ export class Saber {
       )
     }
 
-    this.renderer = new VueRenderer()
-    this.renderer.init(this)
+    this.renderer = new VueRenderer(this)
 
     // Load theme
     if (this.config.theme) {
@@ -602,8 +601,8 @@ export class Saber {
     ]
   }
 
-  localResolve(name: string): string {
-    return require('resolve-from').silent(this.opts.cwd, name)
+  localResolve(name: string): string | undefined {
+    return resolveFrom.silent(this.opts.cwd, name)
   }
 
   localRequire(name: string): any {
@@ -612,7 +611,15 @@ export class Saber {
   }
 }
 
-export const createSaber = (
-  opts: SaberConstructorOptions,
-  config: SaberConfig
-) => new Saber(opts, config)
+/**
+ * Create a Saber instance
+ * @param {SaberConstructorOptions}opts Saber constructor options
+ * @param {SaberConfig}config Saber config
+ * @returns {Saber}
+ */
+export function createSaber(
+  opts?: SaberConstructorOptions,
+  config?: SaberConfig
+): Saber {
+  return new Saber(opts, config)
+}

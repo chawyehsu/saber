@@ -3,7 +3,7 @@ import ConfigChain from '../../config-chain'
 
 export default function (api: Saber) {
   const chain = new ConfigChain()
-  const { template = {} }: any = api.config
+  const template = api.config.template
 
   const builtInPlugins = [
     {

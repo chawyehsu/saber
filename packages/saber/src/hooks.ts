@@ -9,7 +9,10 @@ export const hooks = {
   // Before running the build process
   beforeRun: new AsyncSeriesHook(),
   onUpdateConfigFile: new AsyncSeriesHook(),
-  // Extend webpack config
+
+  /**
+   * Extended webpack config
+   */
   chainWebpack: new SyncHook(['webpackChain', 'opts']),
   getWebpackConfig: new SyncWaterfallHook(['config', 'opts']),
   // Extend markdown-it config
@@ -39,6 +42,9 @@ export const hooks = {
   beforeExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
   // Called after exporting a page
   afterExportPage: new AsyncSeriesHook(['context', 'exportedPage']),
-  // Called after creating the server
+
+  /**
+   * Called after creating the server
+   */
   onCreateServer: new SyncHook(['server'])
 }

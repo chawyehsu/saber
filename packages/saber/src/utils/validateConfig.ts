@@ -13,19 +13,19 @@ export interface ValidatedSaberConfig {
     plugins: MarkdownPlugin[]
   }
 
-  themeConfig: NonUndefined<SaberConfig['themeConfig']>
+  themeConfig: NonNullable<SaberConfig['themeConfig']>
 
-  permalinks: NonUndefined<SaberConfig['permalinks']>
+  permalinks: NonNullable<SaberConfig['permalinks']>
 
-  server: Required<NonUndefined<SaberConfig['server']>>
+  server: NonNullable<Required<SaberConfig['server']>>
 
-  build: Required<NonUndefined<SaberConfig['build']>>
+  build: NonNullable<Required<SaberConfig['build']>>
 
   locales: NonNullable<SaberConfig['locales']>
 
   theme: SaberConfig['theme']
 
-  template: Required<NonUndefined<SaberConfig['template']>>
+  template: NonNullable<Required<SaberConfig['template']>>
 }
 
 /**
