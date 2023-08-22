@@ -14,6 +14,7 @@ exports.apply = api => {
       .use('url-loader')
       .loader(require.resolve('url-loader'))
       .options({
+        esModule: false,
         name: filename,
         // inline the file if smaller than 2KB
         limit: 20000
@@ -27,6 +28,7 @@ exports.apply = api => {
       // See https://github.com/facebookincubator/create-react-app/pull/1180
       .loader(require.resolve('file-loader'))
       .options({
+        esModule: false,
         name: filename
       })
   })
