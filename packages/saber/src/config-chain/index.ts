@@ -1,13 +1,15 @@
 /**
  * Modified: https://github.com/ulivz/markdown-it-chain/blob/master/src/index.js
  */
+// @ts-ignore
+import ChainedMap from 'webpack-chain/src/ChainedMap'
+import resolvePackage from '../utils/resolvePackage'
+import Plugin from './Plugin'
+import Options from './Options'
 
-const ChainedMap = require('webpack-chain/src/ChainedMap')
-const resolvePackage = require('../utils/resolvePackage')
-const Plugin = require('./Plugin')
-const Options = require('./Options')
+export default class MarkdownItChain extends ChainedMap {
+  [x: string]: any
 
-module.exports = class MarkdownItChain extends ChainedMap {
   constructor() {
     super()
     this.options = new Options(this)
@@ -18,12 +20,12 @@ module.exports = class MarkdownItChain extends ChainedMap {
     return this.clean(
       Object.assign(this.entries() || {}, {
         options: this.options.entries(),
-        plugins: this.plugins.values().map(plugin => plugin.toConfig())
+        plugins: this.plugins.values().map((plugin: any) => plugin.toConfig())
       })
     )
   }
 
-  plugin(name) {
+  plugin(name: any) {
     if (!this.plugins.has(name)) {
       this.plugins.set(name, new Plugin(this))
     }
@@ -31,8 +33,8 @@ module.exports = class MarkdownItChain extends ChainedMap {
     return this.plugins.get(name)
   }
 
-  loadPlugins(rawPluginList, cwd) {
-    const pluginList = rawPluginList.map(plugin => {
+  loadPlugins(rawPluginList: any, cwd: any) {
+    const pluginList = rawPluginList.map((plugin: any) => {
       if (typeof plugin === 'string') {
         plugin = { resolve: plugin }
       }

@@ -1,8 +1,9 @@
-const ConfigChain = require('../../config-chain')
+import { Saber } from '../..'
+import ConfigChain from '../../config-chain'
 
-module.exports = api => {
+export default function (api: Saber) {
   const chain = new ConfigChain()
-  const { template = {} } = api.config
+  const { template = {} }: any = api.config
 
   const builtInPlugins = [
     {
@@ -29,7 +30,7 @@ module.exports = api => {
 
   const { plugins } = chain.toConfig()
 
-  return plugins.map(plugin => (tree, context) => {
+  return plugins.map((plugin: any) => (tree: any, context: any) => {
     const transform = plugin.plugin(...plugin.args)
     return transform(tree, context)
   })

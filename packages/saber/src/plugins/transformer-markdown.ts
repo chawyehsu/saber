@@ -1,13 +1,14 @@
-// @ts-nocheck
+// @ts-ignore
 import Markdown from 'saber-markdown'
 import ConfigChain from '../config-chain'
 import resolvePackage from '../utils/resolvePackage'
 import parseFrommatter from '../utils/parseFrontmatter'
-import { SaberPlugin } from '..'
+import { SaberPlugin, Saber} from '..'
+import { Page } from '../Pages'
 
-function renderMarkdown(api, page) {
+function renderMarkdown(api: Saber, page: Page) {
   const { configDir } = api
-  const { markdown = {} } = api.config
+  const { markdown = {} }: any = api.config
   const env = {
     Token: Markdown.Token,
     filePath: page.internal.absolute,
@@ -99,12 +100,12 @@ const transformerMarkdownPlugin: SaberPlugin = {
       extensions: ['md'],
       transform(page) {
         const { frontmatter, body } = parseFrommatter(
-          page.content,
-          page.internal.absolute
+          page.content!,
+          page.internal.absolute!
         )
         Object.assign(page, frontmatter)
         page.content = body
-        page.content = renderMarkdown(api, page)
+        page.content = renderMarkdown(api, page as Page)
       },
       getPageComponent(page) {
         return `

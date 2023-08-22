@@ -1,7 +1,10 @@
-const ChainedMap = require('webpack-chain/src/ChainedMap')
+// @ts-ignore
+import ChainedMap from 'webpack-chain/src/ChainedMap'
 
-module.exports = class extends ChainedMap {
-  constructor(parent) {
+export default class extends ChainedMap {
+  [x: string]: any
+
+  constructor(parent: any) {
     super(parent)
 
     this.extend([

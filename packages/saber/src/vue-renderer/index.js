@@ -1,9 +1,10 @@
 import path from 'path'
-const { fs, slash } = require('saber-utils')
-const { log } = require('saber-log')
-const { SyncWaterfallHook } = require('tapable')
-const { readJSON } = require('./utils')
-const renderHTML = require('./render-html')
+import { fs, slash } from 'saber-utils'
+import { log } from 'saber-log'
+import { SyncWaterfallHook } from 'tapable'
+import { readJSON } from './utils'
+import renderHTML from './render-html'
+import TemplatePlugins from './template-plugins'
 
 function runCompiler(compiler) {
   return new Promise((resolve, reject) => {
@@ -101,7 +102,7 @@ export class VueRenderer {
         .use('transform-template-loader')
         .loader(require.resolve('./transform-template-loader'))
         .options({
-          plugins: require('./template-plugins')(api)
+          plugins: TemplatePlugins(api)
         })
 
       // Add `saber-page` rule under `js` rule to handle .js pages

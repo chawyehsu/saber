@@ -1,8 +1,12 @@
-import path from 'path'
 import Config from 'webpack-chain'
+import path from 'path'
+// @ts-ignore
+import timeFixPlugin from 'time-fix-plugin'
+import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
+import { Saber } from '..'
 
-export default function webpackConfig(api, { type }) {
+export default function webpackConfig(api: Saber, { type }: { type: string }) {
   const config = new Config()
 
   config.mode(api.dev ? 'development' : 'production')
@@ -75,15 +79,15 @@ export default function webpackConfig(api, { type }) {
       }
     })
 
-  config.plugin('timefix').use(require('time-fix-plugin'))
+  config.plugin('timefix').use(timeFixPlugin)
 
-  config.plugin('envs').use(require('webpack').DefinePlugin, [
+  config.plugin('envs').use(webpack.DefinePlugin, [
     {
       'process.env.NODE_ENV': JSON.stringify(config.get('mode'))
     }
   ])
 
-  config.plugin('constants').use(require('webpack').DefinePlugin, [
+  config.plugin('constants').use(webpack.DefinePlugin, [
     {
       'process.browser': type === 'client',
       'process.client': type === 'client',

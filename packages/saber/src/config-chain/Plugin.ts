@@ -1,26 +1,30 @@
-const ChainedMap = require('webpack-chain/src/ChainedMap')
-const Orderable = require('webpack-chain/src/Orderable')
+// @ts-ignore
+import ChainedMap from 'webpack-chain/src/ChainedMap'
+// @ts-ignore
+import Orderable from 'webpack-chain/src/Orderable'
 
 // eslint-disable-next-line new-cap
-module.exports = Orderable(
+export default Orderable(
   class Plugin extends ChainedMap {
-    constructor(parent) {
+    [x: string]: any
+
+    constructor(parent: any) {
       super(parent)
       this.extend(['init'])
 
-      this.init((plugin, args = []) => ({ plugin, args }))
+      this.init((plugin: any, args = []) => ({ plugin, args }))
     }
 
-    use(plugin, args = []) {
+    use(plugin: any, args = []) {
       return this.set('plugin', plugin).set('args', args)
     }
 
-    tap(f) {
+    tap(f: any) {
       this.set('args', f(this.get('args') || []))
       return this
     }
 
-    merge(obj, omit = []) {
+    merge(obj: any, omit = []) {
       if ('plugin' in obj) {
         this.set('plugin', obj.plugin)
       }

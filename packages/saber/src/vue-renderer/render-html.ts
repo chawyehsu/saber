@@ -1,8 +1,11 @@
-const getInitialDocumentData = require('./get-initial-document-data')
-const getInitialDocument = require('./get-initial-document')
+import getInitialDocumentData from './get-initial-document-data'
+import getInitialDocument from './get-initial-document'
 
-module.exports = async (renderer, { url, hooks, isProd }) => {
-  const context = { url }
+export default async (
+  renderer: any,
+  { url, hooks, isProd }: { url: string, hooks: any, isProd: boolean }
+) => {
+  const context: any = { url }
   context.markup = await renderer.renderToString(context)
 
   // Get document data that is used to document string
