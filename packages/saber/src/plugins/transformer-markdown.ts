@@ -1,11 +1,15 @@
-const ConfigChain = require('../config-chain')
-const resolvePackage = require('../utils/resolvePackage')
+// @ts-nocheck
+import Markdown from 'saber-markdown'
+import ConfigChain from '../config-chain'
+import resolvePackage from '../utils/resolvePackage'
+import parseFrommatter from '../utils/parseFrontmatter'
+import { SaberPlugin } from '..'
 
 function renderMarkdown(api, page) {
   const { configDir } = api
   const { markdown = {} } = api.config
   const env = {
-    Token: require('saber-markdown').Token,
+    Token: Markdown.Token,
     filePath: page.internal.absolute,
     pagesDir: api.resolveCwd('pages'),
     page
@@ -88,28 +92,31 @@ function renderMarkdown(api, page) {
   return md.render(page.content, env)
 }
 
-exports.name = 'builtin:transformer-markdown'
-
-exports.apply = api => {
-  api.transformers.add('markdown', {
-    extensions: ['md'],
-    transform(page) {
-      const { frontmatter, body } = require('../utils/parseFrontmatter')(
-        page.content,
-        page.internal.absolute
-      )
-      Object.assign(page, frontmatter)
-      page.content = body
-      page.content = renderMarkdown(api, page)
-    },
-    getPageComponent(page) {
-      return `
-        <template>
-        <layout-manager>
-          ${page.content || ''}
-        </layout-manager>
-        </template>
-      `
-    }
-  })
+const transformerMarkdownPlugin: SaberPlugin = {
+  name: 'builtin:transformer-markdown',
+  apply: api => {
+    api.transformers.add('markdown', {
+      extensions: ['md'],
+      transform(page) {
+        const { frontmatter, body } = parseFrommatter(
+          page.content,
+          page.internal.absolute
+        )
+        Object.assign(page, frontmatter)
+        page.content = body
+        page.content = renderMarkdown(api, page)
+      },
+      getPageComponent(page) {
+        return `
+          <template>
+          <layout-manager>
+            ${page.content || ''}
+          </layout-manager>
+          </template>
+        `
+      }
+    })
+  }
 }
+
+export default transformerMarkdownPlugin
