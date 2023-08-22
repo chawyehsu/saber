@@ -1,7 +1,7 @@
 /// <reference path="../declarations.d.ts" />
 import path from 'path'
 import http from 'http'
-import { fs } from 'saber-utils'
+import * as utils from 'saber-utils'
 import { log, colors, Log } from 'saber-log'
 import resolveFrom from 'resolve-from'
 import merge from 'lodash.merge'
@@ -264,7 +264,7 @@ export class Saber {
     this.webpackUtils = new WebpackUtils(this)
     this.log = log
     this.colors = colors
-    this.utils = require('saber-utils')
+    this.utils = utils
     this.hooks = hooks
 
     this.transformers = new Transformers()
@@ -342,7 +342,7 @@ export class Saber {
       // We use the `dist` directory instead
       if (this.theme.includes('node_modules')) {
         const distDir = path.join(this.theme, 'dist')
-        if (fs.existsSync(distDir)) {
+        if (this.utils.fs.existsSync(distDir)) {
           this.theme = distDir
         }
       }
@@ -387,7 +387,7 @@ export class Saber {
   async prepare() {
     // Load built-in plugins
     for (const plugin of builtinPlugins) {
-      const resolvedPlugin = require(plugin.resolve)
+      const resolvedPlugin = await import(plugin.resolve)
       await this.applyPlugin(resolvedPlugin.default || resolvedPlugin)
     }
 
@@ -417,14 +417,12 @@ export class Saber {
   ) {
     await plugin.apply(this, options)
 
-    if (!plugin.name.startsWith('builtin:')) {
-      log.verbose(
-        () =>
-          `Using plugin "${colors.bold(plugin.name)}" ${
-            pluginLocation ? colors.dim(pluginLocation) : ''
-          }`
-      )
-    }
+    log.verbose(
+      () =>
+        `Using ${plugin.name.startsWith('builtin:') ? 'builtin ' : ''}plugin "${colors.bold(plugin.name)}" ${
+          pluginLocation ? colors.dim(pluginLocation) : ''
+        }`
+    )
   }
 
   getUserPlugins() {
@@ -516,9 +514,9 @@ export class Saber {
     // Because they are replaced by `static` and `public`
     // TODO: remove this error before v1.0
     const hasOldPublicFolder = await Promise.all([
-      fs.pathExists(this.resolveCache('public')),
-      fs.pathExists(this.resolveCwd('public')),
-      fs.pathExists(this.resolveCwd('public/index.html'))
+      this.utils.fs.pathExists(this.resolveCache('public')),
+      this.utils.fs.pathExists(this.resolveCwd('public')),
+      this.utils.fs.pathExists(this.resolveCwd('public/index.html'))
     ]).then(
       ([hasOldOutDir, hasPublicDir, hasNewPublicDir]) =>
         hasOldOutDir && hasPublicDir && !hasNewPublicDir
