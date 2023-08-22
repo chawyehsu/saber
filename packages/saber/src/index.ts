@@ -492,7 +492,7 @@ export class Saber {
     return this.resolveCwd(this.config.build.outDir, ...args)
   }
 
-  getWebpackConfig(opts: WebpackContext) {
+  async getWebpackConfig(opts: WebpackContext) {
     opts = Object.assign({ type: 'client' }, opts)
     const chain = require('./webpack/webpack.config')(this, opts)
     this.hooks.chainWebpack.call(chain, opts)
@@ -504,7 +504,8 @@ export class Saber {
     }
 
     if (this.opts.inspectWebpack) {
-      require('./utils/inspectWebpack')(config, opts.type)
+      const inspectWebpack = (await import('./utils/inspectWebpack')).default
+      await inspectWebpack(config, opts.type)
     }
 
     return config
@@ -570,7 +571,8 @@ export class Saber {
     await this.prepare()
     await this.run()
 
-    const server = http.createServer(this.renderer.getRequestHandler() as http.RequestListener)
+    const handler = await this.renderer.getRequestHandler()
+    const server = http.createServer(handler as http.RequestListener)
 
     // Make sure the port is available
     const { host, port = 3000 } = this.config.server

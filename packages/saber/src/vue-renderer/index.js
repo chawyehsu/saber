@@ -1,4 +1,4 @@
-const path = require('path')
+import path from 'path'
 const { fs, slash } = require('saber-utils')
 const { log } = require('saber-log')
 const { SyncWaterfallHook } = require('tapable')
@@ -280,8 +280,8 @@ export class VueRenderer {
   }
 
   async build() {
-    const clientConfig = this.api.getWebpackConfig({ type: 'client' })
-    const serverConfig = this.api.getWebpackConfig({ type: 'server' })
+    const clientConfig = await this.api.getWebpackConfig({ type: 'client' })
+    const serverConfig = await this.api.getWebpackConfig({ type: 'server' })
 
     // Remove dist-client
     await fs.remove(this.api.resolveCache('dist-client'))
@@ -413,13 +413,13 @@ export class VueRenderer {
     await copyStaticFiles(this.api.resolveCwd('static'))
   }
 
-  getRequestHandler() {
+  async getRequestHandler() {
     const webpack = require('webpack')
     const server = require('polka')()
 
     this.api.hooks.onCreateServer.call(server)
 
-    const clientConfig = this.api.getWebpackConfig({ type: 'client' })
+    const clientConfig = await this.api.getWebpackConfig({ type: 'client' })
 
     clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 
@@ -433,7 +433,7 @@ export class VueRenderer {
       log: false
     })
 
-    const serverConfig = this.api.getWebpackConfig({ type: 'server' })
+    const serverConfig = await this.api.getWebpackConfig({ type: 'server' })
     const serverCompiler = webpack(serverConfig)
     const mfs = new webpack.MemoryOutputFileSystem()
     serverCompiler.outputFileSystem = mfs
