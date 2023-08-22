@@ -1,7 +1,8 @@
-const path = require('path')
-const Config = require('webpack-chain')
+import path from 'path'
+import Config from 'webpack-chain'
+import getFileNames from '../utils/getFileNames'
 
-module.exports = (api, { type }) => {
+export default function webpackConfig(api, { type }) {
   const config = new Config()
 
   config.mode(api.dev ? 'development' : 'production')
@@ -13,7 +14,7 @@ module.exports = (api, { type }) => {
       : false
   )
 
-  const fileNames = require('../utils/getFileNames')(!api.dev)
+  const fileNames = getFileNames(!api.dev)
 
   config.output
     .publicPath(`${api.config.build.publicUrl}_saber/`)
@@ -104,6 +105,10 @@ module.exports = (api, { type }) => {
   if (api.compilers[type]) {
     api.compilers[type].injectToWebpack(config)
   }
+
+  // https://webpack.js.org/migrate/5/#test-webpack-5-compatibility
+  config.node.merge({ 'Buffer': false })
+  config.node.merge({ 'process': false })
 
   return config
 }

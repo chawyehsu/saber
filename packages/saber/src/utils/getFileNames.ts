@@ -1,8 +1,7 @@
-// @ts-check
 /**
  * @param {boolean} useHash
  */
-module.exports = useHash => {
+export default function getFileNames(useHash: boolean) {
   return {
     js: useHash ? 'js/[name].[chunkhash:8].js' : 'js/[name].js',
     css: useHash ? 'css/[name].[chunkhash:8].css' : 'css/[name].css',

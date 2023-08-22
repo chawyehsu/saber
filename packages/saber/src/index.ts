@@ -492,7 +492,7 @@ export class Saber {
 
   async getWebpackConfig(opts: WebpackContext) {
     opts = Object.assign({ type: 'client' }, opts)
-    const chain = require('./webpack/webpack.config')(this, opts)
+    const chain = (await import('./webpack/webpack.config')).default(this, opts)
     this.hooks.chainWebpack.call(chain, opts)
     const config = this.hooks.getWebpackConfig.call(chain.toConfig(), opts)
 
