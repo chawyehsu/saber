@@ -1,4 +1,4 @@
-module.exports = [
+const builtInPlugins = [
   { resolve: require.resolve('./source-pages') },
   { resolve: require.resolve('./extend-browser-api') },
   { resolve: require.resolve('./extend-node-api') },
@@ -14,3 +14,5 @@ module.exports = [
   { resolve: require.resolve('./emit-saber-variables') },
   { resolve: require.resolve('./emit-runtime-polyfills') }
 ]
+
+export default builtInPlugins

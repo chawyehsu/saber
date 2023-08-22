@@ -4,7 +4,7 @@ import { SaberPlugin } from '..'
 
 const ID = 'builtin:extend-browser-api'
 
-const extendBrowserApi: SaberPlugin = {
+const extendBrowserApiPlugin: SaberPlugin = {
   name: ID,
 
   apply: api => {
@@ -46,4 +46,4 @@ const extendBrowserApi: SaberPlugin = {
   }
 }
 
-export default extendBrowserApi
+export default extendBrowserApiPlugin

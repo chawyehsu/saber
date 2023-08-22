@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * @param {string} useHash
+ * @param {boolean} useHash
  */
 module.exports = useHash => {
   return {
