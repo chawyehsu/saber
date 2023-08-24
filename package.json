@@ -55,7 +55,8 @@
   "workspaces": [
     "packages/*",
     "other-packages/*",
-    "website"
+    "website",
+    "examples/*"
   ],
   "config": {
     "commitizen": {

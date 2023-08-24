@@ -79,7 +79,7 @@
     "markdown-it-footnote": "3.0.2"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=16 <17"
   },
   "volta": {
     "node": "16.20.2"
