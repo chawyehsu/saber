@@ -4,6 +4,7 @@ import path from 'path'
 import timeFixPlugin from 'time-fix-plugin'
 import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
+import PrintStatusPlugin from './PrintStatusPlugin'
 import { Saber } from '..'
 
 export default function webpackConfig(api: Saber, { type }: { type: string }) {
@@ -99,12 +100,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
     }
   ])
 
-  config.plugin('print-status').use(require('./PrintStatusPlugin'), [
-    {
-      api,
-      type
-    }
-  ])
+  config.plugin('print-status').use(new PrintStatusPlugin({ api, type }))
 
   if (api.compilers[type]) {
     api.compilers[type].injectToWebpack(config)

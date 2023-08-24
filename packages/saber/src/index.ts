@@ -31,6 +31,7 @@ export interface SaberOptions {
   verbose?: boolean
   dev?: boolean
   inspectWebpack?: boolean
+  progress?: boolean
 }
 
 export interface SiteConfig {

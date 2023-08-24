@@ -1,18 +1,23 @@
-const os = require('os')
-const { log, colors } = require('saber-log')
-const prettyTime = require('pretty-ms')
-const logUpdate = require('log-update')
-const prettyBytes = require('../utils/prettyBytes')
+import os from 'os'
+import { log, colors } from 'saber-log'
+import prettyTime from 'pretty-ms'
+import logUpdate from 'log-update'
+import { ProgressPlugin, Compiler } from 'webpack'
+import prettyBytes from '../utils/prettyBytes'
+import { Saber } from '..'
 
 const progressLogs = new Map()
 
-module.exports = class PrintStatusPlugin {
-  constructor({ api, type }) {
+export default class PrintStatusPlugin {
+  api: Saber
+  type: string
+
+  constructor({ api, type }: { api: Saber; type: string }) {
     this.api = api
     this.type = type
   }
 
-  apply(compiler) {
+  apply(compiler: Compiler) {
     compiler.hooks.invalid.tap('show-rebuild-reason', file => {
       const d = new Date()
       log.info(
@@ -29,7 +34,6 @@ module.exports = class PrintStatusPlugin {
       !process.env.CI &&
       process.stdout.isTTY
     ) {
-      const { ProgressPlugin } = require('webpack')
       const progressPlugin = new ProgressPlugin((per, message, ...args) => {
         const msg =
           per === 1
@@ -58,7 +62,7 @@ module.exports = class PrintStatusPlugin {
     compiler.hooks.done.tap('print-status', stats => {
       logUpdate.clear()
 
-      const logFiles = stateful => {
+      const logFiles = (stateful?: boolean) => {
         stats
           .toString({
             colors: true,
@@ -87,9 +91,10 @@ module.exports = class PrintStatusPlugin {
           logFiles(true)
         }
 
+        const start = stats.startTime || 0
         log.success(
           `Compiled ${this.type} successfully in ${prettyTime(
-            Date.now() - stats.startTime
+            Date.now() - start
           )}!`
         )
         // Only show URL for client build
