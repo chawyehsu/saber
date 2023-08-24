@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
 /*
@@ -8,18 +6,17 @@ Formats the given number using `Number#toLocaleString`.
 - If locale is true, the system default locale is used for translation.
 - If no value for locale is specified, the number is returned unmodified.
 */
-const toLocaleString = (number, locale) => {
-  let result = number
+const toLocaleString = (number: number, locale?: string | boolean) => {
   if (typeof locale === 'string') {
-    result = number.toLocaleString(locale)
+    return number.toLocaleString(locale)
   } else if (locale === true) {
-    result = number.toLocaleString()
+    return number.toLocaleString()
   }
 
-  return result
+  return number.toString()
 }
 
-module.exports = (number, options) => {
+export default (number: number, options?: any) => {
   if (!Number.isFinite(number)) {
     throw new TypeError(
       `Expected a finite number, got ${typeof number}: ${number}`

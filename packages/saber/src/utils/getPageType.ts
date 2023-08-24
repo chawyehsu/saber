@@ -1,8 +1,7 @@
-// @ts-check
 /**
  * @param {string} relative - The relative path of a file
  */
-module.exports = relative => {
+export default (relative: string) => {
   if (relative.startsWith('_posts/')) {
     return 'post'
   }
