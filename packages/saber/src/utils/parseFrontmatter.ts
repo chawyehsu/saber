@@ -1,29 +1,28 @@
-// @ts-check
-const { log } = require('saber-log')
+import { log } from 'saber-log'
+import tomlParser from './toml.min'
+import yamlParser from './yaml.min'
 
 const RE_STARTING = /^(?:\r?\n)*---([a-z]+)?(?:\r?\n)+/
 
-/**
- * @typedef {(str: string) => Object} Parser
- * @typedef {{[k: string]: Parser}} IParsers
- */
+type Parser = (str: string) => Object
 
-/**
- * @type {IParsers}
- */
-const parsers = {
-  yaml: str => require('./yaml.min').safeLoad(str),
-  yml: str => require('./yaml.min').safeLoad(str),
-  toml: str => require('./toml.min').parse(str)
+const parsers: {
+  [k: string]: Parser
+} = {
+  yaml: (str: string) => yamlParser.safeLoad(str),
+  yml: (str: string) => yamlParser.safeLoad(str),
+  toml: (str: string) => tomlParser.parse(str)
 }
 
 /**
  * Extract front matter from a page
- * @param {string} content
- * @param {string} filepath
+ * @param {string} content The content of a page
+ * @param {string} filepath The absolute path to the path
  * @returns {{frontmatter: {[k:string]: any}, body: string}}
  */
-module.exports = (content, filepath) => {
+export default (content: string, filepath: string): {
+  frontmatter: { [k: string]: any }; body: string
+} => {
   const getEmpty = () => ({
     frontmatter: {},
     body: content && content.trim()
@@ -39,7 +38,7 @@ module.exports = (content, filepath) => {
   }
 
   const parseType = starting[1] || 'yaml'
-  const parse = parsers[parseType]
+  const parse = parsers[parseType as keyof typeof parsers]
   if (!parse) {
     throw new Error(`Unsupported front matter type: ${parseType}`)
   }
