@@ -1,6 +1,9 @@
 import { log, colors } from 'saber-log'
 import logUpdate from 'log-update'
 import merge from 'lodash.merge'
+import Config from 'webpack-chain'
+// @ts-ignore
+import OptimizeCSSPlugin from '@intervolga/optimize-cssnano-plugin'
 import getFileNames from '../utils/getFileNames'
 import { SaberPlugin } from '..'
 
@@ -9,7 +12,7 @@ const ID = 'builtin:config-css'
 const configCss: SaberPlugin = {
   name: ID,
   apply: api => {
-    api.hooks.chainWebpack.tap(ID, (config, { type }) => {
+    api.hooks.chainWebpack.tap(ID, (config: Config, { type }) => {
       const {
         extractCSS,
         loaderOptions,
@@ -161,13 +164,8 @@ const configCss: SaberPlugin = {
           })
         )
 
-        const OptimizeCSSPlugin = require('@intervolga/optimize-cssnano-plugin')
-        config.plugin('optimize-css').use(OptimizeCSSPlugin, [
-          {
-            sourceMap,
-            cssnanoOptions
-          }
-        ])
+        const optimizeCss = new OptimizeCSSPlugin({ sourceMap, cssnanoOptions })
+        config.plugin('optimize-css').use(optimizeCss)
       }
 
       createCSSRule('css', /\.css$/)
