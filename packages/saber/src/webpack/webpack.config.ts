@@ -69,15 +69,11 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
     })
     .end()
     .oneOf('normal')
-    .use('babel-loader')
-    .loader(require.resolve('./babel-loader'))
+    .use('esbuild-loader')
+    .loader(require.resolve('esbuild-loader'))
     .options({
-      customLoaderOptions: {
-        distDir: api.resolveCache(),
-        cwd: api.resolveCwd(),
-        shouldCache: api.webpackUtils.shouldCache,
-        type
-      }
+      loader: 'js',
+      target: 'es2015'
     })
 
   config.plugin('timefix').use(timeFixPlugin)

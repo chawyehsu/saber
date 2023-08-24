@@ -1,18 +1,13 @@
-// @ts-check
-const path = require('path')
-const resolveFrom = require('resolve-from')
-
-const babelDir = path.dirname(require.resolve('@babel/core/package'))
-const parser = require(resolveFrom(babelDir, '@babel/parser'))
-const traverse = require(resolveFrom(babelDir, '@babel/traverse'))
-const generator = require(resolveFrom(babelDir, '@babel/generator'))
+import parser from '@babel/parser'
+import traverse from '@babel/traverse'
 
 /**
- * Extract the `export const data` part from a page
+ * Extract the `export const [data|attributes]` part from a page
  * @param {string} content The content of a page
  * @param {string} filepath The absolute path to the path
+ * @returns {object} The extracted data object
  */
-module.exports = (content, filepath) => {
+export default (content: string, filepath: string): object => {
   const ast = parser.parse(content, {
     sourceFilename: filepath,
     sourceType: 'module',
@@ -21,16 +16,14 @@ module.exports = (content, filepath) => {
 
   let data = {}
 
-  traverse.default(ast, {
-    /**
-     * @param {any} path
-     */
-    ObjectExpression(path) {
+  traverse(ast, {
+    ObjectExpression(path: any) {
       const name =
         path.parent &&
         path.parent.type === 'VariableDeclarator' &&
         path.parent.id.name
 
+      // Only extract `export const [data|attributes] = {...}`
       if (!['attributes', 'data'].includes(name)) {
         return
       }
@@ -49,6 +42,7 @@ module.exports = (content, filepath) => {
       }
 
       const { confident, value } = path.evaluate()
+
       if (confident) {
         data = value
         path.node.properties = []
@@ -60,10 +54,5 @@ module.exports = (content, filepath) => {
     }
   })
 
-  const { code } = generator.default(ast)
-
-  return {
-    data,
-    code
-  }
+  return data
 }
