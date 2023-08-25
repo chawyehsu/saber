@@ -7,14 +7,14 @@
     "generate": "saber generate && yarn workspace saber build:typedoc"
   },
   "dependencies": {
+    "@saber/core": "^0.12.0",
     "date-fns": "1.30.1",
     "docsearch.js": "^2.6.3",
     "grid.css": "^0.6.1",
     "headroom.js": "^0.9.4",
     "markdown-it-footnote": "3.0.1",
     "nprogress": "0.2.0",
-    "prismjs": "1.16.0",
-    "saber": "^0.11.7"
+    "prismjs": "1.16.0"
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"

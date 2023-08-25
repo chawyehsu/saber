@@ -8,7 +8,7 @@
     "build": "saber build"
   },
   "dependencies": {
-    "saber": "^0.11.7",
+    "@saber/core": "^0.12.0",
     "@vue/composition-api": "^0.3.2"
   },
   "volta": {

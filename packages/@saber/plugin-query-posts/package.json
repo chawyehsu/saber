@@ -1,20 +1,16 @@
 {
-  "name": "saber-plugin-query-posts",
+  "name": "@saber/plugin-query-posts",
   "version": "0.4.6",
   "files": [
     "lib"
   ],
   "main": "lib/index.js",
-  "keywords": [
-    "saber",
-    "saber-plugin"
-  ],
   "license": "MIT",
   "dependencies": {
     "slugo": "^0.4.0",
     "url-join": "^4.0.0"
   },
   "peerDependencies": {
-    "saber": ">=0.7.0"
+    "@saber/core": ">=0.12.0"
   }
 }

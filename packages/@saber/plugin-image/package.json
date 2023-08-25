@@ -1,5 +1,5 @@
 {
-  "name": "saber-plugin-image",
+  "name": "@saber/plugin-image",
   "version": "0.2.2",
   "main": "lib/index.js",
   "files": [

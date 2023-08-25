@@ -1,5 +1,5 @@
 {
-  "name": "saber-plugin-meta-redirect",
+  "name": "@saber/plugin-meta-redirect",
   "version": "0.1.2",
   "description": "Generates meta redirect html files for redirecting on any static file host",
   "license": "MIT",
@@ -15,6 +15,6 @@
     "url-join": "^4.0.0"
   },
   "peerDependencies": {
-    "saber": ">=0.7.0"
+    "@saber/core": ">=0.12.0"
   }
 }

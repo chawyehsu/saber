@@ -1,5 +1,5 @@
 {
-  "name": "saber-plugin-feed",
+  "name": "@saber/plugin-feed",
   "version": "0.4.3",
   "description": "Generate Atom, RSS2, or JSON feed for your Saber app",
   "license": "MIT",
@@ -14,6 +14,6 @@
     "feed": "^4.2.2"
   },
   "peerDependencies": {
-    "saber": ">=0.7.0"
+    "@saber/core": ">=0.12.0"
   }
 }

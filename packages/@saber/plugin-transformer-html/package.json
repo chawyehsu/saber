@@ -1,5 +1,5 @@
 {
-  "name": "saber-plugin-transformer-html",
+  "name": "@saber/plugin-transformer-html",
   "version": "0.1.3",
   "description": "Write pages in HTML",
   "license": "MIT",
@@ -15,6 +15,6 @@
     "extract-sfc-blocks": "^0.0.2"
   },
   "peerDependencies": {
-    "saber": ">=0.7.0"
+    "@saber/core": ">=0.12.0"
   }
 }
