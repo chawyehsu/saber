@@ -84,7 +84,7 @@ function renderMarkdown(api: Saber, page: Page) {
     }))
   }
 
-  const md = require('saber-markdown')(options)
+  const md = Markdown(options)
 
   for (const plugin of plugins) {
     md.use(plugin.plugin, ...plugin.args)
