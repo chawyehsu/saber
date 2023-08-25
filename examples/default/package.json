@@ -1,6 +1,8 @@
 {
   "private": true,
   "version": "0.0.0",
+  "name": "default",
+  "description": "The default scaffold template",
   "scripts": {
     "dev": "saber",
     "build": "saber build"
@@ -10,5 +12,8 @@
     "saber-theme-minima": "latest",
     "@saber/plugin-feed": "latest",
     "@saber/plugin-query-posts": "latest"
+  },
+  "volta": {
+    "node": "16.20.2"
   }
 }
