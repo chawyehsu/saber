@@ -8,13 +8,20 @@
   },
   "dependencies": {
     "@saber/core": "^0.12.0",
+    "@saber/plugin-code-copy": "^0.12.0",
+    "@saber/plugin-google-analytics": "^0.12.0",
+    "@saber/plugin-image": "^0.12.0",
+    "@saber/plugin-prismjs": "^0.12.0",
+    "@saber/plugin-pwa": "^0.12.0",
+    "@saber/plugin-query-posts": "^0.12.0",
+    "@saber/plugin-search": "^0.12.0",
     "date-fns": "1.30.1",
     "docsearch.js": "^2.6.3",
     "grid.css": "^0.6.1",
     "headroom.js": "^0.9.4",
     "markdown-it-footnote": "3.0.1",
     "nprogress": "0.2.0",
-    "prismjs": "1.16.0"
+    "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"

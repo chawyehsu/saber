@@ -1,6 +1,6 @@
 // @ts-check
 
-/** @type {import('saber').SaberConfig} */
+/** @type {import('@saber/core').SaberConfig} */
 const config = {
   siteConfig: {
     title: 'Saber',
@@ -79,13 +79,13 @@ const config = {
   },
   plugins: [
     {
-      resolve: '../packages/saber-plugin-google-analytics',
+      resolve: '@saber/plugin-google-analytics',
       options: { trackId: 'UA-54857209-16' }
     },
-    { resolve: '../packages/saber-plugin-query-posts' },
-    { resolve: '../packages/saber-plugin-prismjs' },
+    { resolve: '@saber/plugin-query-posts' },
+    { resolve: '@saber/plugin-prismjs' },
     {
-      resolve: '../packages/saber-plugin-pwa',
+      resolve: '@saber/plugin-pwa',
       options: {
         generateSWOptions: {
           runtimeCaching: [
@@ -101,14 +101,10 @@ const config = {
         }
       }
     },
+    { resolve: '@saber/plugin-search' },
+    { resolve: '@saber/plugin-image' },
     {
-      resolve: '../packages/saber-plugin-search'
-    },
-    {
-      resolve: '../packages/saber-plugin-image'
-    },
-    {
-      resolve: '../packages/saber-plugin-code-copy',
+      resolve: '@saber/plugin-code-copy',
       options: {
         buttonStyle: {
           border: 'none'
