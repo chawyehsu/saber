@@ -7,7 +7,6 @@
     "index.js",
     "loadLanguages.js"
   ],
-  "type": "module",
   "main": "index.js",
   "devDependencies": {
     "prismjs": "^1.29.0"

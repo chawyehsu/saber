@@ -1,5 +1,5 @@
-import loadLanguages from './loadLanguages.js'
-import Prism from 'prismjs'
+const loadLanguages = require('./loadLanguages')
+const Prism = require('prismjs')
 
 const languageAlias = {
   vue: 'html',
@@ -29,8 +29,10 @@ function highlighter(code, lang) {
   return Prism.highlight(code, grammer, lang)
 }
 
+const ID = 'prismjs'
+
 const prismjsPlugin = {
-  name: 'prismjs',
+  name: ID,
   apply(api) {
     api.hooks.chainMarkdown.tap(ID, config => {
       config.options.highlight(highlighter)
@@ -38,4 +40,4 @@ const prismjsPlugin = {
   }
 }
 
-export default prismjsPlugin
+module.exports = prismjsPlugin
