@@ -10,6 +10,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 // @ts-ignore
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import { createBundleRenderer, BundleRenderer } from 'vue-server-renderer'
+import { VueLoaderPlugin } from 'vue-loader'
 import { SyncWaterfallHook } from 'tapable'
 import { readJSON } from './utils'
 import renderHTML from './render-html'
@@ -79,7 +80,7 @@ export class VueRenderer {
         )
       }
 
-      config.plugin('vue').use(require('vue-loader/lib/plugin'))
+      config.plugin('vue').use(VueLoaderPlugin)
 
       // Transform js files in vue-app folder
       config.module.rule('js').include.add(resolveVueApp())

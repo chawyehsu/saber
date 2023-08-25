@@ -13539,17 +13539,17 @@ vue-loader@^15.5.1:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-meta@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/vue-meta/-/vue-meta-2.3.3.tgz#2a097f62817204b0da78be4d62aee0cb566eaee0"
-  integrity sha512-FmeekLkd5+BI7NFBnU4bEnTpVZqmu3q8ztW4R4U3GBQljgDM7QAuwMXs8/aJP0U1tjtxobX8T6HcyZXimGj1DQ==
+vue-meta@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/vue-meta/-/vue-meta-2.4.0.tgz#a419fb4b4135ce965dab32ec641d1989c2ee4845"
+  integrity sha512-XEeZUmlVeODclAjCNpWDnjgw+t3WA6gdzs6ENoIAgwO1J1d5p1tezDhtteLUFwcaQaTtayRrsx7GL6oXp/m2Jw==
   dependencies:
     deepmerge "^4.2.2"
 
-vue-router-prefetch@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/vue-router-prefetch/-/vue-router-prefetch-1.6.0.tgz#ef34228d6e122b4f6959da52c8dd448fe2a0057d"
-  integrity sha512-mLoh5on0GlO3ag0GWt+J8FkcalSAZJGJ/dNpA8PQ8X7pAoFht683FOJZlqdV7vXwKH7BjP+UfKcK09tHtNeDbw==
+vue-router-prefetch@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/vue-router-prefetch/-/vue-router-prefetch-1.6.3.tgz#258d42988057fb54a2a10e3a57fb80e7e175b02c"
+  integrity sha512-DR+DJG6kPaaHU06Wxk37rU2WbCVejDLEssJtkBTF7Q+7TnU5wp3CZWJWHwpkcFbEcYIyWsQlSEE5Ti2N1509Lw==
 
 vue-router@^3.0.6:
   version "3.1.3"
