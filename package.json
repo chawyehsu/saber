@@ -25,6 +25,7 @@
     "lerna": "5.1.8",
     "lint-staged": "8.1.6",
     "prettier": "^3.0.2",
+    "rimraf": "^5.0.1",
     "typedoc": "^0.24.8",
     "typescript": "^5.1.6"
   },
@@ -54,6 +55,7 @@
   },
   "workspaces": [
     "packages/*",
+    "packages/@saber/*",
     "website",
     "examples/*"
   ],

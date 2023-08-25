@@ -3,6 +3,8 @@ node_modules
 dist
 public
 .DS_Store
-examples/*/yarn.lock
-examples/*/package-lock.json
-packages/*/types
+examples/**/yarn.lock
+examples/**/package-lock.json
+packages/**/types
+packages/**/yarn.lock
+*.log
