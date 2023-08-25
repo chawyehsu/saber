@@ -3,6 +3,7 @@ import inspectWebpack from './inspectWebpack'
 import serveDir from './serveDir'
 import fs from 'fs-extra'
 import glob from 'fast-glob'
+import { log } from './log'
 
 /**
  * Convert back slash to slash
@@ -18,6 +19,7 @@ const publicUtils = {
 export {
   configLoader,
   inspectWebpack,
+  log,
   slash,
   serveDir,
   publicUtils

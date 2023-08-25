@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { log, colors } from 'saber-log'
+import { log, colors } from '../utils/log'
 import { SaberPlugin } from '..'
 import { hooks } from '../hooks'
 

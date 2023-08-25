@@ -1,4 +1,4 @@
-import { log } from 'saber-log'
+import { log } from '.'
 import { inspect } from 'util'
 
 /**

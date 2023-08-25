@@ -1,5 +1,5 @@
 import os from 'os'
-import { log, colors } from 'saber-log'
+import { log, colors } from '../utils/log'
 import prettyTime from 'pretty-ms'
 import logUpdate from 'log-update'
 import { ProgressPlugin, Compiler } from 'webpack'

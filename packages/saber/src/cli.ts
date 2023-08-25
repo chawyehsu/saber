@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { cac } from 'cac'
-import { log } from 'saber-log'
+import { log } from './utils'
 import commands from './cli-commands'
 
 function isSupported() {

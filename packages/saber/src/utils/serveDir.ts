@@ -1,6 +1,6 @@
 import path from 'path'
 import { createReadStream } from 'fs'
-import { log } from 'saber-log'
+import { log } from '.'
 import polka from 'polka'
 import serveStatic from 'serve-static'
 

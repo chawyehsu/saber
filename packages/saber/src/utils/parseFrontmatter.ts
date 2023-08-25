@@ -1,4 +1,4 @@
-import { log } from 'saber-log'
+import { log } from '.'
 import tomlParser from './toml.min'
 import yamlParser from './yaml.min'
 

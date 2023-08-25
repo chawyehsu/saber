@@ -1,4 +1,4 @@
-import { log, colors } from 'saber-log'
+import { log, colors } from '../utils/log'
 import logUpdate from 'log-update'
 import merge from 'lodash.merge'
 import Config from 'webpack-chain'

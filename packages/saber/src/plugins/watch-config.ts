@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { log } from 'saber-log'
+import { log } from '../utils'
 import deepEqual from 'fast-deep-equal'
 import { CONFIG_FILES } from '../utils/configLoader'
 import { SaberPlugin, SaberConfig } from '../'

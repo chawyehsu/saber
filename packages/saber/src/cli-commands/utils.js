@@ -1,5 +1,5 @@
 import { spawn as spawnProcess } from 'child_process'
-import { log } from 'saber-log'
+import { log } from '../utils'
 
 export function setNodeEnv(env) {
   if (!process.env.NODE_ENV) {

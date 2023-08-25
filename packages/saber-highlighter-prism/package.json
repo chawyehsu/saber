@@ -7,9 +7,6 @@
     "loadLanguages.js"
   ],
   "main": "index.js",
-  "dependencies": {
-    "saber-log": "^0.3.1"
-  },
   "devDependencies": {
     "prismjs": "^1.29.0"
   }

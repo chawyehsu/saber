@@ -1,5 +1,4 @@
 const Prism = require('prismjs')
-const { log } = require('saber-log')
 const loadLanguages = require('./loadLanguages')
 
 const languageAlias = {
@@ -21,7 +20,6 @@ module.exports = (code, lang) => {
     try {
       loadLanguages(lang)
     } catch (error) {
-      log.warn(error.message)
       return Prism.highlight(code, {})
     }
   }

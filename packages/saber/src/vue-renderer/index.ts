@@ -1,7 +1,7 @@
 import path from 'path'
 import { slash } from '../utils'
 import fs from 'fs-extra'
-import { log } from 'saber-log'
+import { log } from '../utils'
 import polka from 'polka'
 import serveStatic from 'serve-static'
 import webpack from 'webpack'

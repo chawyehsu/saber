@@ -1,4 +1,4 @@
-import { log } from 'saber-log'
+import { log } from '../utils'
 import { setNodeEnv, handleError } from './utils'
 import { createSaber } from '..'
 

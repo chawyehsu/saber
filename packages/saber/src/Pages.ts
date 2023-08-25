@@ -1,7 +1,6 @@
 import path from 'path'
 import hash from 'hash-sum'
-import { slash } from './utils'
-import { log } from 'saber-log'
+import { slash, log } from './utils'
 import merge from 'lodash.merge'
 import getPermalink from './utils/getPermalink'
 import getPageType from './utils/getPageType'
