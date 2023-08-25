@@ -5,11 +5,7 @@ import fs from 'fs-extra'
 import { log } from '../utils'
 import resolvePackage from '../utils/resolvePackage'
 import normalizeRepo from 'normalize-repo'
-import downloadGitRepo from 'download-git-repo'
 import { handleError, spawn } from './utils'
-
-const downloadRepo = (url, dest, opts) =>
-  new Promise(resolve => downloadGitRepo(url, dest, opts, resolve))
 
 export default function(cli) {
   cli
@@ -72,13 +68,12 @@ export default function(cli) {
           if (repo && (!repo.type || repo.type === 'git')) {
             const tmp = path.join(cwd, '.saber', 'theme-tmp')
 
-            const { shortcut, url } = normalizeRepo(themePackage.repository)
-            const downloadError = await downloadRepo(shortcut || url, tmp, {
-              clone: Boolean(shortcut)
-            })
-
-            if (downloadError) {
-              throw downloadError
+            const { url } = normalizeRepo(themePackage.repository)
+            const gitCloneResult = spawnSync('git', ['clone', url, tmp])
+            if (gitCloneResult.status !== 0) {
+              throw new Error(
+                `Failed to clone the theme repository: ${gitCloneResult.stderr}`
+              )
             }
 
             await fs.move(
