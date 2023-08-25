@@ -1,4 +1,4 @@
-import loadLanguages from './loadLanguages'
+import loadLanguages from './loadLanguages.js'
 import Prism from 'prismjs'
 
 const languageAlias = {
