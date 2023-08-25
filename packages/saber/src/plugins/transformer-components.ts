@@ -1,4 +1,4 @@
-import { slash } from 'saber-utils'
+import { slash } from '../utils'
 import { parseComponent } from 'vue-template-compiler'
 import { SaberPlugin } from '..'
 import { Page } from '../Pages'

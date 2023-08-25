@@ -1,5 +1,6 @@
 import { join } from 'path'
-import { slash, isAbsoluteUrl } from 'saber-utils'
+import { slash } from '../utils'
+import isAbsoluteUrl from 'is-absolute-url'
 
 /**
  * It's considered external resource

@@ -1,6 +1,7 @@
 import path from 'path'
-import { fs, glob } from 'saber-utils'
+import fs from 'fs-extra'
 import chokidar from 'chokidar'
+import glob from 'fast-glob'
 import { log, colors } from 'saber-log'
 import hash from 'hash-sum'
 import { SaberPlugin } from '..'

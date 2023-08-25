@@ -1,5 +1,6 @@
 import path from 'path'
-import { fs, slash } from 'saber-utils'
+import { slash } from './utils'
+import fs from 'fs-extra'
 import { Saber } from './'
 
 export class BrowserApi extends Set<string> {

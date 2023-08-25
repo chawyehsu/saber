@@ -1,7 +1,7 @@
 import path from 'path'
 import configLoader from '../utils/configLoader'
 import { spawnSync } from 'child_process'
-import { fs } from 'saber-utils'
+import fs from 'fs-extra'
 import { log } from 'saber-log'
 import resolvePackage from '../utils/resolvePackage'
 import normalizeRepo from 'normalize-repo'

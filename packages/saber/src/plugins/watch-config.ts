@@ -1,4 +1,4 @@
-import { fs } from 'saber-utils'
+import fs from 'fs-extra'
 import { log } from 'saber-log'
 import deepEqual from 'fast-deep-equal'
 import { CONFIG_FILES } from '../utils/configLoader'

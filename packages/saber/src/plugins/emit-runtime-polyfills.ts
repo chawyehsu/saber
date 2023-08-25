@@ -1,5 +1,6 @@
-import { fs, slash } from 'saber-utils'
+import fs from 'fs-extra'
 import { SaberPlugin } from '..'
+import { slash } from '../utils'
 
 const ID = 'builtin:emit-runtime-polyfills'
 

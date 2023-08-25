@@ -1,4 +1,4 @@
-import { fs } from 'saber-utils'
+import fs from 'fs-extra'
 import { SaberPlugin } from '..'
 
 const ID = 'builtin:emit-saber-variables'

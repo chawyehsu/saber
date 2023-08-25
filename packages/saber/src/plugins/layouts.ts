@@ -1,5 +1,7 @@
 import path from 'path'
-import { glob, fs, slash } from 'saber-utils'
+import { slash } from '../utils'
+import glob from 'fast-glob'
+import fs from 'fs-extra'
 import { SaberPlugin } from '..'
 
 interface Layouts {

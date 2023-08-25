@@ -1,5 +1,6 @@
 import path from 'path'
-import { fs, slash } from 'saber-utils'
+import { slash } from '../utils'
+import fs from 'fs-extra'
 import { log } from 'saber-log'
 import polka from 'polka'
 import serveStatic from 'serve-static'

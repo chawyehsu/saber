@@ -1,7 +1,7 @@
 /// <reference path="../declarations.d.ts" />
 import path from 'path'
 import http from 'http'
-import * as utils from 'saber-utils'
+import fs from 'fs-extra'
 import { log, colors, Log } from 'saber-log'
 import resolveFrom from 'resolve-from'
 import merge from 'lodash.merge'
@@ -18,6 +18,7 @@ import { hooks } from './hooks'
 import { VueRenderer } from './vue-renderer'
 import { validateConfig, ValidatedSaberConfig } from './utils/validateConfig'
 import serveDir from './utils/serveDir'
+import { publicUtils } from './utils'
 
 export interface SaberConstructorOptions {
   cwd?: string
@@ -235,7 +236,7 @@ export class Saber {
   webpackUtils: WebpackUtils
   log: Log
   colors: typeof colors
-  utils: typeof import('saber-utils')
+  utils: any
   hooks: typeof hooks
   transformers: Transformers
   runtimePolyfills: Set<string>
@@ -265,7 +266,7 @@ export class Saber {
     this.webpackUtils = new WebpackUtils(this)
     this.log = log
     this.colors = colors
-    this.utils = utils
+    this.utils = publicUtils
     this.hooks = hooks
 
     this.transformers = new Transformers()
@@ -342,7 +343,7 @@ export class Saber {
       // We use the `dist` directory instead
       if (this.theme.includes('node_modules')) {
         const distDir = path.join(this.theme, 'dist')
-        if (this.utils.fs.existsSync(distDir)) {
+        if (fs.existsSync(distDir)) {
           this.theme = distDir
         }
       }
@@ -514,9 +515,9 @@ export class Saber {
     // Because they are replaced by `static` and `public`
     // TODO: remove this error before v1.0
     const hasOldPublicFolder = await Promise.all([
-      this.utils.fs.pathExists(this.resolveCache('public')),
-      this.utils.fs.pathExists(this.resolveCwd('public')),
-      this.utils.fs.pathExists(this.resolveCwd('public/index.html'))
+      fs.pathExists(this.resolveCache('public')),
+      fs.pathExists(this.resolveCwd('public')),
+      fs.pathExists(this.resolveCwd('public/index.html'))
     ]).then(
       ([hasOldOutDir, hasPublicDir, hasNewPublicDir]) =>
         hasOldOutDir && hasPublicDir && !hasNewPublicDir
