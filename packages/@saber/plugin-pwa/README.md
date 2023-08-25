@@ -77,18 +77,18 @@ plugins:
 Then populate a `static/service-worker.js` file as follows:
 
 ```js
-self.addEventListener('install', function(e) {
+self.addEventListener('install', function (e) {
   self.skipWaiting()
 })
 
-self.addEventListener('activate', function(e) {
+self.addEventListener('activate', function (e) {
   self.registration
     .unregister()
-    .then(function() {
+    .then(function () {
       return self.clients.matchAll()
     })
-    .then(function(clients) {
-      clients.forEach(client => client.navigate(client.url))
+    .then(function (clients) {
+      clients.forEach((client) => client.navigate(client.url))
     })
 })
 ```
@@ -137,10 +137,10 @@ You can disable this with `notifyUpdates: false` and use your custom update noti
 // `workbox` is injected by this plugin
 export default ({ workbox }) => {
   if (process.browser && workbox) {
-    workbox.addEventListener('installed', event => {
+    workbox.addEventListener('installed', (event) => {
       if (!event.isUpdate) {
         showUpdateNotifier({
-          message: 'Ready for offline use'
+          message: 'Ready for offline use',
         })
       }
     })
@@ -149,12 +149,12 @@ export default ({ workbox }) => {
       showUpdateNotifier({
         message: 'An update is ready, click to apply',
         clicked() {
-          workbox.addEventListener('controlling', event => {
+          workbox.addEventListener('controlling', (event) => {
             window.location.reload()
           })
 
           workbox.messageSW({ type: 'SKIP_WAITING' })
-        }
+        },
       })
     })
   }

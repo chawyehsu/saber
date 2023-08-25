@@ -18,7 +18,7 @@ In your `saber-config.js`:
 
 ```js
 module.exports = {
-  plugins: ['saber-plugin-git-modification-time']
+  plugins: ['saber-plugin-git-modification-time'],
 }
 ```
 

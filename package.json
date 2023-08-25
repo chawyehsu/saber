@@ -54,7 +54,6 @@
   },
   "workspaces": [
     "packages/*",
-    "other-packages/*",
     "website",
     "examples/*"
   ],

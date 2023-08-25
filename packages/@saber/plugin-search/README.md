@@ -25,14 +25,14 @@ Then in your Vue components, you can call `this.$fetchSearchDatabase()` to get t
     type: 'page',
     title: 'About this site',
     excerpt: '...',
-    permalink: '/about.html'
+    permalink: '/about.html',
   },
   {
     type: 'post',
     title: 'Hello World',
     excerpt: '...',
-    permalink: '/posts/hello-world.html'
-  }
+    permalink: '/posts/hello-world.html',
+  },
 ]
 ```
 
@@ -43,7 +43,7 @@ const database = await this.$fetchSearchDatabase()
 // Typically you need to get the keyword from an `input` element
 // We hardcoded it for convenience
 const keyword = 'hello'
-const matchedResults = database.filter(page => {
+const matchedResults = database.filter((page) => {
   return page.title.includes(keyword) || page.excerpt.includes(keyword)
 })
 ```
@@ -57,14 +57,14 @@ const options = {
   keys: [
     {
       name: 'title',
-      weight: 0.6
+      weight: 0.6,
     },
     {
       name: 'excerpt',
-      weight: 0.4
-    }
+      weight: 0.4,
+    },
   ],
-  shouldSort: true // sorts the results by score
+  shouldSort: true, // sorts the results by score
 }
 
 const fuse = new Fuse(database, options)

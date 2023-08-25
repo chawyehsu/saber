@@ -54,7 +54,7 @@ Then in the layout component `layouts/index.vue`, `page.posts` and `page.paginat
 
 <script>
 export default {
-  props: ['page']
+  props: ['page'],
 }
 </script>
 ```
@@ -95,12 +95,12 @@ gives you:
 ;[
   {
     name: 'life',
-    permalink: '/tags/life'
+    permalink: '/tags/life',
   },
   {
     name: 'random',
-    permalink: '/tags/random'
-  }
+    permalink: '/tags/random',
+  },
 ]
 ```
 
@@ -143,16 +143,16 @@ gives you:
 ;[
   {
     name: 'sports',
-    permalink: '/categories/sports'
+    permalink: '/categories/sports',
   },
   {
     name: 'football',
-    permalink: '/categories/sports/football'
+    permalink: '/categories/sports/football',
   },
   {
     name: 'hobby',
-    permalink: '/categories/hobby'
-  }
+    permalink: '/categories/hobby',
+  },
 ]
 ```
 
