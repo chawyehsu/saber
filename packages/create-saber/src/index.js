@@ -1,27 +1,27 @@
 import colors from 'kleur'
-import fs from 'fs'
 import ncp from 'ncp'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { spawnSync } from 'child_process'
-import { promisify } from 'util'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { spawnSync } from 'node:child_process'
+import { promisify } from 'node:util'
 
 const args = process.argv.slice(2)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-export default function createSite() {
+export function createSite() {
   if (
     args.length === 0 ||
     ['-h', '--help'].some(helpFlag => args.includes(helpFlag))
   ) {
 
-    const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json')))
+    const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'package.json')))
 
     console.log(
-      `create-site v${pkg.version}
+      `create-saber v${pkg.version}
 
-  Usage: create-site <dir>
+  Usage: create-saber <dir>
     `.trim()
     )
     process.exit(1)

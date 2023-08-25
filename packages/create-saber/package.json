@@ -1,0 +1,35 @@
+{
+  "name": "create-saber",
+  "version": "0.12.0",
+  "bin": {
+    "create-saber": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "dist/index.mjs",
+    "template"
+  ],
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "kleur": "^4.1.5",
+    "ncp": "2.0.0",
+    "rollup": "^3.28.1"
+  },
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "volta": {
+    "node": "16.20.2"
+  }
+}
