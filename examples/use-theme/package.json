@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "name": "use-theme",
+  "description": "Example of using a theme in Saber",
+  "scripts": {
+    "dev": "saber",
+    "build": "saber build"
+  },
+  "dependencies": {
+    "@saber/core": "^0.12.0",
+    "@saber/plugin-query-posts": "^0.12.0",
+    "saber-theme-minima": "latest"
+  },
+  "volta": {
+    "node": "16.20.2"
+  }
+}
