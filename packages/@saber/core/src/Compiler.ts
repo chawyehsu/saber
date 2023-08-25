@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events'
+import { EventEmitter } from 'node:events'
 import WebpackChain from 'webpack-chain'
 import { Compiler as WebpackCompiler } from 'webpack'
 import { Saber } from './'

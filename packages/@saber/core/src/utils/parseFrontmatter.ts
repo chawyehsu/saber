@@ -1,4 +1,4 @@
-import { log } from '.'
+import { log } from './log'
 import tomlParser from './toml.min'
 import yamlParser from './yaml.min'
 

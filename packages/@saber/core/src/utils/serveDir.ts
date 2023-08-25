@@ -1,6 +1,6 @@
-import path from 'path'
-import { createReadStream } from 'fs'
-import { log } from '.'
+import path from 'node:path'
+import { createReadStream } from 'node:fs'
+import { log } from './log'
 import polka from 'polka'
 import serveStatic from 'serve-static'
 

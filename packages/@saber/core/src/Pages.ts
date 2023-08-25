@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import hash from 'hash-sum'
 import { slash, log } from './utils'
 import merge from 'lodash.merge'

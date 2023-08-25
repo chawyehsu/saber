@@ -1,5 +1,5 @@
 import Config from 'webpack-chain'
-import path from 'path'
+import path from 'node:path'
 // @ts-ignore
 import timeFixPlugin from 'time-fix-plugin'
 import webpack from 'webpack'

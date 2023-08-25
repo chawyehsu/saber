@@ -1,4 +1,4 @@
-import os from 'os'
+import os from 'node:os'
 import { log, colors } from '../utils/log'
 import prettyTime from 'pretty-ms'
 import logUpdate from 'log-update'

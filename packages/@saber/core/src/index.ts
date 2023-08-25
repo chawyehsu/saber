@@ -1,6 +1,5 @@
-/// <reference path="../declarations.d.ts" />
-import path from 'path'
-import http from 'http'
+import path from 'node:path'
+import http from 'node:http'
 import fs from 'fs-extra'
 import { log, colors, Log } from './utils/log'
 import resolveFrom from 'resolve-from'

@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import { slash } from '../utils'
 import glob from 'fast-glob'
 import fs from 'fs-extra'

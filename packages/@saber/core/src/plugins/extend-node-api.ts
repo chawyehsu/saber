@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import { log, colors } from '../utils/log'
 import { SaberPlugin } from '..'
 import { hooks } from '../hooks'
