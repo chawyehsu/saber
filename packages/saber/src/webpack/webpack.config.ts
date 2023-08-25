@@ -104,7 +104,9 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
 
   // https://webpack.js.org/migrate/5/#test-webpack-5-compatibility
   config.node.merge({ 'Buffer': false })
-  config.node.merge({ 'process': false })
+  // something complains about `process` not being defined, we might not be able
+  // to set this to false for now
+  // config.node.merge({ 'process': false })
 
   return config
 }
