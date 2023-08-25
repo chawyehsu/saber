@@ -4,8 +4,8 @@
   "compilerOptions": {
     "allowJs": true,
     "outDir": "dist",
-    "lib": ["esnext", "dom"],
-    "declaration": true,
-    "declarationDir": "types"
+    "lib": ["ES2020", "DOM"],
+    "module": "CommonJS",
+    "declaration": false
   }
 }
