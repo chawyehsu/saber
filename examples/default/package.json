@@ -1,7 +1,6 @@
 {
   "private": true,
   "version": "0.0.0",
-  "name": "default",
   "description": "The default scaffold template",
   "scripts": {
     "dev": "saber",
