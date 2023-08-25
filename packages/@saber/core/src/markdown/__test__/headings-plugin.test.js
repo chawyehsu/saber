@@ -1,4 +1,4 @@
-const Markdown = require('saber-markdown')
+const Markdown = require('@saber/markdown')
 const headingsPlugin = require('../headings-plugin')
 const createEnv = require('./create-env')
 

@@ -1,5 +1,5 @@
 // @ts-ignore
-import Markdown from 'saber-markdown'
+import Markdown from '@saber/markdown'
 import ConfigChain from '../config-chain'
 import resolvePackage from '../utils/resolvePackage'
 import parseFrommatter from '../utils/parseFrontmatter'

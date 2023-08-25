@@ -6,7 +6,7 @@ import terser from '@rollup/plugin-terser'
 import builtinModules from 'builtin-modules'
 
 export default {
-  input: './src/index.js',
+  input: './index.js',
   output: {
     file: './dist/index.js',
     format: 'cjs'
