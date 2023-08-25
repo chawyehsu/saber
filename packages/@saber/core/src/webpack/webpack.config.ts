@@ -47,7 +47,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
   )
 
   const ownModulesDir = path.join(
-    path.dirname(require.resolve('vue/package')),
+    path.dirname(require.resolve('vue/package.json')),
     '..'
   )
   config.resolve.modules.add('node_modules').add(ownModulesDir)
