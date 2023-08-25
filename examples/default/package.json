@@ -9,9 +9,9 @@
   },
   "devDependencies": {
     "@saber/core": "latest",
-    "saber-theme-minima": "latest",
     "@saber/plugin-feed": "latest",
-    "@saber/plugin-query-posts": "latest"
+    "@saber/plugin-query-posts": "latest",
+    "saber-theme-minima": "latest"
   },
   "volta": {
     "node": "16.20.2"
