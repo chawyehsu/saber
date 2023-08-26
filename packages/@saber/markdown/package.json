@@ -1,6 +1,7 @@
 {
   "name": "@saber/markdown",
   "version": "0.12.0",
+  "description": "A custom build of markdown-it for Saber",
   "files": [
     "dist"
   ],

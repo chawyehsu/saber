@@ -1,10 +1,10 @@
-# saber-markdown
+# @saber/markdown
 
 A custom build of markdown-it for Saber.
 
 ## Differences
 
-Implemented via a [babel plugin](./babel-plugin-vue-features.js).
+Implemented via a [babel plugin](./babel-plugin-vue-features.mjs).
 
 ### Support `@` in attribute names
 
