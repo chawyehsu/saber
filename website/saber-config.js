@@ -1,6 +1,3 @@
-// @ts-check
-
-/** @type {import('@alterjs/saber').SaberConfig} */
 const config = {
   siteConfig: {
     title: 'Saber',
