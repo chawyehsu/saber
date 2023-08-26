@@ -1,6 +1,7 @@
 {
   "name": "create-saber",
   "version": "0.12.0",
+  "description": "Create a Saber project in seconds",
   "bin": {
     "create-saber": "./index.js"
   },
@@ -13,7 +14,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rimraf dist && rollup -c",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
