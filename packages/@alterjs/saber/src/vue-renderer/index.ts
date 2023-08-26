@@ -17,6 +17,7 @@ import { readJSON } from './utils'
 import renderHTML from './render-html'
 import TemplatePlugins from './template-plugins'
 import { Saber } from '..'
+import Config from 'webpack-chain'
 
 function runCompiler(compiler: Compiler) {
   return new Promise((resolve, reject) => {
@@ -60,7 +61,7 @@ export class VueRenderer {
       getVueLoaderOptions: new SyncWaterfallHook(['options'])
     }
 
-    this.api.hooks.chainWebpack.tap(ID, (config, { type }) => {
+    this.api.hooks.chainWebpack.tap(ID, (config: Config, { type }) => {
       config.entry(type).add(resolveVueApp(`entry-${type}.js`))
 
       config.output.path(api.resolveCache(`dist-${type}`))

@@ -602,6 +602,11 @@ export class Saber {
     ]
   }
 
+  /**
+   * Resolve a module from the Saber project's local node_modules
+   * @param {string}name The name of the module
+   * @returns {string | undefined} The path to the module or `undefined` if not found
+   */
   localResolve(name: string): string | undefined {
     return resolveFrom.silent(this.opts.cwd, name)
   }

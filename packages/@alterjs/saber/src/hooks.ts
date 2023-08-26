@@ -15,7 +15,11 @@ export const hooks = {
    */
   chainWebpack: new SyncHook(['webpackChain', 'opts']),
   getWebpackConfig: new SyncWaterfallHook(['config', 'opts']),
-  // Extend markdown-it config
+  /**
+   * Extend markdown-it config in a chainable way
+   *
+   * Use this hook to extend `markdown-it` config
+   */
   chainMarkdown: new SyncHook(['config']),
   chainTemplate: new SyncHook(['config']),
   emitRoutes: new AsyncSeriesHook(),
