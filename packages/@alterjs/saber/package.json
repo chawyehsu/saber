@@ -5,7 +5,8 @@
   "files": [
     "bin",
     "dist",
-    "vue-app"
+    "vue-app",
+    "!dist/**/__test__"
   ],
   "scripts": {
     "test": "tsc && jest",
