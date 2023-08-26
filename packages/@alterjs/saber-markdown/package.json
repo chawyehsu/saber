@@ -1,0 +1,29 @@
+{
+  "name": "@alterjs/saber-markdown",
+  "version": "0.12.0",
+  "description": "A custom build of markdown-it for Saber",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/helper-plugin-utils": "^7.22.5",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "builtin-modules": "^3.3.0",
+    "markdown-it": "^13.0.1",
+    "rollup": "^3.28.0"
+  }
+}

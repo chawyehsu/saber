@@ -6,9 +6,9 @@
     "build": "saber build"
   },
   "devDependencies": {
-    "@saber/core": "latest",
-    "@saber/plugin-feed": "latest",
-    "@saber/plugin-query-posts": "latest",
+    "@alterjs/saber": "latest",
+    "@alterjs/saber-plugin-feed": "latest",
+    "@alterjs/saber-plugin-query-posts": "latest",
     "saber-theme-minima": "latest"
   }
 }

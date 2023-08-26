@@ -55,7 +55,7 @@
   },
   "workspaces": [
     "packages/*",
-    "packages/@saber/*",
+    "packages/@alterjs/*",
     "website",
     "examples/*"
   ],

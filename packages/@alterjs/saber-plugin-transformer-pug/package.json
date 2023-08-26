@@ -1,0 +1,25 @@
+{
+  "name": "@alterjs/saber-plugin-transformer-pug",
+  "version": "0.12.0",
+  "description": "Write pages in Pug and add support for importing Pug files",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev:example": "saber example",
+    "build:example": "saber build example"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "extract-sfc-blocks": "^0.0.2",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@alterjs/saber": ">=0.12.0"
+  }
+}

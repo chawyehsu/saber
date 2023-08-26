@@ -1,0 +1,22 @@
+{
+  "name": "@alterjs/saber-plugin-feed",
+  "version": "0.12.0",
+  "description": "Generate Atom, RSS2, or JSON feed for your Saber app",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "generate:example": "saber generate example"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "feed": "^4.2.2"
+  },
+  "peerDependencies": {
+    "@alterjs/saber": ">=0.12.0"
+  }
+}

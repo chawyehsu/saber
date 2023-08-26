@@ -18,7 +18,7 @@ themeConfig:
     rss: true
 
 plugins:
-  - resolve: '@saber/plugin-query-posts'
-  - resolve: '@saber/plugin-feed'
+  - resolve: '@alterjs/saber-plugin-query-posts'
+  - resolve: '@alterjs/saber-plugin-feed'
     options:
       atomFeed: true

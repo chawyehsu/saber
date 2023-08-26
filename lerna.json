@@ -1,5 +1,5 @@
 {
-  "packages": ["packages/*", "packages/@saber/*"],
+  "packages": ["packages/*", "packages/@alterjs/*"],
   "version": "independent",
   "npmClient": "yarn"
 }

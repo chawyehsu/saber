@@ -8,8 +8,8 @@
     "build": "saber build"
   },
   "dependencies": {
-    "@saber/core": "^0.12.0",
-    "@saber/plugin-query-posts": "^0.12.0",
+    "@alterjs/saber": "^0.12.0",
+    "@alterjs/saber-plugin-query-posts": "^0.12.0",
     "saber-theme-minima": "latest"
   },
   "volta": {

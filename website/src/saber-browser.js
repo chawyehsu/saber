@@ -1,6 +1,6 @@
 import 'nprogress/nprogress.css'
 import 'grid.css/grid.css'
-import '@saber/plugin-prismjs/default.css'
+import '@alterjs/saber-plugin-prismjs/default.css'
 import './css/global.css'
 import './css/button.css'
 import './css/prism.css'
