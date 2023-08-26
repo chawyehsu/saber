@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "slugo": "^0.4.0",
-    "url-join": "^4.0.0"
+    "url-join": "4.0.1"
   },
   "peerDependencies": {
     "@alterjs/saber": ">=0.12.0"
+  },
+  "volta": {
+    "node": "16.20.2"
   }
 }
