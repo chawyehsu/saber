@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "generate:example": "saber generate example"
+    "build:example": "saber build example"
   },
   "files": [
     "lib"
