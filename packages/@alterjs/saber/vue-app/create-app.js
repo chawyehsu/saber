@@ -1,4 +1,3 @@
-import './polyfills'
 import '#cache/runtime-polyfills'
 import Vue from 'vue'
 import Meta from 'vue-meta'
