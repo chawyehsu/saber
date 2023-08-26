@@ -8,6 +8,9 @@
     "loadLanguages.js"
   ],
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "prismjs": "^1.29.0"
   },

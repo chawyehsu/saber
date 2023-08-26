@@ -7,6 +7,9 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@saber/core": ">=0.12.0"
   },

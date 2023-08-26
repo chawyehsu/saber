@@ -6,6 +6,9 @@
     "lib"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "jimp": "^0.8.0",
     "lozad": "^1.9.0",

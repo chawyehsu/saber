@@ -19,6 +19,9 @@
   },
   "main": "dist/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@babel/parser": "^7.22.11",
     "@babel/traverse": "^7.22.11",
