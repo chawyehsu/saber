@@ -49,7 +49,7 @@ export function createSite() {
     hasYarn = true
   } catch (error) {}
 
-  promisify(ncp)(path.join(__dirname, 'template'), dir)
+  promisify(ncp)(path.join(__dirname, '../', 'template'), dir)
     .then(() => {
       console.log(
         colors.green(`Successfully created at ${colors.underline(dir)}`)
