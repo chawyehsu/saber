@@ -1,5 +1,4 @@
-import getInitialDocumentData from './get-initial-document-data'
-import getInitialDocument from './get-initial-document'
+import { getInitialDocument, getInitialDocumentData } from './get-initial-document'
 
 export default async (
   renderer: any,
