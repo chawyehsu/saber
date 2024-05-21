@@ -74,6 +74,7 @@
   "devDependencies": {
     "@types/fs-extra": "8.0.0",
     "@types/hash-sum": "^1.0.0",
+    "@types/loader-runner": "^2.2.8",
     "@types/lodash.merge": "^4.6.6",
     "@types/polka": "^0.5.4",
     "@types/resolve-from": "5.0.1",

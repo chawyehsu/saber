@@ -1,9 +1,19 @@
 const devalue = require('devalue')
 const { requireAssets } = require('../utils/assetsAttribute')
 
+/**
+ * A webpack loader to handle `<page-prop>` custom block
+ * @typedef {import("@types/loader-runner").ExtendedLoaderContext} ExtendedLoaderContext
+ *
+ * @param {string} source
+ * @param {object} [map]
+ */
 module.exports = function(source, map) {
+  /** @type {ExtendedLoaderContext} */
+  const loaderContext = this
+
   const pageId = source.trim()
-  const { getPagePublicFields } = this.query
+  const { getPagePublicFields } = loaderContext.query
   const page = requireAssets(devalue(getPagePublicFields(pageId)))
   const result = `
   export default function(Component) {
@@ -41,5 +51,5 @@ module.exports = function(source, map) {
   }
   `
 
-  this.callback(null, result, map)
+  loaderContext.callback(null, result, map)
 }

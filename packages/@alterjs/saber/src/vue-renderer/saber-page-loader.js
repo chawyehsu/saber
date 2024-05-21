@@ -1,15 +1,27 @@
 const qs = require('querystring')
 
-module.exports = function(source) {
+/**
+ * A webpack loader to handle Saber page components.
+ * @typedef {import("@types/loader-runner").ExtendedLoaderContext} ExtendedLoaderContext
+ *
+ * @param {string} source
+ * @returns {string}
+ */
+module.exports = function (source) {
+  /** @type {ExtendedLoaderContext} */
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const loaderContext = this
+
   const pageId =
-    this.resourceQuery && qs.parse(this.resourceQuery.slice(1)).saberPage
+    loaderContext.resourceQuery &&
+    qs.parse(loaderContext.resourceQuery.slice(1)).saberPage
 
   if (!pageId) return source
 
-  const { getPageById, getTransformerByContentType, resolveCache } = this.query
+  const { getPageById, getTransformerByContentType, resolveCache } = loaderContext.query
   const page = Object.assign({}, getPageById(pageId))
 
-  this.addDependency(resolveCache(`pages/${pageId}.saberpage`))
+  loaderContext.addDependency(resolveCache(`pages/${pageId}.saberpage`))
 
   const transformer = getTransformerByContentType(page.contentType)
 

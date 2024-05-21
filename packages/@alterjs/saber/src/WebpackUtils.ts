@@ -27,7 +27,7 @@ export class WebpackUtils {
     if (this.shouldCache) {
       rule
         .use('cache-loader')
-        .loader(require.resolve('cache-loader'))
+        .loader('cache-loader')
         .options(this.getCacheOptions(loader, obj))
     }
   }
