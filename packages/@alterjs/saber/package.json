@@ -79,7 +79,8 @@
     "@types/polka": "^0.5.4",
     "@types/resolve-from": "5.0.1",
     "@types/serve-static": "^1.15.2",
-    "@types/webpack": "4.41.38"
+    "@types/webpack": "4.41.38",
+    "@vue/compiler-sfc": "^3.4.27"
   },
   "engines": {
     "node": ">=16"
