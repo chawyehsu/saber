@@ -1,12 +1,13 @@
-const posthtml = require('posthtml')
-const plugin = require('../link')
+import { expect, it } from 'vitest'
+import posthtml from 'posthtml'
+import plugin from '../link'
 
-function transform(source) {
-  return posthtml([plugin()])
+async function transform(source) {
+  const res = await posthtml([plugin()])
     .process(source, {
       recognizeSelfClosing: true,
     })
-    .then(res => res.html)
+  return res.html
 }
 
 it('basic', async () => {

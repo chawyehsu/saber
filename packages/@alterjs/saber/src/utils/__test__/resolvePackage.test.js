@@ -1,4 +1,5 @@
-const resolvePackage = require('../resolvePackage')
+import { expect, it } from 'vitest'
+import resolvePackage from '../resolvePackage'
 
 it('resolvePackage', () => {
   expect(resolvePackage('foo', { cwd: false })).toBe('foo')

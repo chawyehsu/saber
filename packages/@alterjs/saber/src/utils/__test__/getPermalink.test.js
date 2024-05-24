@@ -1,4 +1,5 @@
-const getPermalink = require('../getPermalink')
+import { expect, it } from 'vitest'
+import getPermalink from '../getPermalink'
 
 it('use default permalink', () => {
   const samples = [

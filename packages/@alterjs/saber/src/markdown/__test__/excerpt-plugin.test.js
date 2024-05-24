@@ -1,6 +1,7 @@
-const Markdown = require('@alterjs/saber-markdown')
-const excerptPlugin = require('../excerpt-plugin')
-const createEnv = require('./create-env')
+import { expect, it } from 'vitest'
+import Markdown from '@alterjs/saber-markdown'
+import excerptPlugin from '../excerpt-plugin'
+import createEnv from './create-env'
 
 it('use first paragraph as excerpt', () => {
   const md = new Markdown()

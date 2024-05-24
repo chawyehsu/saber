@@ -1,4 +1,4 @@
-module.exports = (_page) => {
+export default (_page) => {
   const page = { ..._page, internal: { ...(_page && _page.internal) } }
   return {
     page,

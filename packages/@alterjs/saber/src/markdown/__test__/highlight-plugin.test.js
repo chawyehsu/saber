@@ -1,6 +1,7 @@
-const Markdown = require('@alterjs/saber-markdown')
-const fenceOptionsPlugin = require('../highlight-plugin')
-const createEnv = require('./create-env')
+import { expect, it } from 'vitest'
+import Markdown from '@alterjs/saber-markdown'
+import fenceOptionsPlugin from '../highlight-plugin'
+import createEnv from './create-env'
 
 it('main', () => {
   const md = new Markdown()

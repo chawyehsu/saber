@@ -1,6 +1,7 @@
-const Markdown = require('@alterjs/saber-markdown')
-const headingsPlugin = require('../headings-plugin')
-const createEnv = require('./create-env')
+import { expect, it } from 'vitest'
+import Markdown from '@alterjs/saber-markdown'
+import headingsPlugin from '../headings-plugin'
+import createEnv from './create-env'
 
 const input = `
 # Heading
