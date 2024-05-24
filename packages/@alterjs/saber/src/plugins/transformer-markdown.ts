@@ -9,7 +9,6 @@ function renderMarkdown(api: Saber, page: Page) {
   const { configDir } = api
   const { markdown = {} }: any = api.config
   const env = {
-    Token: Markdown.Token,
     filePath: page.internal.absolute,
     pagesDir: api.resolveCwd('pages'),
     page,
