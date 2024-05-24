@@ -1,6 +1,6 @@
 {
   "extends": "../../../tsconfig.base.json",
-  "include": ["src", "shim.d.ts"],
+  "include": ["src"],
   "compilerOptions": {
     "allowJs": true,
     "outDir": "dist",

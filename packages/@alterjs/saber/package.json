@@ -76,6 +76,7 @@
     "@types/hash-sum": "^1.0.0",
     "@types/loader-runner": "^2.2.8",
     "@types/lodash.merge": "^4.6.6",
+    "@types/markdown-it": "^14.1.1",
     "@types/polka": "^0.5.4",
     "@types/resolve-from": "5.0.1",
     "@types/serve-static": "^1.15.2",
