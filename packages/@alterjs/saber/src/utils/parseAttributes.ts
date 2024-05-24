@@ -1,4 +1,4 @@
-import parser from '@babel/parser'
+import { parse } from '@babel/parser'
 import traverse from '@babel/traverse'
 
 /**
@@ -8,7 +8,7 @@ import traverse from '@babel/traverse'
  * @returns {object} The extracted data object
  */
 export default (content: string, filepath: string): object => {
-  const ast = parser.parse(content, {
+  const ast = parse(content, {
     sourceFilename: filepath,
     sourceType: 'module',
     plugins: ['typescript', 'jsx', 'objectRestSpread', 'classProperties'],
