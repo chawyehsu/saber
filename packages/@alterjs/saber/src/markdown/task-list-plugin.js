@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-module.exports = function(md, options) {
+module.exports = function (md, options) {
   options = Object.assign(
     {
       disabled: true,
@@ -8,11 +6,11 @@ module.exports = function(md, options) {
       divClass: 'checkbox',
       idPrefix: 'cbx_',
       ulClass: 'task-list',
-      liClass: 'task-list-item'
+      liClass: 'task-list-item',
     },
-    options
+    options,
   )
-  md.core.ruler.after('inline', 'github-task-lists', state => {
+  md.core.ruler.after('inline', 'github-task-lists', (state) => {
     const { tokens } = state
     let lastId = 0
     for (let i = 2; i < tokens.length; i++) {
@@ -50,10 +48,10 @@ function parentToken(tokens, index) {
 
 function isTodoItem(tokens, index) {
   return (
-    isInline(tokens[index]) &&
-    isParagraph(tokens[index - 1]) &&
-    isListItem(tokens[index - 2]) &&
-    startsWithTodoMarkdown(tokens[index])
+    isInline(tokens[index])
+    && isParagraph(tokens[index - 1])
+    && isListItem(tokens[index - 2])
+    && startsWithTodoMarkdown(tokens[index])
   )
 }
 
@@ -74,7 +72,7 @@ function todoify(token, lastId, options, TokenConstructor) {
 function makeCheckbox(token, id, options, TokenConstructor) {
   const checkbox = new TokenConstructor('checkbox_input', 'input', 0)
   checkbox.attrs = [['type', 'checkbox'], ['id', id]]
-  const checked = /^\[[xX]\][ \u00A0]/.test(token.content) // if token.content starts with '[x] ' or '[X] '
+  const checked = /^\[x\][ \u00A0]/i.test(token.content) // if token.content starts with '[x] ' or '[X] '
   if (checked === true) {
     checkbox.attrs.push(['checked', 'true'])
   }
@@ -126,5 +124,5 @@ function startsWithTodoMarkdown(token) {
   // The leading whitespace in a list item (token.content) is already trimmed off by markdown-it.
   // The regex below checks for '[ ] ' or '[x] ' or '[X] ' at the start of the string token.content,
   // where the space is either a normal space or a non-breaking space (character 160 = \u00A0).
-  return /^\[[xX \u00A0]\][ \u00A0]/.test(token.content)
+  return /^\[[x \u00A0]\][ \u00A0]/i.test(token.content)
 }

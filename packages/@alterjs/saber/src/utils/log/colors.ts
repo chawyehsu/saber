@@ -12,7 +12,7 @@ function rawInit(open: string, close: string, searchRegex: RegExp, replaceValue:
   return (s: string) =>
     enabled
       ? open
-      + (~(s += '').indexOf(close, 4) // skip opening \x1b[
+      + (~(s).indexOf(close, 4) // skip opening \x1b[
         ? s.replace(searchRegex, replaceValue)
         : s)
         + close
