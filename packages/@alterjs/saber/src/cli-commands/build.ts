@@ -1,8 +1,9 @@
+import type { CAC } from 'cac'
 import { log } from '../utils'
 import { createSaber } from '..'
 import { handleError, setNodeEnv } from './utils'
 
-export default function (cli: any) {
+export default function (cli: CAC) {
   cli
     .command(
       'build [app-path]',

@@ -1,7 +1,8 @@
+import type { CAC } from 'cac'
 import { createSaber } from '..'
 import { handleError, setNodeEnv } from './utils'
 
-export default function (cli: any) {
+export default function (cli: CAC) {
   cli
     .command('[app-path]', 'Run the application in dev mode', {
       ignoreOptionDefaultValue: true,

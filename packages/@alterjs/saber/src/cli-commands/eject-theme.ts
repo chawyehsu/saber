@@ -2,12 +2,13 @@ import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 import fs from 'fs-extra'
 import normalizeRepo from 'normalize-repo'
+import type { CAC } from 'cac'
 import configLoader from '../utils/configLoader'
 import { log } from '../utils'
 import resolvePackage from '../utils/resolvePackage'
 import { handleError, spawn } from './utils'
 
-export default function (cli) {
+export default function (cli: CAC) {
   cli
     .command(
       'eject-theme [app-path]',
@@ -27,7 +28,7 @@ export default function (cli) {
       default: './theme',
     })
     .action(
-      handleError(async (cwd = '.', options) => {
+      handleError(async (cwd = '.', options: any) => {
         cwd = path.resolve(cwd)
         const { git } = options
         const mergeDependencies = options['merge-dependencies']

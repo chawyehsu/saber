@@ -1,7 +1,8 @@
+import type { CAC } from 'cac'
 import { createSaber } from '..'
 import { handleError, setNodeEnv } from './utils'
 
-export default function (cli: any) {
+export default function (cli: CAC) {
   cli
     .command('serve [app-path]', 'Serve the output directory')
     .option('--host <host>', 'Server host', { default: '0.0.0.0' })

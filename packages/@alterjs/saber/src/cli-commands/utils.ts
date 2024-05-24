@@ -2,17 +2,17 @@ import { spawn as spawnProcess } from 'node:child_process'
 import process from 'node:process'
 import { log } from '../utils'
 
-export function setNodeEnv(env) {
+export function setNodeEnv(env: string) {
   if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = env
   }
 }
 
-export function handleError(fn) {
-  return async (...args) => {
+export function handleError(fn: Function) {
+  return async (...args: any[]) => {
     try {
       await fn(...args)
-    } catch (error) {
+    } catch (error: any) {
       const message = typeof error === 'string' ? error : error.stack
       log.error(message)
       process.exit(1)
@@ -20,9 +20,9 @@ export function handleError(fn) {
   }
 }
 
-export function spawn(...args) {
+export function spawn(command: string, ...args: any[]) {
   return new Promise((resolve, reject) => {
-    const childProcess = spawnProcess(...args)
+    const childProcess = spawnProcess(command, ...args)
     childProcess.on('close', resolve)
     childProcess.on('error', reject)
   })

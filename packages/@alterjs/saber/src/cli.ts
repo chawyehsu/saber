@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import process from 'node:process'
+import type { CAC } from 'cac'
 import { cac } from 'cac'
 import { log } from './utils'
 import commands from './cli-commands'
@@ -17,7 +18,7 @@ export function start() {
     process.exit(1)
   }
 
-  const cli = cac()
+  const cli: CAC = cac()
   commands(cli)
 
   cli.option('-V, --verbose', 'Output verbose logs')
