@@ -5,7 +5,14 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.min.mjs",
+      "require": "./dist/index.min.cjs"
+    }
+  },
+  "main": "./dist/index.min.cjs",
+  "module": "./dist/index.min.mjs",
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "prepublishOnly": "npm run build"
@@ -22,8 +29,13 @@
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.2.0",
     "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/markdown-it": "^14.1.1",
     "builtin-modules": "^3.3.0",
-    "markdown-it": "^13.0.1",
+    "markdown-it": "^14.1.0",
     "rollup": "^3.28.0"
+  },
+  "volta": {
+    "node": "18.20.3"
   }
 }
