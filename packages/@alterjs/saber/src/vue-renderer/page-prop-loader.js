@@ -8,8 +8,9 @@ const { requireAssets } = require('../utils/assetsAttribute')
  * @param {string} source
  * @param {object} [map]
  */
-module.exports = function(source, map) {
+module.exports = function (source, map) {
   /** @type {ExtendedLoaderContext} */
+  // eslint-disable-next-line ts/no-this-alias
   const loaderContext = this
 
   const pageId = source.trim()

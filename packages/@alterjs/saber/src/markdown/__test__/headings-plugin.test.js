@@ -13,7 +13,7 @@ const input = `
 
 ##### Still in there`
 
-test('inject markdown headings enabled by default', () => {
+it('inject markdown headings enabled by default', () => {
   const md = new Markdown()
   const { env, page } = createEnv()
   md.use(headingsPlugin)
@@ -22,32 +22,32 @@ test('inject markdown headings enabled by default', () => {
     {
       text: 'Heading',
       slug: 'heading',
-      level: 1
+      level: 1,
     },
     {
       text: 'Heading',
       slug: 'heading-2',
-      level: 2
+      level: 2,
     },
     {
       text: 'This time around, a link is present',
       slug: 'this-time-around-a-link-is-present',
-      level: 3
+      level: 3,
     },
     {
       text: 'Deep on so many levels!',
       slug: 'deep-on-so-many-levels',
-      level: 4
+      level: 4,
     },
     {
       text: 'Still in there',
       slug: 'still-in-there',
-      level: 5
-    }
+      level: 5,
+    },
   ])
 })
 
-test('inject markdown headings disabled', () => {
+it('inject markdown headings disabled', () => {
   const md = new Markdown()
   const { env, page } = createEnv()
   page.markdownHeadings = false

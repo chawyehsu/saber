@@ -1,7 +1,7 @@
 import path from 'node:path'
-import { slash } from './utils'
 import fs from 'fs-extra'
-import { Saber } from '.'
+import { slash } from './utils'
+import type { Saber } from '.'
 
 export class BrowserApi extends Set<string> {
   api: Saber
@@ -21,10 +21,10 @@ export class BrowserApi extends Set<string> {
 
   async reload() {
     const files = [...this.values()].map((file, i) => {
-      const name = `_${path.basename(file).replace(/\W/gi, '_')}_${i}`
+      const name = `_${path.basename(file).replace(/\W/g, '_')}_${i}`
       return {
         name,
-        path: slash(file)
+        path: slash(file),
       }
     })
 
@@ -43,7 +43,7 @@ export class BrowserApi extends Set<string> {
         ${files
           .map(
             file =>
-              `typeof ${file.name} === 'function' && ${file.name}(context)`
+              `typeof ${file.name} === 'function' && ${file.name}(context)`,
           )
           .join('\n')}
         typeof themeBrowserApi === 'function' && themeBrowserApi(context)
@@ -52,7 +52,7 @@ export class BrowserApi extends Set<string> {
     await fs.outputFile(
       this.api.resolveCache('extend-browser-api.js'),
       output,
-      'utf8'
+      'utf8',
     )
   }
 }

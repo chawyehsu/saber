@@ -1,14 +1,15 @@
 const posthtml = require('posthtml')
 const plugin = require('../link')
 
-const transform = source =>
-  posthtml([plugin()])
+function transform(source) {
+  return posthtml([plugin()])
     .process(source, {
-      recognizeSelfClosing: true
+      recognizeSelfClosing: true,
     })
     .then(res => res.html)
+}
 
-test('basic', async () => {
+it('basic', async () => {
   const html = await transform(`
   <a href="foo">foo</a>
   <a href="https://example.com">foo</a>
@@ -25,7 +26,7 @@ test('basic', async () => {
   `)
 })
 
-test('ignore', async () => {
+it('ignore', async () => {
   const html = await transform(`<a href="foo" saber-ignore>foo</a>`)
   expect(html).toBe(`<a href="foo">foo</a>`)
 })

@@ -1,5 +1,5 @@
-import { log } from './log'
 import { inspect } from 'node:util'
+import { log } from './log'
 
 /**
  * Inspect webpack config in your default editor

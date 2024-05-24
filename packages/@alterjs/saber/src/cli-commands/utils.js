@@ -1,4 +1,5 @@
 import { spawn as spawnProcess } from 'node:child_process'
+import process from 'node:process'
 import { log } from '../utils'
 
 export function setNodeEnv(env) {
@@ -14,7 +15,7 @@ export function handleError(fn) {
     } catch (error) {
       const message = typeof error === 'string' ? error : error.stack
       log.error(message)
-      process.exit(1) // eslint-disable-line
+      process.exit(1)
     }
   }
 }

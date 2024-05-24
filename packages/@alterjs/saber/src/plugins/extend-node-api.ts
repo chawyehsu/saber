@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { log, colors } from '../utils/log'
-import { SaberPlugin } from '..'
-import { hooks } from '../hooks'
+import { colors, log } from '../utils/log'
+import type { SaberPlugin } from '..'
+import type { hooks } from '../hooks'
 
 const ID = 'builtin:extend-node-api'
 
@@ -14,7 +14,7 @@ type HookName = keyof typeof hooks
 
 const extendNodeApiPlugin: SaberPlugin = {
   name: ID,
-  apply: api => {
+  apply: (api) => {
     const handleNodeApiFile = (nodeApiFile: string, nodeApiId: string) => {
       let nodeApi: any = {}
 
@@ -33,7 +33,7 @@ const extendNodeApiPlugin: SaberPlugin = {
       const addHook = (hookName: HookName) => {
         const hook = api.hooks[hookName]
         if (hook) {
-          // @ts-ignore
+          // @ts-expect-error unknown
           const tapType = hook.call ? 'tap' : 'tapPromise'
           hook[tapType](nodeApiId, (...args) => {
             const hookHandler = getHookHandler(hookName)
@@ -73,12 +73,12 @@ const extendNodeApiPlugin: SaberPlugin = {
           // Remove all child pages
           api.pages.removeWhere(page => !!page.internal.parent)
           await Promise.all(
-            [...api.pages.values()].map(async page => {
+            [...api.pages.values()].map(async (page) => {
               // Recreate the page
               api.pages.createPage(page)
               // A page has been created
               await api.hooks.onCreatePage.promise(page)
-            })
+            }),
           )
           // All pages are created
           await api.hooks.onCreatePages.promise()
@@ -87,7 +87,7 @@ const extendNodeApiPlugin: SaberPlugin = {
           // Emit route file
           await api.hooks.emitRoutes.promise()
           log.warn(
-            `${action[0].toUpperCase()}${action.substring(1)} ${nodeApiFile}`
+            `${action[0].toUpperCase()}${action.substring(1)} ${nodeApiFile}`,
           )
           // Because you might also update webpack config in saber-node.js
           // Which we can't (?) automatically reload
@@ -95,7 +95,7 @@ const extendNodeApiPlugin: SaberPlugin = {
         }
         require('chokidar')
           .watch(nodeApiFile, {
-            ignoreInitial: true
+            ignoreInitial: true,
           })
           .on('all', (action: any) => {
             onChange(action)
@@ -105,7 +105,7 @@ const extendNodeApiPlugin: SaberPlugin = {
 
     handleNodeApiFile(path.join(api.theme, 'saber-node.js'), 'theme-node-api')
     handleNodeApiFile(api.resolveCwd('saber-node.js'), 'user-node-api')
-  }
+  },
 }
 
 export default extendNodeApiPlugin

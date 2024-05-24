@@ -2,7 +2,7 @@ const Markdown = require('@alterjs/saber-markdown')
 const fenceOptionsPlugin = require('../highlight-plugin')
 const createEnv = require('./create-env')
 
-test('main', () => {
+it('main', () => {
   const md = new Markdown()
   const { env } = createEnv()
   md.use(fenceOptionsPlugin)
@@ -12,12 +12,12 @@ test('main', () => {
 <div>hehe</div>
 \`\`\`
   `,
-    env
+    env,
   )
   expect(html).toMatchSnapshot()
 })
 
-test('code block with {lineNumbers:true}', () => {
+it('code block with {lineNumbers:true}', () => {
   const md = new Markdown()
   const { env } = createEnv()
   md.use(fenceOptionsPlugin)
@@ -27,12 +27,12 @@ test('code block with {lineNumbers:true}', () => {
 const cry = Array(3).fill('ora').join(' ')
 \`\`\`
   `,
-    env
+    env,
   )
   expect(html).toMatchSnapshot()
 })
 
-test('code block with {lineNumbers:true,lineStart:5}', () => {
+it('code block with {lineNumbers:true,lineStart:5}', () => {
   const md = new Markdown()
   const { env } = createEnv()
   md.use(fenceOptionsPlugin)
@@ -42,12 +42,12 @@ test('code block with {lineNumbers:true,lineStart:5}', () => {
 const cry = Array(3).fill('ora').join(' ')
 \`\`\`
   `,
-    env
+    env,
   )
   expect(html).toMatchSnapshot()
 })
 
-test('code block markdown.lineNumbers = true', () => {
+it('code block markdown.lineNumbers = true', () => {
   const md = new Markdown()
   const { env } = createEnv()
   md.use(fenceOptionsPlugin, { lineNumbers: true })
@@ -57,7 +57,7 @@ test('code block markdown.lineNumbers = true', () => {
 const cry = Array(3).fill('ora').join(' ')
 \`\`\`
   `,
-    env
+    env,
   )
   expect(html).toMatchSnapshot()
 })

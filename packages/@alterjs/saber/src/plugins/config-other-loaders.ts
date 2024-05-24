@@ -1,11 +1,11 @@
-import { SaberPlugin } from '..'
+import type { SaberPlugin } from '..'
 
 const ID = 'builtin:config-other-loaders'
 
 const configOtherLoadersPlugin: SaberPlugin = {
   name: ID,
-  apply: api => {
-    api.hooks.chainWebpack.tap(ID, config => {
+  apply: (api) => {
+    api.hooks.chainWebpack.tap(ID, (config) => {
       // GraphQL
       config.module
         .rule('graphql')
@@ -16,7 +16,7 @@ const configOtherLoadersPlugin: SaberPlugin = {
       config.module
         .rule('toml')
         .merge({
-          type: 'json'
+          type: 'json',
         })
         .test(/\.toml$/)
         .use('toml-loader')
@@ -26,12 +26,12 @@ const configOtherLoadersPlugin: SaberPlugin = {
         .rule('yaml')
         .test(/\.ya?ml$/)
         .merge({
-          type: 'json'
+          type: 'json',
         })
         .use('yaml-loader')
         .loader(require.resolve('../webpack/yaml-loader'))
     })
-  }
+  },
 }
 
 export default configOtherLoadersPlugin

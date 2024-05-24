@@ -1,10 +1,10 @@
-import { setNodeEnv, handleError } from './utils'
 import { createSaber } from '..'
+import { handleError, setNodeEnv } from './utils'
 
-export default function(cli: any) {
+export default function (cli: any) {
   cli
     .command('[app-path]', 'Run the application in dev mode', {
-      ignoreOptionDefaultValue: true
+      ignoreOptionDefaultValue: true,
     })
     .alias('dev')
     .option('--lazy', 'Enable lazy page compilation')
@@ -21,16 +21,16 @@ export default function(cli: any) {
         delete options.port
         delete options.lazy
         return createSaber(Object.assign({ cwd, dev: true }, options), {
-            server: {
-              host,
-              port
-            },
-            build: {
-              lazy,
-              cache
-            }
-          })
+          server: {
+            host,
+            port,
+          },
+          build: {
+            lazy,
+            cache,
+          },
+        })
           .serve()
-      })
+      }),
     )
 }

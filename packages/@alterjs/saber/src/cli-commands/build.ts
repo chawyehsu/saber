@@ -1,15 +1,15 @@
 import { log } from '../utils'
-import { setNodeEnv, handleError } from './utils'
 import { createSaber } from '..'
+import { handleError, setNodeEnv } from './utils'
 
-export default function(cli: any) {
+export default function (cli: any) {
   cli
     .command(
       'build [app-path]',
       'Compile the application and generate static HTML files',
       {
-        ignoreOptionDefaultValue: true
-      }
+        ignoreOptionDefaultValue: true,
+      },
     )
     .alias('generate')
     .option('--skip-compilation', 'Skip the webpack compilation process')
@@ -21,7 +21,7 @@ export default function(cli: any) {
 
         if (cli.matchedCommandName === 'generate') {
           log.warn(
-            `The "generate" command is now deprecated, please use "build" instead.`
+            `The "generate" command is now deprecated, please use "build" instead.`,
           )
         }
 
@@ -30,11 +30,11 @@ export default function(cli: any) {
         delete options.cache
 
         return createSaber(Object.assign({ cwd, dev: false }, options), {
-            build: {
-              cache
-            }
-          })
+          build: {
+            cache,
+          },
+        })
           .build({ skipCompilation })
-      })
+      }),
     )
 }

@@ -1,28 +1,30 @@
 import path from 'node:path'
-import { slash } from '../utils'
 import fs from 'fs-extra'
-import { log } from '../utils'
 import polka from 'polka'
 import serveStatic from 'serve-static'
+import type { Compiler } from 'webpack'
 import webpack from 'webpack'
-import { Compiler } from 'webpack'
-// @ts-ignore
+// @ts-expect-error - no types
 import webpackDevMiddleware from 'webpack-dev-middleware'
-// @ts-ignore
+// @ts-expect-error - no types
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import { createBundleRenderer, BundleRenderer } from 'vue-server-renderer'
+import type { BundleRenderer } from 'vue-server-renderer'
+import { createBundleRenderer } from 'vue-server-renderer'
 import { VueLoaderPlugin } from 'vue-loader'
 import { SyncWaterfallHook } from 'tapable'
+import type Config from 'webpack-chain'
+import type { Saber } from '..'
+import { log, slash } from '../utils'
 import { readJSON } from './utils'
 import renderHTML from './render-html'
 import TemplatePlugins from './template-plugins'
-import { Saber } from '..'
-import Config from 'webpack-chain'
 
 function runCompiler(compiler: Compiler) {
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
-      if (err) return reject(err)
+      if (err) {
+        return reject(err)
+      }
       resolve(stats)
     })
   })
@@ -58,7 +60,7 @@ export class VueRenderer {
     this.builtRoutes = new Set()
 
     this.hooks = {
-      getVueLoaderOptions: new SyncWaterfallHook(['options'])
+      getVueLoaderOptions: new SyncWaterfallHook(['options']),
     }
 
     this.api.hooks.chainWebpack.tap(ID, (config: Config, { type }) => {
@@ -72,13 +74,13 @@ export class VueRenderer {
       if (api.hasDependency('vue')) {
         config.resolve.alias.set(
           'vue',
-          path.dirname(api.localResolve('vue/package.json')!)
+          path.dirname(api.localResolve('vue/package.json')!),
         )
       } else {
         // Otherwise use the one shipped with Saber
         config.resolve.alias.set(
           'vue',
-          path.dirname(require.resolve('vue/package.json'))
+          path.dirname(require.resolve('vue/package.json')),
         )
       }
 
@@ -91,30 +93,30 @@ export class VueRenderer {
         Object.assign(
           {
             compilerOptions: {
-              modules: []
+              modules: [],
             },
             transformAssetUrls: {},
-            prettify: false
+            prettify: false,
           },
           api.webpackUtils.getCacheOptions('vue-loader', () => ({
             // Increse `key` to invalid cache
-            key: 0,
+            'key': 0,
             type,
             'vue-loader': require('vue-loader/package.json').version,
             'vue-template-compiler': require('vue-template-compiler/package.json')
-              .version
-          }))
-        )
+              .version,
+          })),
+        ),
       )
 
       const pageLoaderOptions = {
         getPageById: (pageId: string) => api.pages.get(pageId),
         getTransformerByContentType: (contentType: string) =>
           api.transformers.get(contentType),
-        resolveCache: api.resolveCache.bind(api)
+        resolveCache: api.resolveCache.bind(api),
       }
       const pagePropLoaderOptions = {
-        getPagePublicFields: api.pages.getPagePublicFields.bind(api.pages)
+        getPagePublicFields: api.pages.getPagePublicFields.bind(api.pages),
       }
 
       config.module
@@ -123,7 +125,7 @@ export class VueRenderer {
         .use('transform-template-loader')
         .loader(require.resolve('./transform-template-loader'))
         .options({
-          plugins: TemplatePlugins(api)
+          plugins: TemplatePlugins(api),
         })
 
       // Add `saber-page` rule under `js` rule to handle .js pages
@@ -131,31 +133,31 @@ export class VueRenderer {
       config.module
         .rule('js')
         .oneOf('saber-page')
-          .before('normal')
-          .resourceQuery((query: any) => {
-            return /saberPage/.test(query) && !/type=script/.test(query)
-          })
-          .use('vue-loader')
-            .loader('vue-loader')
-            .options(vueLoaderOptions)
-            .end()
-          .use('saber-page-loader')
-            .loader(require.resolve('./saber-page-loader'))
-            .options(pageLoaderOptions)
+        .before('normal')
+        .resourceQuery((query: any) => {
+          return /saberPage/.test(query) && !/type=script/.test(query)
+        })
+        .use('vue-loader')
+        .loader('vue-loader')
+        .options(vueLoaderOptions)
+        .end()
+        .use('saber-page-loader')
+        .loader(require.resolve('./saber-page-loader'))
+        .options(pageLoaderOptions)
 
       // Handle .vue components and .vue pages
       // prettier-ignore
       config.module.rule('vue')
         .test(/\.vue$/)
         .use('vue-loader')
-          .loader('vue-loader')
-          .options(vueLoaderOptions)
-          .end()
+        .loader('vue-loader')
+        .options(vueLoaderOptions)
+        .end()
         // saber-page-loader will return original content
         // if the resource query doesn't contain `saberPage`
         .use('saber-page-loader')
-          .loader(require.resolve('./saber-page-loader'))
-          .options(pageLoaderOptions)
+        .loader(require.resolve('./saber-page-loader'))
+        .options(pageLoaderOptions)
 
       // Get the available extensions for pages
       // Excluding .vue and .js pages because we handled them in their own rules
@@ -193,8 +195,8 @@ export class VueRenderer {
           .plugin('vue-ssr')
           .use(require('vue-server-renderer/server-plugin'), [
             {
-              filename: '../bundle-manifest/server.json'
-            }
+              filename: '../bundle-manifest/server.json',
+            },
           ])
 
         const externals = config.get('externals') || []
@@ -204,18 +206,18 @@ export class VueRenderer {
               allowlist: [
                 'saber/config',
                 'saber/variables',
-                /\.(?!(?:jsx?|json)$).{1,5}(\?.+)?$/i
-              ]
-            })
-          ])
+                /\.(?!(?:jsx?|json)$).{1,5}(\?.+)?$/i,
+              ],
+            }),
+          ]),
         )
       } else if (type === 'client') {
         config
           .plugin('vue-ssr')
           .use(require('vue-server-renderer/client-plugin'), [
             {
-              filename: '../bundle-manifest/client.json'
-            }
+              filename: '../bundle-manifest/client.json',
+            },
           ])
       }
     })
@@ -237,14 +239,14 @@ export class VueRenderer {
     const pages = [...this.api.pages.values()]
 
     const routesFromPages = pages
-      .map(page => {
+      .map((page) => {
         const relativePath = slash(page.internal.relative!)
         const absolutePath = slash(page.internal.absolute!)
         const chunkNameComment = `/* webpackChunkName: "page--${
           page.internal.isFile
             ? path
                 .relative(this.api.resolveCwd('pages'), absolutePath)
-                .replace(/[^a-z0-9_-]/gi, '-')
+                .replace(/[^\w-]/g, '-')
             : page.internal.id
         }" */ `
         // Always give the path a resource query
@@ -273,7 +275,7 @@ export class VueRenderer {
     const redirectRoutesInBrowser = [...this.api.pages.redirectRoutes.values()]
       .filter(route => route.redirectInBrowser)
       .map(
-        route => `{ path: '${route.fromPath}', redirect: '${route.toPath}' }`
+        route => `{ path: '${route.fromPath}', redirect: '${route.toPath}' }`,
       )
       .join(',\n')
 
@@ -287,7 +289,7 @@ export class VueRenderer {
         name: 404,
         component: function () {
           return import(/* webpackChunkName: "404-page" */ ${JSON.stringify(
-            slash(resolveVueApp('404.vue'))
+            slash(resolveVueApp('404.vue')),
           )})
         }
       }
@@ -312,7 +314,7 @@ export class VueRenderer {
     const serverCompiler = webpack(serverConfig)
     await Promise.all([
       runCompiler(clientCompiler),
-      runCompiler(serverCompiler)
+      runCompiler(serverCompiler),
     ])
   }
 
@@ -325,7 +327,7 @@ export class VueRenderer {
         clientManifest,
         runInNewContext: false,
         inject: false,
-        basedir: this.api.resolveCache('dist-server')
+        basedir: this.api.resolveCache('dist-server'),
       })
     }
 
@@ -340,17 +342,17 @@ export class VueRenderer {
     const endingMark = `__mark_page_content_stop__${random}`
     const context = {
       url,
-      markPageContent: [startingMark, endingMark]
+      markPageContent: [startingMark, endingMark],
     }
     const html = await this.renderer!.renderToString(context)
     const content = html.slice(
       html.indexOf(startingMark) + startingMark.length,
-      html.indexOf(endingMark)
+      html.indexOf(endingMark),
     )
 
     return scoped
       ? content
-      : content.replace(/((?: data-v-[a-z0-9]{8})+)>/gm, '>')
+      : content.replace(/((?: data-v-[a-z0-9]{8})+)>/g, '>')
   }
 
   async generate() {
@@ -360,10 +362,10 @@ export class VueRenderer {
     await fs.remove(outDir)
 
     const serverBundle = readJSON(
-      this.api.resolveCache('bundle-manifest/server.json')
+      this.api.resolveCache('bundle-manifest/server.json'),
     )
     const clientManifest = readJSON(
-      this.api.resolveCache('bundle-manifest/client.json')
+      this.api.resolveCache('bundle-manifest/client.json'),
     )
     const renderer = await this.initRenderer({ serverBundle, clientManifest })
 
@@ -385,11 +387,11 @@ export class VueRenderer {
             const { context, html } = await renderHTML(renderer, {
               url: route.permalink,
               isProd: true,
-              hooks: this.api.hooks
+              hooks: this.api.hooks,
             })
             const exportedPage = {
               content: html,
-              path: route.outputFilePath
+              path: route.outputFilePath,
             }
             await this.api.hooks.beforeExportPage.promise(context, exportedPage)
             await fs.outputFile(route.outputFilePath, html, 'utf8')
@@ -398,7 +400,7 @@ export class VueRenderer {
             log.error(`Failed to render ${route.permalink}`)
             throw error
           }
-        })
+        }),
       )
 
     await writeFiles(
@@ -406,18 +408,18 @@ export class VueRenderer {
         ...this.api.pages.values(),
         {
           permalink: '/__never_existed__.html',
-          outputFilePath: '404.html'
-        }
+          outputFilePath: '404.html',
+        },
       ].map(page => ({
         permalink: page.permalink,
-        outputFilePath: getOutputFilePath(page.outputFilePath || page.permalink)
-      }))
+        outputFilePath: getOutputFilePath(page.outputFilePath || page.permalink),
+      })),
     )
 
     // Copy .saber/dist-client/ to public/_saber/
     await fs.copy(
       this.api.resolveCache('dist-client'),
-      path.join(outDir, '_saber')
+      path.join(outDir, '_saber'),
     )
 
     // Copy static files to outDir
@@ -445,16 +447,16 @@ export class VueRenderer {
     const clientCompiler = webpack(clientConfig)
 
     const devMiddleware = webpackDevMiddleware(clientCompiler, {
-      publicPath: clientConfig.output.publicPath
+      publicPath: clientConfig.output.publicPath,
     })
 
     const hotMiddleware = webpackHotMiddleware(clientCompiler, {
-      log: false
+      log: false,
     })
 
     const serverConfig = await this.api.getWebpackConfig({ type: 'server' })
     const serverCompiler = webpack(serverConfig)
-    // @ts-ignore
+    // @ts-expect-error - unknown
     const mfs = new webpack.MemoryOutputFileSystem()
     serverCompiler.outputFileSystem = mfs
 
@@ -464,14 +466,14 @@ export class VueRenderer {
     const onceAllCompilersAreReady = (handler: any) => {
       const listener = ({ allCompilers }: { allCompilers: any }) => {
         if (allCompilers.ready) {
-          Object.values(this.api.compilers).forEach(compiler => {
+          Object.values(this.api.compilers).forEach((compiler) => {
             compiler.off('status-changed', listener)
           })
           handler(allCompilers)
         }
       }
 
-      Object.values(this.api.compilers).forEach(compiler => {
+      Object.values(this.api.compilers).forEach((compiler) => {
         compiler.on('status-changed', listener)
       })
     }
@@ -480,7 +482,7 @@ export class VueRenderer {
       if (status === 'success') {
         serverBundle = readJSON(
           this.api.resolveCache('bundle-manifest/server.json'),
-          mfs.readFileSync.bind(mfs)
+          mfs.readFileSync.bind(mfs),
         )
         this.initRenderer({ serverBundle, clientManifest })
       }
@@ -490,16 +492,16 @@ export class VueRenderer {
       if (status === 'success') {
         clientManifest = readJSON(
           this.api.resolveCache('bundle-manifest/client.json'),
-          // @ts-ignore
+          // @ts-expect-error - unknown
           clientCompiler.outputFileSystem.readFileSync.bind(
-            clientCompiler.outputFileSystem
-          )
+            clientCompiler.outputFileSystem,
+          ),
         )
         this.initRenderer({ serverBundle, clientManifest })
       }
     })
 
-    serverCompiler.watch({}, error => {
+    serverCompiler.watch({}, (error) => {
       if (error) {
         console.error(error)
       }
@@ -516,7 +518,6 @@ export class VueRenderer {
     })
 
     server.get('/_saber/visit-page', async (req: any, res: any) => {
-      // eslint-disable-next-line
       let [, pathname, hash] = /^([^#]+)(#.+)?$/.exec(req.query.route) || []
       pathname = removeTrailingSlash(pathname)
       const fullPath = pathname + (hash || '')
@@ -529,18 +530,18 @@ export class VueRenderer {
           action: 'router:push',
           route: fullPath,
           id: req.query.id,
-          alreadyBuilt: true
+          alreadyBuilt: true,
         })
       } else {
         log.info(`Compiling ${fullPath}`)
-        onceAllCompilersAreReady(({ hasError }: { hasError: any}) => {
+        onceAllCompilersAreReady(({ hasError }: { hasError: any }) => {
           log.info(`Navigating to ${fullPath}`)
           this.builtRoutes.add(pathname)
           hotMiddleware.publish({
             action: 'router:push',
             route: fullPath,
             id: req.query.id,
-            hasError
+            hasError,
           })
         })
         this.visitedRoutes.add(pathname)
@@ -550,13 +551,13 @@ export class VueRenderer {
 
     server.use(
       serveStatic(this.api.resolveCwd('static'), {
-        dotfiles: 'allow'
-      })
+        dotfiles: 'allow',
+      }),
     )
     server.use(
       serveStatic(path.join(this.api.theme, 'static'), {
-        dotfiles: 'allow'
-      })
+        dotfiles: 'allow',
+      }),
     )
 
     server.use(devMiddleware)
@@ -578,7 +579,7 @@ export class VueRenderer {
         const { html } = await renderHTML(this.renderer, {
           url: req.url,
           isProd: false,
-          hooks: this.api.hooks
+          hooks: this.api.hooks,
         })
 
         res.setHeader('content-type', 'text/html')

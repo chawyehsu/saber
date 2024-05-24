@@ -1,6 +1,6 @@
-const CODE_OPTIONS_RE = /\s*{([^}]+)}/
+const CODE_OPTIONS_RE = /\s*\{([^}]+)\}/
 
-const parseOptions = str => {
+function parseOptions(str) {
   if (!CODE_OPTIONS_RE.test(str)) {
     return {}
   }
@@ -10,18 +10,19 @@ const parseOptions = str => {
   return fn()
 }
 
-const generateLineNumbers = (code, lineStart) =>
-  `<span aria-hidden="true" class="saber-highlight-line-numbers" style="counter-reset: linenumber ${lineStart}">` +
+function generateLineNumbers(code, lineStart) {
+  return `<span aria-hidden="true" class="saber-highlight-line-numbers" style="counter-reset: linenumber ${lineStart}">${
   code
     .trim()
     .split('\n')
     .map(() => `<span></span>`)
-    .join('') +
-  '</span>'
+    .join('')
+  }</span>`
+}
 
 module.exports = (
   md,
-  { highlightedLineBackground, lineNumbers = false } = {}
+  { highlightedLineBackground, lineNumbers = false } = {},
 ) => {
   const renderPreWrapper = ({
     preWrapperAttrs,
@@ -29,7 +30,7 @@ module.exports = (
     codeAttrs,
     code,
     codeMask = '',
-    lines = ''
+    lines = '',
   }) =>
     `<div${preWrapperAttrs}>${codeMask}<pre${preAttrs}><code${codeAttrs}>${lines}${code.trim()}</code></pre></div>`
 
@@ -48,16 +49,16 @@ module.exports = (
 
     const highlightLines = fenceOptions.highlightLines
       ? fenceOptions.highlightLines.map(v =>
-          `${v}`.split('-').map(v => parseInt(v, 10))
-        )
+          `${v}`.split('-').map(v => Number.parseInt(v, 10)),
+      )
       : []
 
-    const codeMask =
-      highlightLines.length === 0
+    const codeMask
+      = highlightLines.length === 0
         ? ''
         : `<div class="saber-highlight-mask${
             langClass ? ` ${langClass}` : ''
-          }">` +
+          }">${
           md.utils
             .escapeHtml(token.content)
             .split('\n')
@@ -80,43 +81,43 @@ module.exports = (
 
               return `<div class="code-line">${split}</div>`
             })
-            .join('') +
-          '</div>'
+            .join('')
+          }</div>`
 
     const renderAttrs = attrs => self.renderAttrs({ attrs })
-    const shouldGenerateLineNumbers =
+    const shouldGenerateLineNumbers
       // It might be false so check for undefined
-      fenceOptions.lineNumbers === undefined
-        ? // Defaults to global config
-          lineNumbers
-        : // If it's set to false, even if the global config says true, ignore
-          fenceOptions.lineNumbers
-    const lineStartNumber =
+      = fenceOptions.lineNumbers === undefined
+        // Defaults to global config
+        ? lineNumbers
+        // If it's set to false, even if the global config says true, ignore
+        : fenceOptions.lineNumbers
+    const lineStartNumber
       // It might be 0 so check for undefined
-      fenceOptions.lineStart === undefined
-        ? // Default line should be 1
-          1
+      = fenceOptions.lineStart === undefined
+        // Default line should be 1
+        ? 1
         : fenceOptions.lineStart
     const lines = shouldGenerateLineNumbers
-      ? // Need to substract 1 because the counter will be incremented right away
-        generateLineNumbers(code, lineStartNumber - 1)
+      // Need to substract 1 because the counter will be incremented right away
+      ? generateLineNumbers(code, lineStartNumber - 1)
       : ''
 
     const preAttrs = renderAttrs([
       ...(token.attrs || []),
-      ['class', ['saber-highlight-code', langClass].filter(Boolean).join(' ')]
+      ['class', ['saber-highlight-code', langClass].filter(Boolean).join(' ')],
     ])
     const codeAttrs = renderAttrs([
       ...(token.attrs || []),
-      ['class', langClass]
+      ['class', langClass],
     ])
     const preWrapperAttrs = renderAttrs([
       [
         'class',
-        `saber-highlight${shouldGenerateLineNumbers ? ' has-line-numbers' : ''}`
+        `saber-highlight${shouldGenerateLineNumbers ? ' has-line-numbers' : ''}`,
       ],
       ['v-pre', ''],
-      ['data-lang', langName]
+      ['data-lang', langName],
     ])
 
     return renderPreWrapper({
@@ -125,7 +126,7 @@ module.exports = (
       codeAttrs,
       code,
       codeMask,
-      lines
+      lines,
     })
   }
 }

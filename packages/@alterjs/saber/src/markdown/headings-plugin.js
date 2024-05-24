@@ -1,25 +1,24 @@
 const slugo = require('slugo')
 
-const uniqueSlug = (slug, slugs) => {
+function uniqueSlug(slug, slugs) {
   let i = 2
   let unique = slug
-  while (slugs.includes(unique)) unique = `${slug}-${i++}`
+  while (slugs.includes(unique)) {
+    unique = `${slug}-${i++}`
+  }
   slugs.push(unique)
   return unique
 }
 
-const permalinkRenderer = (
-  slug,
-  {
-    permalinkBefore,
-    permalinkClass,
-    permalinkSymbol,
-    permalinkHref,
-    permalinkComponent
-  }, // options
-  { Token }, // markdown state
-  { children } // heading
-) => {
+function permalinkRenderer(slug, {
+  permalinkBefore,
+  permalinkClass,
+  permalinkSymbol,
+  permalinkHref,
+  permalinkComponent,
+}, // options
+{ Token }, // markdown state
+{ children }) {
   const space = new Token('text', '', 0)
   space.content = ' '
 
@@ -28,13 +27,13 @@ const permalinkRenderer = (
       attrs: [
         ['class', permalinkClass],
         ['to', permalinkHref(slug)],
-        ['aria-hidden', 'true']
-      ]
+        ['aria-hidden', 'true'],
+      ],
     }),
     Object.assign(new Token('html_block', '', 0), {
-      content: permalinkSymbol
+      content: permalinkSymbol,
     }),
-    new Token('link_close', permalinkComponent, -1)
+    new Token('link_close', permalinkComponent, -1),
   ]
 
   // append or prepend according to position option.
@@ -58,14 +57,14 @@ const defaultOptions = {
   permalinkRenderer,
   permalinkHref: slug => `#${slug}`,
   markdownHeadings: true,
-  slugify: slugo
+  slugify: slugo,
 }
 
 module.exports = (md, options = {}) => {
   options = Object.assign(defaultOptions, options)
   const slugify = options.slugify || slugo
 
-  md.core.ruler.push('headings', state => {
+  md.core.ruler.push('headings', (state) => {
     const { tokens, env } = state
     const headings = []
     const slugs = []
@@ -83,13 +82,13 @@ module.exports = (md, options = {}) => {
 
       const heading = tokens[i - 1]
       const headingOpen = tokens[i - 2]
-      const level =
-        headingOpen.type === 'heading_open' && headingOpen.markup.length // number of '#' defines level
+      const level
+        = headingOpen.type === 'heading_open' && headingOpen.markup.length // number of '#' defines level
 
       if (heading.type === 'inline') {
         const text = heading.children
           .filter(
-            token => token.type === 'text' || token.type === 'code_inline'
+            token => token.type === 'text' || token.type === 'code_inline',
           )
           .reduce((acc, t) => acc + t.content, '')
 
@@ -108,13 +107,13 @@ module.exports = (md, options = {}) => {
         }
 
         if (
-          markdownHeadings ||
-          (markdownHeadings !== false && options.markdownHeadings)
+          markdownHeadings
+          || (markdownHeadings !== false && options.markdownHeadings)
         ) {
           headings.push({
             text,
             slug,
-            level
+            level,
           })
         }
       }

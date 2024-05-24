@@ -1,4 +1,4 @@
-module.exports = md => {
+module.exports = (md) => {
   const defaultCodeInline = md.renderer.rules.code_inline
   md.renderer.rules.code_inline = (...args) => {
     const [tokens, idx] = args

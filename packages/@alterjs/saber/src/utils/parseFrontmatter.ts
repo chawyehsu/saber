@@ -4,28 +4,29 @@ import yamlParser from './yaml.min'
 
 const RE_STARTING = /^(?:\r?\n)*---([a-z]+)?(?:\r?\n)+/
 
-type Parser = (str: string) => Object
+type Parser = (str: string) => object
 
 const parsers: {
   [k: string]: Parser
 } = {
   yaml: (str: string) => yamlParser.safeLoad(str),
   yml: (str: string) => yamlParser.safeLoad(str),
-  toml: (str: string) => tomlParser.parse(str)
+  toml: (str: string) => tomlParser.parse(str),
 }
 
 /**
  * Extract front matter from a page
  * @param {string} content The content of a page
  * @param {string} filepath The absolute path to the path
- * @returns {{frontmatter: {[k:string]: any}, body: string}}
+ * @returns {{frontmatter: {[k:string]: any}, body: string}} The extracted front matter and body
  */
 export default (content: string, filepath: string): {
-  frontmatter: { [k: string]: any }; body: string
+  frontmatter: { [k: string]: any }
+  body: string
 } => {
   const getEmpty = () => ({
     frontmatter: {},
-    body: content && content.trim()
+    body: content && content.trim(),
   })
 
   if (!content) {
@@ -60,6 +61,6 @@ export default (content: string, filepath: string): {
 
   return {
     frontmatter,
-    body: body && body.trim()
+    body: body && body.trim(),
   }
 }

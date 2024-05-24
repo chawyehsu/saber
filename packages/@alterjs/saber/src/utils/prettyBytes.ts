@@ -6,7 +6,7 @@ Formats the given number using `Number#toLocaleString`.
 - If locale is true, the system default locale is used for translation.
 - If no value for locale is specified, the number is returned unmodified.
 */
-const toLocaleString = (number: number, locale?: string | boolean) => {
+function toLocaleString(number: number, locale?: string | boolean) {
   if (typeof locale === 'string') {
     return number.toLocaleString(locale)
   } else if (locale === true) {
@@ -19,7 +19,7 @@ const toLocaleString = (number: number, locale?: string | boolean) => {
 export default (number: number, options?: any) => {
   if (!Number.isFinite(number)) {
     throw new TypeError(
-      `Expected a finite number, got ${typeof number}: ${number}`
+      `Expected a finite number, got ${typeof number}: ${number}`,
     )
   }
 
@@ -38,17 +38,17 @@ export default (number: number, options?: any) => {
 
   if (number < 1) {
     const numberString = toLocaleString(number, options.locale)
-    return prefix + numberString + ' B'
+    return `${prefix + numberString} B`
   }
 
   const exponent = Math.min(
     Math.floor(Math.log10(number) / 3),
-    UNITS.length - 1
+    UNITS.length - 1,
   )
-  number = Number((number / Math.pow(1000, exponent)).toPrecision(3))
+  number = Number((number / 1000 ** exponent).toPrecision(3))
   const numberString = toLocaleString(number, options.locale)
 
   const unit = UNITS[exponent]
 
-  return prefix + numberString + ' ' + unit
+  return `${prefix + numberString} ${unit}`
 }

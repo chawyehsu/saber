@@ -1,9 +1,8 @@
-// @ts-ignore
+// @ts-expect-error - no types
 import ChainedMap from 'webpack-chain/src/ChainedMap'
-// @ts-ignore
+// @ts-expect-error - no types
 import Orderable from 'webpack-chain/src/Orderable'
 
-// eslint-disable-next-line new-cap
 export default Orderable(
   class Plugin extends ChainedMap {
     [x: string]: any
@@ -41,5 +40,5 @@ export default Orderable(
 
       return init(this.get('plugin'), this.get('args'))
     }
-  }
+  },
 )

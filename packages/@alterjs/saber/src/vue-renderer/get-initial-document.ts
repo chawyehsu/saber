@@ -15,7 +15,7 @@ export function getInitialDocument(documentData: any) {
     noscript,
     bodyAttrs,
     headAttrs,
-    htmlAttrs
+    htmlAttrs,
   } = documentData
 
   return `
@@ -47,7 +47,7 @@ export function getInitialDocumentData(context: any) {
       headScript: '',
       bodyScript: `<script src="/_saber/js/client.js" defer></script>`,
       noscript: '',
-      meta: ''
+      meta: '',
     }
   }
 
@@ -60,7 +60,7 @@ export function getInitialDocumentData(context: any) {
     style,
     script,
     noscript,
-    meta
+    meta,
   } = context.metaInfo.inject()
 
   return {
@@ -73,6 +73,6 @@ export function getInitialDocumentData(context: any) {
     headScript: script.text(),
     bodyScript: `${script.text({ body: true })}${context.renderScripts()}`,
     noscript: noscript.text(),
-    meta: meta.text()
+    meta: meta.text(),
   }
 }

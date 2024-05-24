@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
-import { log } from '../utils'
 import deepEqual from 'fast-deep-equal'
+import { log } from '../utils'
 import { CONFIG_FILES } from '../utils/configLoader'
-import { SaberPlugin, SaberConfig } from '..'
+import type { SaberConfig, SaberPlugin } from '..'
 
 const ID = 'builtin:emit-config'
 
@@ -19,26 +19,26 @@ const WatchConfigPlugin: SaberPlugin = {
           JSON.stringify({
             siteConfig: config.siteConfig || {},
             themeConfig: config.themeConfig || {},
-            locales: config.locales || {}
+            locales: config.locales || {},
           }),
-          'utf8'
+          'utf8',
         )
 
       const checkIfConfigChanged = (
         newConfig: SaberConfig,
-        prevConfig: SaberConfig
+        prevConfig: SaberConfig,
       ) => {
         const dropUnnecessary = (config: SaberConfig) =>
           Object.assign({}, config, {
             siteConfig: undefined,
             themeConfig: undefined,
-            locales: undefined
+            locales: undefined,
           })
         if (
           !deepEqual(dropUnnecessary(newConfig), dropUnnecessary(prevConfig))
         ) {
           log.warn(
-            `Found a change in your Saber config file, restart server to see the effect.`
+            `Found a change in your Saber config file, restart server to see the effect.`,
           )
         }
       }
@@ -50,12 +50,12 @@ const WatchConfigPlugin: SaberPlugin = {
         const cwd = api.configDir || api.resolveCwd()
         const watcher = require('chokidar').watch(CONFIG_FILES, {
           ignoreInitial: true,
-          cwd
+          cwd,
         })
         const reloadConfig = async () => {
           const {
             configPath: newConfigPath,
-            config: newConfig
+            config: newConfig,
           } = api.loadConfig()
           const prevConfig = api.config
           checkIfConfigChanged(newConfig, prevConfig)
@@ -68,7 +68,7 @@ const WatchConfigPlugin: SaberPlugin = {
         })
       }
     })
-  }
+  },
 }
 
 export default WatchConfigPlugin

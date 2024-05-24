@@ -1,16 +1,16 @@
+import process from 'node:process'
 import { colors } from './colors'
 
 const chars = {
   info: colors.cyan('info'),
   success: colors.green('success'),
   warning: colors.yellow('warning'),
-  error: colors.red('error')
+  error: colors.red('error'),
 }
 
 interface ILogConstructorOptions {
   logLevel?: number
 }
-
 
 /**
  * Check if a value is `undefined`
@@ -37,8 +37,8 @@ export class Log {
     const logLevel = defined(this.options.logLevel)
       ? this.options.logLevel
       : defined(process.env.SABER_LOG_LEVEL)
-      ? process.env.SABER_LOG_LEVEL
-      : 3
+        ? process.env.SABER_LOG_LEVEL
+        : 3
     return Number(logLevel)
   }
 
@@ -53,7 +53,9 @@ export class Log {
    * Verbose logs
    */
   verbose(...args: any[]) {
-    if (this.logLevel < 4) return
+    if (this.logLevel < 4) {
+      return
+    }
 
     const messages = args.map(arg => (typeof arg === 'function' ? arg() : arg))
     this.log(colors.dim('[verbose]'), ...messages)
@@ -63,7 +65,9 @@ export class Log {
    * Info logs
    */
   info(...args: any[]) {
-    if (this.logLevel < 3) return
+    if (this.logLevel < 3) {
+      return
+    }
 
     this.log(`[${chars.info}]`, ...args)
   }
@@ -72,7 +76,9 @@ export class Log {
    * Warning logs
    */
   warn(...args: any[]) {
-    if (this.logLevel < 2) return
+    if (this.logLevel < 2) {
+      return
+    }
 
     this.log(`[${chars.warning}]`, ...args)
   }
@@ -81,7 +87,9 @@ export class Log {
    * Error logs
    */
   error(...args: any[]) {
-    if (this.logLevel < 1) return
+    if (this.logLevel < 1) {
+      return
+    }
 
     this.log(`[${chars.error}]`, ...args)
   }
@@ -90,7 +98,9 @@ export class Log {
    * Success logs
    */
   success(...args: any[]) {
-    if (this.logLevel < 3) return
+    if (this.logLevel < 3) {
+      return
+    }
 
     this.log(`[${chars.success}]`, ...args)
   }
@@ -101,5 +111,5 @@ const log = new Log()
 export {
   log,
   colors,
-  chars
+  chars,
 }

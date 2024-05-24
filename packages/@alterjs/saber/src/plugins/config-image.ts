@@ -1,12 +1,12 @@
 import getFileNames from '../utils/getFileNames'
-import { SaberPlugin } from '..'
+import type { SaberPlugin } from '..'
 
 const ID = 'builtin:config-image'
 
 const configImage: SaberPlugin = {
   name: ID,
-  apply: api => {
-    api.hooks.chainWebpack.tap(ID, config => {
+  apply: (api) => {
+    api.hooks.chainWebpack.tap(ID, (config) => {
       const filename = getFileNames(!api.dev).image
 
       config.module
@@ -18,7 +18,7 @@ const configImage: SaberPlugin = {
           esModule: false,
           name: filename,
           // inline the file if smaller than 2KB
-          limit: 20000
+          limit: 20000,
         })
 
       config.module
@@ -30,10 +30,10 @@ const configImage: SaberPlugin = {
         .loader(require.resolve('file-loader'))
         .options({
           esModule: false,
-          name: filename
+          name: filename,
         })
     })
-  }
+  },
 }
 
 export default configImage

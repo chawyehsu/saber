@@ -1,12 +1,12 @@
 import path from 'node:path'
 import hash from 'hash-sum'
-import { slash, log } from './utils'
 import merge from 'lodash.merge'
+import { log, slash } from './utils'
 import getPermalink from './utils/getPermalink'
 import getPageType from './utils/getPageType'
 import { prefixAssets } from './utils/assetsAttribute'
-import { Saber } from '.'
-import { Transformer } from './Transformers'
+import type { Transformer } from './Transformers'
+import type { Saber } from '.'
 
 // A regex parsing RFC3339 date followed by {_,-}, and ended by some characters
 const FILE_NAME_REGEXP = /^(((\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(T([01]\d|2[0-3]):([0-5]\d):([0-5]\d|60)(\.\d+)?(Z|(\+|-)([01]\d|2[0-3]):([0-5]\d)))?)(_|-))?(.+$)/
@@ -76,7 +76,6 @@ export interface CreatePageInput {
     relative?: string
 
     /**
-     * @private
      * Used by Saber internally for file watcher
      */
     saved?: boolean
@@ -124,9 +123,9 @@ export class Pages extends Map<string, Page> {
       {
         type: 'page',
         internal: {},
-        contentType: 'default'
+        contentType: 'default',
       },
-      _page
+      _page,
     )
 
     let transformer = api.transformers.get(page.contentType)
@@ -169,7 +168,7 @@ export class Pages extends Map<string, Page> {
         { slug: page.slug, type: page.type, createdAt: page.createdAt },
         typeof api.config.permalinks === 'function'
           ? api.config.permalinks(page)
-          : api.config.permalinks
+          : api.config.permalinks,
       )
     }
 
@@ -179,11 +178,11 @@ export class Pages extends Map<string, Page> {
 
     page.assets = page.assets
       ? prefixAssets(
-          page.assets,
-          page.internal.absolute
-            ? path.dirname(page.internal.absolute)
-            : api.opts.cwd
-        )
+        page.assets,
+        page.internal.absolute
+          ? path.dirname(page.internal.absolute)
+          : api.opts.cwd,
+      )
       : {}
 
     // Ensure this page is not saved
@@ -205,7 +204,7 @@ export class Pages extends Map<string, Page> {
         // Remove leading _posts/
         .replace(/^_posts\//, '')
         // Remove extension
-        .replace(/\.[a-z]+$/i, '')
+        .replace(/\.[a-z]+$/i, ''),
     ) as RegExpExecArray // It could never be `null`
     const slug = parsedFileName[16]
     const pageInput: CreatePageInput = {
@@ -215,14 +214,14 @@ export class Pages extends Map<string, Page> {
         id: hash(file.absolute),
         absolute: absolutePath,
         relative: relativePath,
-        isFile: true
+        isFile: true,
       },
       contentType: this.api.transformers.getContentTypeByExtension(
-        path.extname(relativePath).slice(1)
+        path.extname(relativePath).slice(1),
       ),
       content: file.content,
       createdAt: parsedFileName[2] || file.birthtime,
-      updatedAt: file.mtime
+      updatedAt: file.mtime,
     }
     return pageInput
   }
@@ -233,7 +232,7 @@ export class Pages extends Map<string, Page> {
   }
 
   removePage(id: string) {
-    this.removeWhere(page => {
+    this.removeWhere((page) => {
       return page.internal.id === id
     })
   }
@@ -256,7 +255,7 @@ export class Pages extends Map<string, Page> {
 
     result = Object.assign({}, result, {
       content: undefined,
-      internal: undefined
+      internal: undefined,
     })
     // TODO: remove in 1.0
     result!.attributes = result!
@@ -276,7 +275,7 @@ export class Pages extends Map<string, Page> {
 
   getMatchedLocalePath(permalink: string) {
     const localePaths = Object.keys(this.api.config.locales || {}).filter(
-      p => p !== '/'
+      p => p !== '/',
     )
 
     for (const localePath of localePaths) {

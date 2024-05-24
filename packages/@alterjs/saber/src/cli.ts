@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import process from 'node:process'
 import { cac } from 'cac'
 import { log } from './utils'
 import commands from './cli-commands'
@@ -11,7 +12,7 @@ function isSupported() {
 export function start() {
   if (!isSupported()) {
     log.error(
-      `Saber requires Node.js >= 16 to work currently, your current Node.js version is ${process.versions.node}.`
+      `Saber requires Node.js >= 16 to work currently, your current Node.js version is ${process.versions.node}.`,
     )
     process.exit(1)
   }

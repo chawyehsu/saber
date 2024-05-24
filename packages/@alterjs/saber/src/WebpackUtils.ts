@@ -1,6 +1,6 @@
 import path from 'node:path'
-import { Rule } from 'webpack-chain'
-import { Saber } from '.'
+import type { Rule } from 'webpack-chain'
+import type { Saber } from '.'
 
 export class WebpackUtils {
   api: Saber
@@ -18,7 +18,7 @@ export class WebpackUtils {
       ? {
           cacheDirectory: this.api.resolveCache(path.join('cache', loader)),
           cacheIdentifier:
-            obj && JSON.stringify(typeof obj === 'function' ? obj() : obj)
+            obj && JSON.stringify(typeof obj === 'function' ? obj() : obj),
         }
       : {}
   }

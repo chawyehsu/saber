@@ -1,10 +1,10 @@
 const getPermalink = require('../getPermalink')
 
-test('use default permalink', () => {
+it('use default permalink', () => {
   const samples = [
     { slug: 'index', permalink: '/' },
     { slug: 'foo/index', permalink: '/foo' },
-    { slug: 'foo/bar', permalink: '/foo/bar.html' }
+    { slug: 'foo/bar', permalink: '/foo/bar.html' },
   ]
   for (const sample of samples) {
     const receivedPermalink = getPermalink(
@@ -12,19 +12,19 @@ test('use default permalink', () => {
       {
         slug: sample.slug,
         type: 'page',
-        createdAt: new Date('2019-01-01')
+        createdAt: new Date('2019-01-01'),
       },
-      {}
+      {},
     )
     expect(receivedPermalink).toBe(sample.permalink)
   }
 })
 
-test('remove .html extension', () => {
+it('remove .html extension', () => {
   const samples = [
     { slug: 'index', permalink: '/' },
     { slug: 'foo/index', permalink: '/foo' },
-    { slug: 'foo/bar', permalink: '/foo/bar' }
+    { slug: 'foo/bar', permalink: '/foo/bar' },
   ]
   for (const sample of samples) {
     const receivedPermalink = getPermalink(
@@ -32,11 +32,11 @@ test('remove .html extension', () => {
       {
         slug: sample.slug,
         type: 'page',
-        createdAt: new Date('2019-01-01')
+        createdAt: new Date('2019-01-01'),
       },
       {
-        page: '/:slug'
-      }
+        page: '/:slug',
+      },
     )
     expect(receivedPermalink).toBe(sample.permalink)
   }

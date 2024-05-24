@@ -1,30 +1,30 @@
-import path from 'path'
-import configLoader from '../utils/configLoader'
-import { spawnSync } from 'child_process'
+import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import fs from 'fs-extra'
+import normalizeRepo from 'normalize-repo'
+import configLoader from '../utils/configLoader'
 import { log } from '../utils'
 import resolvePackage from '../utils/resolvePackage'
-import normalizeRepo from 'normalize-repo'
 import { handleError, spawn } from './utils'
 
-export default function(cli) {
+export default function (cli) {
   cli
     .command(
       'eject-theme [app-path]',
-      `Copy the currently used theme's source code to a local folder.`
+      `Copy the currently used theme's source code to a local folder.`,
     )
     .option(
       '--git',
       'Pull code from Git, instead of node_modules, and add the theme as a submodule',
-      { default: false }
+      { default: false },
     )
     .option(
       '--merge-dependencies',
-      "Copy over the theme's dependencies to your project's package.json.",
-      { default: true }
+      'Copy over the theme\'s dependencies to your project\'s package.json.',
+      { default: true },
     )
     .option('--path <path>', 'Ejected theme destination', {
-      default: './theme'
+      default: './theme',
     })
     .action(
       handleError(async (cwd = '.', options) => {
@@ -32,9 +32,9 @@ export default function(cli) {
         const { git } = options
         const mergeDependencies = options['merge-dependencies']
 
-        const config =
-          configLoader.load({ cwd, files: configLoader.CONFIG_FILES }).data ||
-          {}
+        const config
+          = configLoader.load({ cwd, files: configLoader.CONFIG_FILES }).data
+          || {}
         if (!config.theme) {
           throw new Error('No theme specified in config.')
         }
@@ -43,23 +43,23 @@ export default function(cli) {
         const relativeDest = path.relative(cwd, destPath)
         if (await fs.pathExists(destPath)) {
           throw new Error(
-            `The path ${options.path} already exists. Please specify a different one using "--path".`
+            `The path ${options.path} already exists. Please specify a different one using "--path".`,
           )
         }
 
         const themePath = resolvePackage(config.theme, {
           prefix: 'saber-theme-',
-          cwd
+          cwd,
         })
         if (!themePath) {
           throw new Error(
-            `Theme "${config.theme}" could not be found in your node_modules.`
+            `Theme "${config.theme}" could not be found in your node_modules.`,
           )
         }
 
         const themePackage = configLoader.load({
           cwd: themePath,
-          files: ['package.json']
+          files: ['package.json'],
         }).data
 
         if (git) {
@@ -72,13 +72,13 @@ export default function(cli) {
             const gitCloneResult = spawnSync('git', ['clone', url, tmp])
             if (gitCloneResult.status !== 0) {
               throw new Error(
-                `Failed to clone the theme repository: ${gitCloneResult.stderr}`
+                `Failed to clone the theme repository: ${gitCloneResult.stderr}`,
               )
             }
 
             await fs.move(
               repo.directory ? path.join(tmp, repo.directory) : tmp,
-              destPath
+              destPath,
             )
 
             await fs.remove(tmp)
@@ -86,12 +86,12 @@ export default function(cli) {
             log.success('Downloaded theme source via Git.')
           } else {
             throw new Error(
-              'The theme has no git repository specified within its package.json.'
+              'The theme has no git repository specified within its package.json.',
             )
           }
         } else {
           await fs.copy(themePath, destPath, {
-            filter: src => !src.endsWith('/node_modules')
+            filter: src => !src.endsWith('/node_modules'),
           })
 
           log.info('Copied theme from node_modules.')
@@ -103,7 +103,7 @@ export default function(cli) {
 
           const projectPackage = configLoader.load({
             cwd,
-            files: ['package.json']
+            files: ['package.json'],
           }).data
 
           await fs.writeJson(
@@ -113,20 +113,20 @@ export default function(cli) {
               dependencies: {
                 ...projectPackage.dependencies,
                 ...dependencies,
-                [themePackage.name]: undefined // remove theme from dependencies
+                [themePackage.name]: undefined, // remove theme from dependencies
               },
               devDependencies: {
                 ...projectPackage.devDependencies,
                 ...devDependencies,
-                [themePackage.name]: undefined // remove theme from dev dependencies
-              }
+                [themePackage.name]: undefined, // remove theme from dev dependencies
+              },
             },
-            { spaces: 2 }
+            { spaces: 2 },
           )
 
           const { status } = spawnSync('yarnpkg', ['--version']) // test if yarn is present before allowing it to use the same stdio
           const hasNpmLock = await fs.pathExists(
-            path.join(cwd, 'package-lock.json')
+            path.join(cwd, 'package-lock.json'),
           )
           if (status === 0 && !hasNpmLock) {
             await spawn('yarn', ['install'], { stdio: 'inherit' })
@@ -138,8 +138,8 @@ export default function(cli) {
         }
 
         log.info(
-          `Please change "theme" in your Saber config to "./${relativeDest}".`
+          `Please change "theme" in your Saber config to "./${relativeDest}".`,
         )
-      })
+      }),
     )
 }

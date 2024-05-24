@@ -1,39 +1,41 @@
-// @ts-nocheck
-/* eslint-disable */
-let enabled =
-  process.env.FORCE_COLOR ||
-  process.platform === 'win32' ||
-  (process.stdout &&
-    process.stdout.isTTY &&
-    process.env.TERM &&
-    process.env.TERM !== 'dumb')
+import process from 'node:process'
 
-const rawInit = (open, close, searchRegex, replaceValue) => s =>
-  enabled
-    ? open +
-      (~(s += '').indexOf(close, 4) // skip opening \x1b[
+let enabled
+  = process.env.FORCE_COLOR
+  || process.platform === 'win32'
+  || (process.stdout
+  && process.stdout.isTTY
+  && process.env.TERM
+  && process.env.TERM !== 'dumb')
+
+function rawInit(open: string, close: string, searchRegex: RegExp, replaceValue: string) {
+  return (s: string) =>
+    enabled
+      ? open
+      + (~(s += '').indexOf(close, 4) // skip opening \x1b[
         ? s.replace(searchRegex, replaceValue)
-        : s) +
-      close
-    : s
+        : s)
+        + close
+      : s
+}
 
-const init = (open, close) => {
+function init(open: number, close: number) {
   return rawInit(
-    `\x1b[${open}m`,
-    `\x1b[${close}m`,
+    `\x1B[${open}m`,
+    `\x1B[${close}m`,
     new RegExp(`\\x1b\\[${close}m`, 'g'),
-    `\x1b[${open}m`
+    `\x1B[${open}m`,
   )
 }
 
 export const colors = {
   options: Object.defineProperty({}, 'enabled', {
     get: () => enabled,
-    set: value => (enabled = value)
+    set: value => (enabled = value),
   }),
   reset: init(0, 0),
-  bold: rawInit('\x1b[1m', '\x1b[22m', /\x1b\[22m/g, '\x1b[22m\x1b[1m'),
-  dim: rawInit('\x1b[2m', '\x1b[22m', /\x1b\[22m/g, '\x1b[22m\x1b[2m'),
+  bold: rawInit('\x1B[1m', '\x1B[22m', /\\x1B\[22m/g, '\x1B[22m\x1B[1m'),
+  dim: rawInit('\x1B[2m', '\x1B[22m', /\\x1B\[22m/g, '\x1B[22m\x1B[2m'),
   italic: init(3, 23),
   underline: init(4, 24),
   inverse: init(7, 27),
@@ -71,5 +73,5 @@ export const colors = {
   bgBlueBright: init(104, 49),
   bgMagentaBright: init(105, 49),
   bgCyanBright: init(106, 49),
-  bgWhiteBright: init(107, 49)
+  bgWhiteBright: init(107, 49),
 }

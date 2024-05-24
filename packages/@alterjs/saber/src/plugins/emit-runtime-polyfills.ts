@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { SaberPlugin } from '..'
+import type { SaberPlugin } from '..'
 import { slash } from '../utils'
 
 const ID = 'builtin:emit-runtime-polyfills'
@@ -8,7 +8,7 @@ let previousPolyfills: string | undefined
 
 const emitRuntimePolyfillsPlugin: SaberPlugin = {
   name: ID,
-  apply: api => {
+  apply: (api) => {
     api.hooks.afterPlugins.tap(ID, () => {
       api.hooks.emitRoutes.tapPromise(ID, async () => {
         const polyfills = [...api.runtimePolyfills]
@@ -18,14 +18,14 @@ const emitRuntimePolyfillsPlugin: SaberPlugin = {
           await fs.outputFile(
             api.resolveCache('runtime-polyfills.js'),
             polyfills,
-            'utf8'
+            'utf8',
           )
-          // eslint-disable-next-line require-atomic-updates
+
           previousPolyfills = polyfills
         }
       })
     })
-  }
+  },
 }
 
 export default emitRuntimePolyfillsPlugin

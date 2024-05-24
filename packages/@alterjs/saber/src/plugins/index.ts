@@ -12,7 +12,7 @@ const builtInPlugins = [
   { resolve: require.resolve('./watch-config') },
   { resolve: require.resolve('./layouts') },
   { resolve: require.resolve('./emit-saber-variables') },
-  { resolve: require.resolve('./emit-runtime-polyfills') }
+  { resolve: require.resolve('./emit-runtime-polyfills') },
 ]
 
 export default builtInPlugins

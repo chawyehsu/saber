@@ -11,32 +11,32 @@ export default (content: string, filepath: string): object => {
   const ast = parser.parse(content, {
     sourceFilename: filepath,
     sourceType: 'module',
-    plugins: ['typescript', 'jsx', 'objectRestSpread', 'classProperties']
+    plugins: ['typescript', 'jsx', 'objectRestSpread', 'classProperties'],
   })
 
   let data = {}
 
   traverse(ast, {
     ObjectExpression(path: any) {
-      const name =
-        path.parent &&
-        path.parent.type === 'VariableDeclarator' &&
-        path.parent.id.name
+      const name
+        = path.parent
+        && path.parent.type === 'VariableDeclarator'
+        && path.parent.id.name
 
       // Only extract `export const [data|attributes] = {...}`
       if (!['attributes', 'data'].includes(name)) {
         return
       }
 
-      const isConst =
-        path.parentPath.parent && path.parentPath.parent.kind === 'const'
+      const isConst
+        = path.parentPath.parent && path.parentPath.parent.kind === 'const'
       if (!isConst) {
         return
       }
 
-      const isExport =
-        path.parentPath.parentPath &&
-        path.parentPath.parentPath.parent.type === 'ExportNamedDeclaration'
+      const isExport
+        = path.parentPath.parentPath
+        && path.parentPath.parentPath.parent.type === 'ExportNamedDeclaration'
       if (!isExport) {
         return
       }
@@ -48,10 +48,10 @@ export default (content: string, filepath: string): object => {
         path.node.properties = []
       } else {
         throw new Error(
-          `"${name}" is supposed to have the same value when executed in runtime and build time.`
+          `"${name}" is supposed to have the same value when executed in runtime and build time.`,
         )
       }
-    }
+    },
   })
 
   return data

@@ -1,22 +1,23 @@
-import { log, colors } from '../utils/log'
+import process from 'node:process'
 import logUpdate from 'log-update'
 import merge from 'lodash.merge'
-import Config from 'webpack-chain'
-// @ts-ignore
+import type Config from 'webpack-chain'
+// @ts-expect-error - no types
 import OptimizeCSSPlugin from '@intervolga/optimize-cssnano-plugin'
+import { colors, log } from '../utils/log'
 import getFileNames from '../utils/getFileNames'
-import { SaberPlugin } from '..'
+import type { SaberPlugin } from '..'
 
 const ID = 'builtin:config-css'
 
 const configCss: SaberPlugin = {
   name: ID,
-  apply: api => {
+  apply: (api) => {
     api.hooks.chainWebpack.tap(ID, (config: Config, { type }) => {
       const {
         extractCSS,
         loaderOptions,
-        cssSourceMap: sourceMap
+        cssSourceMap: sourceMap,
       } = api.config.build
       const isServer = type === 'server'
       // Disable CSS extraction in dev mode for better build performance(?)
@@ -30,7 +31,7 @@ const configCss: SaberPlugin = {
       const cssnanoOptions: any = {
         safe: true,
         autoprefixer: { disable: true },
-        mergeLonghand: false
+        mergeLonghand: false,
       }
       if (sourceMap) {
         cssnanoOptions.map = { inline: false }
@@ -38,7 +39,7 @@ const configCss: SaberPlugin = {
 
       const extractOptions = {
         filename: fileNames.css,
-        chunkFilename: fileNames.css.replace(/\.css$/, '.chunk.css')
+        chunkFilename: fileNames.css.replace(/\.css$/, '.chunk.css'),
       }
 
       const createCSSRule = (lang: string, test: RegExp, loader?: string, options?: any) => {
@@ -51,14 +52,14 @@ const configCss: SaberPlugin = {
                 // only enable hot in development
                 hmr: process.env.NODE_ENV === 'development',
                 // if hmr does not work, this is a forceful method.
-                reloadAll: true
+                reloadAll: true,
               })
           } else {
             rule
               .use('vue-style-loader')
               .loader(require.resolve('vue-style-loader'))
               .options({
-                sourceMap
+                sourceMap,
               })
           }
 
@@ -68,12 +69,12 @@ const configCss: SaberPlugin = {
               modules,
               localIdentName: '[local]_[hash:base64:5]',
               importLoaders:
-                1 + // stylePostLoader injected by vue-loader
-                1 + // postcss-loader
-                (needInlineMinification ? 1 : 0),
-              exportOnlyLocals: isServer && shouldExtract
+                1 // stylePostLoader injected by vue-loader
+                + 1 // postcss-loader
+                + (needInlineMinification ? 1 : 0),
+              exportOnlyLocals: isServer && shouldExtract,
             },
-            loaderOptions.css
+            loaderOptions.css,
           )
 
           rule
@@ -86,7 +87,7 @@ const configCss: SaberPlugin = {
               .use('minify-inline-css')
               .loader(require.resolve('@egoist/postcss-loader'))
               .options({
-                plugins: [require('cssnano')(cssnanoOptions)]
+                plugins: [require('cssnano')(cssnanoOptions)],
               })
           }
 
@@ -101,14 +102,14 @@ const configCss: SaberPlugin = {
                     if (log.logLevel > 3) {
                       logUpdate.clear()
                       log.verbose(
-                        `Applying PostCSS config file ${configFile} to:`
+                        `Applying PostCSS config file ${configFile} to:`,
                       )
                       log.verbose(colors.dim(resourcePath))
                     }
-                  }
+                  },
                 },
-                loaderOptions.postcss
-              )
+                loaderOptions.postcss,
+              ),
             )
 
           if (loader) {
@@ -158,10 +159,10 @@ const configCss: SaberPlugin = {
                   return m.type && m.type.includes('css/mini-extract')
                 },
                 chunks: 'all',
-                enforce: true
-              }
-            }
-          })
+                enforce: true,
+              },
+            },
+          }),
         )
 
         const optimizeCss = new OptimizeCSSPlugin({ sourceMap, cssnanoOptions })
@@ -180,10 +181,10 @@ const configCss: SaberPlugin = {
         'sass-loader',
         Object.assign(
           {
-            implementation: sassImplementation
+            implementation: sassImplementation,
           },
-          loaderOptions.sass
-        )
+          loaderOptions.sass,
+        ),
       )
       createCSSRule(
         'sass',
@@ -192,10 +193,10 @@ const configCss: SaberPlugin = {
         Object.assign(
           {
             indentedSyntax: true,
-            implementation: sassImplementation
+            implementation: sassImplementation,
           },
-          loaderOptions.sass
-        )
+          loaderOptions.sass,
+        ),
       )
 
       createCSSRule('less', /\.less$/, 'less-loader', loaderOptions.less)
@@ -205,13 +206,13 @@ const configCss: SaberPlugin = {
         'stylus-loader',
         Object.assign(
           {
-            preferPathResolver: 'webpack'
+            preferPathResolver: 'webpack',
           },
-          loaderOptions.stylus
-        )
+          loaderOptions.stylus,
+        ),
       )
     })
-  }
+  },
 }
 
 export default configCss

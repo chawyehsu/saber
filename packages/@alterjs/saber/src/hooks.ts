@@ -1,4 +1,4 @@
-import { SyncHook, AsyncSeriesHook, SyncWaterfallHook } from 'tapable'
+import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable'
 
 export const hooks = {
   // Before all user plugins have been applied
@@ -50,5 +50,5 @@ export const hooks = {
   /**
    * Called after creating the server
    */
-  onCreateServer: new SyncHook(['server'])
+  onCreateServer: new SyncHook(['server']),
 }

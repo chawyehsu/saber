@@ -1,12 +1,12 @@
 import getFileNames from '../utils/getFileNames'
-import { SaberPlugin } from '..'
+import type { SaberPlugin } from '..'
 
 const ID = 'builtin:config-font'
 
 const configFont: SaberPlugin = {
   name: ID,
-  apply: api => {
-    api.hooks.chainWebpack.tap(ID, config => {
+  apply: (api) => {
+    api.hooks.chainWebpack.tap(ID, (config) => {
       const filename = getFileNames(!api.dev).font
       config.module
         .rule('font')
@@ -14,10 +14,10 @@ const configFont: SaberPlugin = {
         .use('file-loader')
         .loader(require.resolve('file-loader'))
         .options({
-          name: filename
+          name: filename,
         })
     })
-  }
+  },
 }
 
 export default configFont

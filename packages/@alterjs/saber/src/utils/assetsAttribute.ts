@@ -1,6 +1,6 @@
 import { join } from 'node:path'
-import { slash } from '.'
 import isAbsoluteUrl from 'is-absolute-url'
+import { slash } from '.'
 
 /**
  * It's considered external resource
@@ -16,7 +16,7 @@ const MARK_GLOBAL_RE = new RegExp(`"${MARK}([^"]+)"`, 'g')
 /**
  * Prefix MARK to asset path
  */
-const prefixAssets = (assets: { [key: string]: string }, cwd: string) => {
+function prefixAssets(assets: { [key: string]: string }, cwd: string) {
   const result: { [key: string]: string } = {}
   for (const key of Object.keys(assets)) {
     const value = assets[key]
@@ -24,8 +24,8 @@ const prefixAssets = (assets: { [key: string]: string }, cwd: string) => {
       const path = value.startsWith('@')
         ? value
         : value.startsWith('module:')
-        ? value.slice(7)
-        : slash(join(cwd, value))
+          ? value.slice(7)
+          : slash(join(cwd, value))
       result[key] = `${MARK}${path}`
     } else {
       result[key] = value
@@ -38,9 +38,10 @@ const prefixAssets = (assets: { [key: string]: string }, cwd: string) => {
 /**
  * Replace strings starting with the MARK to `require` call
  */
-const requireAssets = (str: string) =>
-  str.replace(MARK_GLOBAL_RE, (_, p1) => {
+function requireAssets(str: string) {
+  return str.replace(MARK_GLOBAL_RE, (_, p1) => {
     return `require("${p1}")`
   })
+}
 
 export { prefixAssets, requireAssets }

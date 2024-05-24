@@ -1,4 +1,4 @@
-import { Saber } from '../..'
+import type { Saber } from '../..'
 import ConfigChain from '../../config-chain'
 
 export default function (api: Saber) {
@@ -13,9 +13,9 @@ export default function (api: Saber) {
         openLinkInNewTab:
           typeof template.openLinkInNewTab === 'boolean'
             ? template.openLinkInNewTab
-            : true
-      }
-    }
+            : true,
+      },
+    },
   ]
 
   // Load built-in plugins

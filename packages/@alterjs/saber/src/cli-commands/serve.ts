@@ -1,7 +1,7 @@
-import { setNodeEnv, handleError } from './utils'
 import { createSaber } from '..'
+import { handleError, setNodeEnv } from './utils'
 
-export default function(cli: any) {
+export default function (cli: any) {
   cli
     .command('serve [app-path]', 'Serve the output directory')
     .option('--host <host>', 'Server host', { default: '0.0.0.0' })
@@ -14,12 +14,12 @@ export default function(cli: any) {
         delete options.host
         delete options.port
         return createSaber(Object.assign({ cwd, dev: true }, options), {
-            server: {
-              host,
-              port
-            }
-          })
+          server: {
+            host,
+            port,
+          },
+        })
           .serveOutDir()
-      })
+      }),
     )
 }

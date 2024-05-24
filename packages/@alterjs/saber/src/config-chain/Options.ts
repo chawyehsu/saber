@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error - no types
 import ChainedMap from 'webpack-chain/src/ChainedMap'
 
 export default class extends ChainedMap {
@@ -15,7 +15,7 @@ export default class extends ChainedMap {
       'linkify',
       'typographer',
       'quotes',
-      'highlight'
+      'highlight',
     ])
   }
 }

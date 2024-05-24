@@ -1,4 +1,4 @@
-import { CreatePageInput, Page } from './Pages'
+import type { CreatePageInput, Page } from './Pages'
 
 export interface Transformer {
   extensions: string[]
@@ -33,8 +33,8 @@ export class Transformers {
   getContentTypeByExtension(extension: string) {
     for (const [contentType, transformer] of this.transformers.entries()) {
       if (
-        transformer.extensions &&
-        transformer.extensions.includes(extension)
+        transformer.extensions
+        && transformer.extensions.includes(extension)
       ) {
         return contentType
       }

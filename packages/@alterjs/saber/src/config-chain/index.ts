@@ -1,7 +1,7 @@
 /**
  * Modified: https://github.com/ulivz/markdown-it-chain/blob/master/src/index.js
  */
-// @ts-ignore
+// @ts-expect-error - no types
 import ChainedMap from 'webpack-chain/src/ChainedMap'
 import resolvePackage from '../utils/resolvePackage'
 import Plugin from './Plugin'
@@ -20,8 +20,8 @@ export default class MarkdownItChain extends ChainedMap {
     return this.clean(
       Object.assign(this.entries() || {}, {
         options: this.options.entries(),
-        plugins: this.plugins.values().map((plugin: any) => plugin.toConfig())
-      })
+        plugins: this.plugins.values().map((plugin: any) => plugin.toConfig()),
+      }),
     )
   }
 
@@ -49,7 +49,7 @@ export default class MarkdownItChain extends ChainedMap {
     for (const plugin of pluginList) {
       this.plugin(plugin.name).use(
         plugin.handler,
-        Array.isArray(plugin.options) ? plugin.options : [plugin.options]
+        Array.isArray(plugin.options) ? plugin.options : [plugin.options],
       )
     }
   }

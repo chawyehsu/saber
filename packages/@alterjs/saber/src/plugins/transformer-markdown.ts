@@ -1,10 +1,9 @@
-// @ts-ignore
 import Markdown from '@alterjs/saber-markdown'
 import ConfigChain from '../config-chain'
 import resolvePackage from '../utils/resolvePackage'
 import parseFrommatter from '../utils/parseFrontmatter'
-import { SaberPlugin, Saber} from '..'
-import { Page } from '../Pages'
+import type { Saber, SaberPlugin } from '..'
+import type { Page } from '../Pages'
 
 function renderMarkdown(api: Saber, page: Page) {
   const { configDir } = api
@@ -13,7 +12,7 @@ function renderMarkdown(api: Saber, page: Page) {
     Token: Markdown.Token,
     filePath: page.internal.absolute,
     pagesDir: api.resolveCwd('pages'),
-    page
+    page,
   }
 
   const chain = new ConfigChain()
@@ -23,24 +22,24 @@ function renderMarkdown(api: Saber, page: Page) {
       {
         html: true,
         linkify: true,
-        highlight: markdown.highlighter
+        highlight: markdown.highlighter,
       },
-      markdown.options
-    )
+      markdown.options,
+    ),
   )
 
   const builtInPlugins = [
     {
       name: 'hoist-tags',
-      resolve: require.resolve('../markdown/hoist-tags-plugin')
+      resolve: require.resolve('../markdown/hoist-tags-plugin'),
     },
     {
       name: 'excerpt',
-      resolve: require.resolve('../markdown/excerpt-plugin')
+      resolve: require.resolve('../markdown/excerpt-plugin'),
     },
     {
       name: 'escape-interpolations',
-      resolve: require.resolve('../markdown/escape-interpolations-plugin')
+      resolve: require.resolve('../markdown/escape-interpolations-plugin'),
     },
     {
       name: 'headings',
@@ -48,21 +47,21 @@ function renderMarkdown(api: Saber, page: Page) {
       options: {
         ...(markdown.headings || {}),
         slugify:
-          markdown.slugify &&
-          require(resolvePackage(markdown.slugify, { cwd: configDir }))
-      }
+          markdown.slugify
+          && require(resolvePackage(markdown.slugify, { cwd: configDir })),
+      },
     },
     {
       name: 'highlight',
       resolve: require.resolve('../markdown/highlight-plugin'),
       options: {
-        lineNumbers: markdown.lineNumbers
-      }
+        lineNumbers: markdown.lineNumbers,
+      },
     },
     {
       name: 'task-list',
-      resolve: require.resolve('../markdown/task-list-plugin')
-    }
+      resolve: require.resolve('../markdown/task-list-plugin'),
+    },
   ]
 
   // Load built-in plugins
@@ -80,7 +79,7 @@ function renderMarkdown(api: Saber, page: Page) {
   if (typeof options.highlight === 'string') {
     options.highlight = require(resolvePackage(options.highlight, {
       cwd: configDir,
-      prefix: 'saber-highlighter-'
+      prefix: 'saber-highlighter-',
     }))
   }
 
@@ -95,13 +94,13 @@ function renderMarkdown(api: Saber, page: Page) {
 
 const transformerMarkdownPlugin: SaberPlugin = {
   name: 'builtin:transformer-markdown',
-  apply: api => {
+  apply: (api) => {
     api.transformers.add('markdown', {
       extensions: ['md'],
       transform(page) {
         const { frontmatter, body } = parseFrommatter(
           page.content!,
-          page.internal.absolute!
+          page.internal.absolute!,
         )
         Object.assign(page, frontmatter)
         page.content = body
@@ -115,9 +114,9 @@ const transformerMarkdownPlugin: SaberPlugin = {
           </layout-manager>
           </template>
         `
-      }
+      },
     })
-  }
+  },
 }
 
 export default transformerMarkdownPlugin

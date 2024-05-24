@@ -1,11 +1,11 @@
-import Config from 'webpack-chain'
 import path from 'node:path'
-// @ts-ignore
+import Config from 'webpack-chain'
+// @ts-expect-error - no types
 import timeFixPlugin from 'time-fix-plugin'
 import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
+import type { Saber } from '..'
 import PrintStatusPlugin from './PrintStatusPlugin'
-import { Saber } from '..'
 
 export default function webpackConfig(api: Saber, { type }: { type: string }) {
   const config = new Config()
@@ -15,8 +15,8 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
     type === 'server'
       ? 'source-map'
       : api.dev
-      ? 'cheap-module-source-map'
-      : false
+        ? 'cheap-module-source-map'
+        : false,
   )
 
   const fileNames = getFileNames(!api.dev)
@@ -43,12 +43,12 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
   config.resolve.alias.set('saber/config$', api.resolveCache('config.json'))
   config.resolve.alias.set(
     'saber/variables$',
-    api.resolveCache('variables.json')
+    api.resolveCache('variables.json'),
   )
 
   const ownModulesDir = path.join(
     path.dirname(require.resolve('vue/package.json')),
-    '..'
+    '..',
   )
   config.resolve.modules.add('node_modules').add(ownModulesDir)
   config.resolveLoader.modules.add('node_modules').add(ownModulesDir)
@@ -56,7 +56,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
   config.module
     .rule('js')
     .test(/\.js$/)
-    .include.add(filepath => {
+    .include.add((filepath) => {
       if (api.browserApi.has(filepath)) {
         return true
       }
@@ -73,15 +73,15 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
     .loader(require.resolve('esbuild-loader'))
     .options({
       loader: 'js',
-      target: 'es2015'
+      target: 'es2015',
     })
 
   config.plugin('timefix').use(timeFixPlugin)
 
   config.plugin('envs').use(webpack.DefinePlugin, [
     {
-      'process.env.NODE_ENV': JSON.stringify(config.get('mode'))
-    }
+      'process.env.NODE_ENV': JSON.stringify(config.get('mode')),
+    },
   ])
 
   config.plugin('constants').use(webpack.DefinePlugin, [
@@ -89,11 +89,11 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
       'process.browser': type === 'client',
       'process.client': type === 'client',
       'process.server': type === 'server',
-      __DEV__: api.dev,
-      __PUBLIC_URL__: JSON.stringify(api.config.build.publicUrl),
-      __LAZY__: api.config.build.lazy && api.dev,
-      __SABER_VERSION__: JSON.stringify(require('../../package.json').version)
-    }
+      '__DEV__': api.dev,
+      '__PUBLIC_URL__': JSON.stringify(api.config.build.publicUrl),
+      '__LAZY__': api.config.build.lazy && api.dev,
+      '__SABER_VERSION__': JSON.stringify(require('../../package.json').version),
+    },
   ])
 
   config.plugin('print-status').use(new PrintStatusPlugin({ api, type }))
@@ -103,7 +103,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
   }
 
   // https://webpack.js.org/migrate/5/#test-webpack-5-compatibility
-  config.node.merge({ 'Buffer': false })
+  config.node.merge({ Buffer: false })
   // something complains about `process` not being defined, we might not be able
   // to set this to false for now
   // config.node.merge({ 'process': false })

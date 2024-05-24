@@ -2,7 +2,7 @@ const Markdown = require('@alterjs/saber-markdown')
 const excerptPlugin = require('../excerpt-plugin')
 const createEnv = require('./create-env')
 
-test('use first paragraph as excerpt', () => {
+it('use first paragraph as excerpt', () => {
   const md = new Markdown()
   const { env, page } = createEnv()
   md.use(excerptPlugin)
@@ -10,12 +10,12 @@ test('use first paragraph as excerpt', () => {
     `
 hello
   `,
-    env
+    env,
   )
   expect(page.excerpt).toBe('<p>hello</p>\n')
 })
 
-test('do not override page excerpt', () => {
+it('do not override page excerpt', () => {
   const md = new Markdown()
   const { env, page } = createEnv({ excerpt: 'existing' })
   md.use(excerptPlugin)
@@ -23,13 +23,13 @@ test('do not override page excerpt', () => {
     `
 hello
   `,
-    env
+    env,
   )
   md.use(excerptPlugin)
   expect(page.excerpt).toBe('existing')
 })
 
-test('disable excerpt', () => {
+it('disable excerpt', () => {
   const md = new Markdown()
   const { env, page } = createEnv()
   page.excerpt = false
@@ -38,14 +38,14 @@ test('disable excerpt', () => {
     `
 hello
   `,
-    env
+    env,
   )
   expect(page.excerpt).toBe(false)
 })
 
-test('<!-- more --> mark', () => {
+it('<!-- more --> mark', () => {
   const md = new Markdown({
-    html: true
+    html: true,
   })
   const { env, page } = createEnv()
   md.use(excerptPlugin)
@@ -59,7 +59,7 @@ world
 
 wow
   `,
-    env
+    env,
   )
   expect(page.excerpt).toBe('<p>hello</p>\n<p>world</p>\n')
 })

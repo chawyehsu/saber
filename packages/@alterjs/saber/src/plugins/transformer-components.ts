@@ -1,10 +1,10 @@
-import { slash } from '../utils'
 import { parseComponent } from 'vue-template-compiler'
-import { SaberPlugin } from '..'
-import { Page } from '../Pages'
+import { slash } from '../utils'
+import type { SaberPlugin } from '..'
+import type { Page } from '../Pages'
 import parseAttributes from '../utils/parseAttributes'
 
-const getPageComponent = (page: Page) => {
+function getPageComponent(page: Page) {
   return `<script>
   import PageComponent from "${slash(page.internal.absolute!)}"
 
@@ -29,7 +29,7 @@ const getPageComponent = (page: Page) => {
  */
 const transformerComponentsPlugin: SaberPlugin = {
   name: 'builtin:transformer-components',
-  apply: api => {
+  apply: (api) => {
     // Vue SFC transformer
     api.transformers.add('vue', {
       extensions: ['vue'],
@@ -38,12 +38,12 @@ const transformerComponentsPlugin: SaberPlugin = {
         if (sfc.script) {
           const attributes = parseAttributes(
             sfc.script.content,
-            page.internal.absolute!
+            page.internal.absolute!,
           )
           Object.assign(page, attributes)
         }
       },
-      getPageComponent
+      getPageComponent,
     })
 
     // .js transformer
@@ -52,13 +52,13 @@ const transformerComponentsPlugin: SaberPlugin = {
       transform(page) {
         const attributes = parseAttributes(
           page.content!,
-          page.internal.absolute!
+          page.internal.absolute!,
         )
         Object.assign(page, attributes)
       },
-      getPageComponent
+      getPageComponent,
     })
-  }
+  },
 }
 
 export default transformerComponentsPlugin

@@ -1,7 +1,7 @@
 import { EventEmitter } from 'node:events'
-import WebpackChain from 'webpack-chain'
-import { Compiler as WebpackCompiler } from 'webpack'
-import { Saber } from '.'
+import type WebpackChain from 'webpack-chain'
+import type { Compiler as WebpackCompiler } from 'webpack'
+import type { Saber } from '.'
 
 export class Compiler extends EventEmitter {
   type: string
@@ -17,7 +17,7 @@ export class Compiler extends EventEmitter {
 
   injectToWebpack(config: WebpackChain) {
     const ID = `compiler-${this.type}`
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    // eslint-disable-next-line ts/no-this-alias
     const context = this
     config.plugin(ID).use(
       class {
@@ -28,11 +28,11 @@ export class Compiler extends EventEmitter {
               status: context.status,
               allCompilers: {
                 ready: false,
-                hasError: false
-              }
+                hasError: false,
+              },
             })
           })
-          compiler.hooks.done.tap(ID, stats => {
+          compiler.hooks.done.tap(ID, (stats) => {
             if (stats.hasErrors()) {
               context.status = 'error'
             } else {
@@ -52,11 +52,11 @@ export class Compiler extends EventEmitter {
 
             context.emit('status-changed', {
               status: context.status,
-              allCompilers
+              allCompilers,
             })
           })
         }
-      }
+      },
     )
   }
 }

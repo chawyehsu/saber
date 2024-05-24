@@ -1,8 +1,8 @@
 import path from 'node:path'
-import { slash } from '../utils'
 import glob from 'fast-glob'
 import fs from 'fs-extra'
-import { SaberPlugin } from '..'
+import { slash } from '../utils'
+import type { SaberPlugin } from '..'
 
 interface Layouts {
   [name: string]: string
@@ -17,7 +17,7 @@ const layoutsPlugin: SaberPlugin = {
     const setLayout = (
       layouts: Layouts,
       filepath: string,
-      shouldDelete?: boolean
+      shouldDelete?: boolean,
     ) => {
       const layoutName = path.basename(filepath, path.extname(filepath))
       if (shouldDelete) {
@@ -29,10 +29,10 @@ const layoutsPlugin: SaberPlugin = {
 
     const getLayouts = async (dir: string) => {
       const files = await glob('*.{vue,js}', {
-        cwd: dir
+        cwd: dir,
       })
       const layouts = {}
-      files.forEach(file => {
+      files.forEach((file) => {
         setLayout(layouts, path.join(dir, file))
       })
       return layouts
@@ -40,7 +40,7 @@ const layoutsPlugin: SaberPlugin = {
 
     const writeLayouts = async (
       themeLayouts: Layouts,
-      userLayouts: Layouts
+      userLayouts: Layouts,
     ) => {
       const layouts = Object.assign({}, themeLayouts, userLayouts)
 
@@ -67,7 +67,7 @@ const layoutsPlugin: SaberPlugin = {
       const userLayoutsDir = api.resolveCwd('layouts')
       const [themeLayouts, userLayouts] = await Promise.all([
         getLayouts(themeLayoutsDir),
-        getLayouts(userLayoutsDir)
+        getLayouts(userLayoutsDir),
       ])
       await writeLayouts(themeLayouts, userLayouts)
 
@@ -77,7 +77,7 @@ const layoutsPlugin: SaberPlugin = {
 
           const onRemoveDir = async (dir: string) => {
             if (!dir) {
-              Object.keys(layouts).forEach(name => {
+              Object.keys(layouts).forEach((name) => {
                 delete layouts[name]
               })
               await writeLayouts(themeLayouts, userLayouts)
@@ -102,7 +102,7 @@ const layoutsPlugin: SaberPlugin = {
               ignored(filepath: string) {
                 return filepath !== dir
               },
-              ignoreInitial: true
+              ignoreInitial: true,
             })
             .on('unlinkDir', (dir: string) => {
               onRemoveDir(dir)
@@ -127,7 +127,7 @@ const layoutsPlugin: SaberPlugin = {
         watchLayouts(userLayoutsDir, userLayouts)
       }
     })
-  }
+  },
 }
 
 export default layoutsPlugin

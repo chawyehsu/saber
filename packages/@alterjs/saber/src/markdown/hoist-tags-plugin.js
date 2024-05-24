@@ -1,4 +1,4 @@
-module.exports = md => {
+module.exports = (md) => {
   const RE = /^<(style|script)(?=(\s|>|$))/i
 
   md.renderer.rules.html_block = (tokens, idx, options, env) => {

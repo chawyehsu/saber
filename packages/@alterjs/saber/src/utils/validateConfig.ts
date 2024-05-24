@@ -1,5 +1,5 @@
 import { struct } from 'superstruct'
-import { SaberConfig, SaberConfigPlugin, MarkdownPlugin } from '..'
+import type { MarkdownPlugin, SaberConfig, SaberConfigPlugin } from '..'
 
 export interface ValidatedSaberConfig {
   siteConfig: SaberConfig['siteConfig'] & {
@@ -33,14 +33,14 @@ export interface ValidatedSaberConfig {
  */
 export function validateConfig(
   config: SaberConfig,
-  { dev }: { dev: boolean }
+  { dev }: { dev: boolean },
 ): ValidatedSaberConfig {
   const siteConfig = struct.interface(
     {
       title: 'string?',
-      description: 'string?'
+      description: 'string?',
     },
-    {}
+    {},
   )
 
   // Type of Saber plugins
@@ -50,11 +50,11 @@ export function validateConfig(
       [
         {
           resolve: 'string',
-          options: 'object?'
-        }
-      ]
+          options: 'object?',
+        },
+      ],
     ],
-    []
+    [],
   )
 
   const markdown = struct(
@@ -65,11 +65,11 @@ export function validateConfig(
       highlighter: 'string?',
       lineNumbers: 'boolean?',
       // Same as the type of Saber plugins
-      plugins
+      plugins,
     },
     {
-      plugins: []
-    }
+      plugins: [],
+    },
   )
 
   const themeConfig = struct.interface({}, {})
@@ -79,12 +79,12 @@ export function validateConfig(
   const server = struct(
     {
       host: 'string?',
-      port: 'number?'
+      port: 'number?',
     },
     {
       host: '0.0.0.0',
-      port: 3000
-    }
+      port: 3000,
+    },
   )
 
   const build = struct(
@@ -95,7 +95,7 @@ export function validateConfig(
       cssSourceMap: 'boolean?',
       lazy: 'boolean?',
       outDir: 'string?',
-      cache: 'boolean?'
+      cache: 'boolean?',
     },
     {
       publicUrl: '/',
@@ -104,8 +104,8 @@ export function validateConfig(
       cssSourceMap: false,
       lazy: false,
       outDir: 'public',
-      cache: true
-    }
+      cache: true,
+    },
   )
 
   const locales = struct('object', {})
@@ -115,12 +115,12 @@ export function validateConfig(
   const template = struct(
     {
       openLinkInNewTab: 'boolean',
-      plugins: ['any']
+      plugins: ['any'],
     },
     {
       openLinkInNewTab: true,
-      plugins: []
-    }
+      plugins: [],
+    },
   )
 
   const schema = struct({
@@ -133,7 +133,7 @@ export function validateConfig(
     markdown,
     permalinks,
     server,
-    template
+    template,
   })
 
   const [err, result] = schema.validate(config)

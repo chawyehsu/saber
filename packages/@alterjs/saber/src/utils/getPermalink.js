@@ -23,14 +23,16 @@ function padZero(input) {
  * @param {any} permalinks - The `permalinks` config option
  */
 module.exports = (localeNames, page, permalinks) => {
-  if (page.slug === 'index') return '/'
+  if (page.slug === 'index') {
+    return '/'
+  }
 
   permalinks = Object.assign(
     {
       page: '/:slug.html',
-      post: '/posts/:slug.html'
+      post: '/posts/:slug.html',
     },
-    permalinks
+    permalinks,
   )
 
   const permalinkTemplate = permalinks[page.type] || permalinks.page

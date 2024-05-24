@@ -8,6 +8,6 @@ export default function getFileNames(useHash: boolean) {
     font: useHash ? 'fonts/[name].[hash:8].[ext]' : 'fonts/[path][name].[ext]',
     image: useHash
       ? 'images/[name].[hash:8].[ext]'
-      : 'images/[path][name].[ext]'
+      : 'images/[path][name].[ext]',
   }
 }

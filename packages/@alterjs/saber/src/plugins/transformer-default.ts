@@ -1,8 +1,8 @@
-import { SaberPlugin } from '..'
-import { Transformer } from '../Transformers'
-import { Page } from '../Pages'
+import type { SaberPlugin } from '..'
+import type { Transformer } from '../Transformers'
+import type { Page } from '../Pages'
 
-const getPageComponent = (page: Page) => {
+function getPageComponent(page: Page) {
   return `
   <template>
     <layout-manager>
@@ -14,11 +14,11 @@ const getPageComponent = (page: Page) => {
 
 const transformerDefaultPlugin: SaberPlugin = {
   name: 'builtin:transformer-markdefault',
-  apply: api => {
+  apply: (api) => {
     api.transformers.add('default', {
-      getPageComponent
+      getPageComponent,
     } as Transformer)
-  }
+  },
 }
 
 export default transformerDefaultPlugin

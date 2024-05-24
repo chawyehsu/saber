@@ -2,7 +2,7 @@ import { getInitialDocument, getInitialDocumentData } from './get-initial-docume
 
 export default async (
   renderer: any,
-  { url, hooks, isProd }: { url: string, hooks: any, isProd: boolean }
+  { url, hooks, isProd }: { url: string, hooks: any, isProd: boolean },
 ) => {
   const context: any = { url }
   context.markup = await renderer.renderToString(context)
@@ -10,13 +10,13 @@ export default async (
   // Get document data that is used to document string
   const documentData = hooks.getDocumentData.call(
     getInitialDocumentData(context),
-    context
+    context,
   )
 
   // Get document string
   let document = hooks.getDocument.call(
     getInitialDocument(documentData),
-    context
+    context,
   )
 
   if (isProd) {
@@ -27,8 +27,8 @@ export default async (
   return {
     html: `<!DOCTYPE html>${document}`.replace(
       '<div id="_saber"></div>',
-      context.markup
+      context.markup,
     ),
-    context
+    context,
   }
 }
