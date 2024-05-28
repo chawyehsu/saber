@@ -70,7 +70,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }) {
     .end()
     .oneOf('normal')
     .use('esbuild-loader')
-    .loader(require.resolve('esbuild-loader'))
+    .loader('esbuild-loader')
     .options({
       loader: 'js',
       target: 'es2015',

@@ -1,5 +1,7 @@
 /**
- * @param {boolean} useHash
+ * Determine file names of the output assets (js, css, font, image...)
+ *
+ * @param {boolean} useHash - Whether to use hash in file names
  */
 export default function getFileNames(useHash: boolean) {
   return {
