@@ -7,7 +7,7 @@ Vue.use(Router)
 // Make `<RouterLink>` prefetch-able
 Vue.use(RoutePrefetch, {
   // Only enable prefetching in production mode
-  prefetch: process.env.NODE_ENV === 'production'
+  prefetch: process.env.NODE_ENV === 'production',
 })
 
 if (process.client) {
@@ -41,8 +41,8 @@ export default () => {
 
         // if no children detected and scrollToTop is not explicitly disabled
         if (
-          to.matched.length < 2 &&
-          to.matched.every(r => r.components.default.scrollToTop !== false)
+          to.matched.length < 2
+          && to.matched.every(r => r.components.default.scrollToTop !== false)
         ) {
           // scroll to the top of the page
           position = { x: 0, y: 0 }
@@ -56,7 +56,7 @@ export default () => {
           position = savedPosition
         }
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           const fulfill = () => {
             // coords will be used if no selector is provided,
             // or if the selector didn't match any element.
@@ -81,7 +81,7 @@ export default () => {
             router.app.$once('trigger-scroll', fulfill)
           }
         })
-      }
+      },
     })
 
   const router = createRouter(routes)
@@ -91,7 +91,9 @@ export default () => {
     const visitedRoutes = {}
 
     router.beforeEach((to, from, next) => {
-      if (!hasPrevPage || visitedRoutes[to.path]) return next()
+      if (!hasPrevPage || visitedRoutes[to.path]) {
+        return next()
+      }
 
       next(false)
 
@@ -99,7 +101,7 @@ export default () => {
       fetch(
         `/_saber/visit-page?id=${
           window.__SABER_DEV_CLIENT_ID__
-        }&route=${encodeURIComponent(to.fullPath)}`
+        }&route=${encodeURIComponent(to.fullPath)}`,
       )
     })
 

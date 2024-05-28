@@ -1,6 +1,6 @@
 import isAbsoluteUrl from '../utils/is-absolute-url'
 
-const setAttribute = (attrs, name, value) => {
+function setAttribute(attrs, name, value) {
   if (attrs[name] === undefined) {
     attrs[name] = value
   }
@@ -50,9 +50,9 @@ export default {
       tag,
       {
         ...data,
-        attrs
+        attrs,
       },
-      children
+      children,
     )
-  }
+  },
 }

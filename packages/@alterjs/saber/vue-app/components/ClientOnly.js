@@ -9,5 +9,5 @@ export default {
     parent.$once('hook:mounted', () => {
       parent.$forceUpdate()
     })
-  }
+  },
 }

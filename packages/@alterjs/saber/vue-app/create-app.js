@@ -1,16 +1,16 @@
 import '#cache/runtime-polyfills'
 import Vue from 'vue'
 import Meta from 'vue-meta'
-import layouts from '#cache/layouts'
 import createRouter from './router'
 import Layout from './components/LayoutManager.vue'
 import ClientOnly from './components/ClientOnly'
 import SaberLink from './components/SaberLink'
-import extendBrowserApi from '#cache/extend-browser-api'
-import { join, dirname } from './helpers/path'
+import { dirname, join } from './helpers/path'
 import injectConfig from './helpers/inject-config'
 import setTransition from './helpers/set-transition'
 import scrollHandler from './helpers/scroll-handler'
+import extendBrowserApi from '#cache/extend-browser-api'
+import layouts from '#cache/layouts'
 
 Vue.config.productionTip = false
 
@@ -22,16 +22,16 @@ Vue.use(Meta, {
   keyName: 'head',
   attribute: 'data-saber-head',
   ssrAttribute: 'data-saber-ssr',
-  tagIDKeyName: 'hid'
+  tagIDKeyName: 'hid',
 })
 
 Vue.mixin({
   beforeCreate() {
     this.$saber = this.$root
-  }
+  },
 })
 
-export default context => {
+export default (context) => {
   const router = createRouter()
 
   let customHead
@@ -40,14 +40,14 @@ export default context => {
   const rootOptions = {
     mixins: [],
     head() {
-      const head =
-        typeof customHead === 'function'
+      const head
+        = typeof customHead === 'function'
           ? customHead.call(this, this)
           : customHead || {}
 
       const htmlAttrs = {
         lang: this.$siteConfig.lang,
-        ...head.htmlAttrs
+        ...head.htmlAttrs,
       }
 
       if (!htmlAttrs.lang) {
@@ -59,15 +59,15 @@ export default context => {
       const defaultMeta = [
         {
           name: 'generator',
-          content: `Saber v${__SABER_VERSION__}`
-        }
+          content: `Saber v${__SABER_VERSION__}`,
+        },
       ]
 
       if (description) {
         defaultMeta.push({
           name: 'description',
           content: description,
-          hid: 'description'
+          hid: 'description',
         })
       }
 
@@ -77,42 +77,42 @@ export default context => {
         title,
         meta: [
           ...defaultMeta,
-          ...(head.meta || [])
-        ]
+          ...(head.meta || []),
+        ],
       }
     },
     provide: {
-      layouts
+      layouts,
     },
     layouts,
     router,
     data() {
       return {
-        transition: null
+        transition: null,
       }
     },
     mounted() {
       scrollHandler(
         this.$router,
         this.$router.currentRoute,
-        this.$router.currentRoute
+        this.$router.currentRoute,
       )
     },
     render(h) {
       const transition = Object.assign({}, this.transition)
       const listeners = {}
-      Object.keys(transition).forEach(key => {
+      Object.keys(transition).forEach((key) => {
         if (typeof transition[key] === 'function') {
           const kebabKey = key.replace(
             /([a-z])([A-Z])/,
-            (_, p1, p2) => `${p1}-${p2.toLowerCase()}`
+            (_, p1, p2) => `${p1}-${p2.toLowerCase()}`,
           )
           listeners[kebabKey] = transition[key]
           delete transition[key]
         }
       })
       const beforeEnter = listeners['before-enter']
-      listeners['before-enter'] = el => {
+      listeners['before-enter'] = (el) => {
         this.$nextTick(() => {
           this.$emit('trigger-scroll')
         })
@@ -124,13 +124,13 @@ export default context => {
           'transition',
           {
             props: transition,
-            on: listeners
+            on: listeners,
           },
-          [h('router-view')]
-        )
+          [h('router-view')],
+        ),
       ]
       return h('div', { attrs: { id: '_saber' } }, [
-        customRootComponent ? h(customRootComponent, {}, children) : children
+        customRootComponent ? h(customRootComponent, {}, children) : children,
       ])
     },
     methods: {
@@ -151,7 +151,7 @@ export default context => {
 
         const relativePath = join(
           dirname(this.$route.meta.__relative),
-          matched[1]
+          matched[1],
         )
         const extra = matched[2] || ''
         for (const route of this.$router.options.routes) {
@@ -160,9 +160,9 @@ export default context => {
           }
 
           if (
-            route.meta &&
-            route.meta.__relative &&
-            relativePath === route.meta.__relative
+            route.meta
+            && route.meta.__relative
+            && relativePath === route.meta.__relative
           ) {
             return `${route.path}${extra}`
           }
@@ -170,8 +170,8 @@ export default context => {
 
         // Not a page
         return undefined
-      }
-    }
+      },
+    },
   }
 
   const setHead = input => (customHead = input)
@@ -182,7 +182,7 @@ export default context => {
     router,
     rootOptions,
     setHead,
-    setRootComponent
+    setRootComponent,
   }
 
   injectConfig(browserApiContext)
@@ -195,7 +195,7 @@ export default context => {
 
   return {
     app,
-    router
+    router,
   }
 }
 

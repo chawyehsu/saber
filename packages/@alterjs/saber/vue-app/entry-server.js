@@ -1,6 +1,6 @@
 import createApp from './create-app'
 
-export default async context => {
+export default async (context) => {
   const { app, router } = createApp(context)
   router.push(context.url)
 

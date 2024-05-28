@@ -8,20 +8,20 @@ export default {
     {
       injections: { layouts },
       parent,
-      scopedSlots
-    }
+      scopedSlots,
+    },
   ) {
     const page = parent.$page
-    const { layout, isVueSFC } = parent.$options
+    const { layout } = parent.$options
     const { component: componentSlot, default: defaultSlot } = scopedSlots
 
     const attrs = { props: { page } }
 
-    const wrapSlot = slot => {
+    const wrapSlot = (slot) => {
       const { markPageContent } = parent.$ssrContext || {}
       if (markPageContent) {
         const result = h('div', null, [markPageContent[0]].concat(slot, markPageContent[1]))
-        return Array.isArray(slot)? [result] : result
+        return Array.isArray(slot) ? [result] : result
       }
       return slot
     }
@@ -30,13 +30,13 @@ export default {
       return componentSlot
         ? wrapSlot(componentSlot(attrs.props))
         : h(
-            'div',
-            {
-              ...attrs,
-              class: '_saber-page'
-            },
-            wrapSlot(defaultSlot ? defaultSlot() : undefined)
-          )
+          'div',
+          {
+            ...attrs,
+            class: '_saber-page',
+          },
+          wrapSlot(defaultSlot ? defaultSlot() : undefined),
+        )
     }
 
     const LayoutComponent = layouts[layout] || layouts.default
@@ -52,10 +52,10 @@ export default {
         componentSlot
           ? componentSlot(attrs.props)
           : defaultSlot
-          ? defaultSlot()
-          : undefined
-      )
+            ? defaultSlot()
+            : undefined,
+      ),
     )
-  }
+  },
 }
 </script>

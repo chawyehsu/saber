@@ -9,7 +9,7 @@
  * @param {object} to Destination route
  * @param {object} from Starting route
  */
-export default function(router, to, from) {
+export default function (router, to, from) {
   if (!router.app) {
     return
   }
@@ -29,10 +29,10 @@ export default function(router, to, from) {
 
     if (typeof shouldScroll.then === 'function') {
       shouldScroll
-        .then(shouldScroll => {
+        .then((shouldScroll) => {
           scrollToPosition(shouldScroll)
         })
-        .catch(error => {
+        .catch((error) => {
           if (process.env.NODE_ENV !== 'production') {
             console.error(err)
           }
@@ -49,7 +49,7 @@ function getElementPosition(el, offset) {
   const elRect = el.getBoundingClientRect()
   return {
     x: elRect.left - docRect.left - offset.x,
-    y: elRect.top - docRect.top - offset.y
+    y: elRect.top - docRect.top - offset.y,
   }
 }
 
@@ -60,14 +60,14 @@ function isValidPosition(obj) {
 function normalizePosition(obj) {
   return {
     x: isNumber(obj.x) ? obj.x : window.pageXOffset,
-    y: isNumber(obj.y) ? obj.y : window.pageYOffset
+    y: isNumber(obj.y) ? obj.y : window.pageYOffset,
   }
 }
 
 function normalizeOffset(obj) {
   return {
     x: isNumber(obj.x) ? obj.x : 0,
-    y: isNumber(obj.y) ? obj.y : 0
+    y: isNumber(obj.y) ? obj.y : 0,
   }
 }
 
@@ -81,8 +81,8 @@ function scrollToPosition(shouldScroll) {
   if (isObject && typeof shouldScroll.selector === 'string') {
     const el = document.getElementById(shouldScroll.selector.substr(1))
     if (el) {
-      let offset =
-        shouldScroll.offset && typeof shouldScroll.offset === 'object'
+      let offset
+        = shouldScroll.offset && typeof shouldScroll.offset === 'object'
           ? shouldScroll.offset
           : {}
       offset = normalizeOffset(offset)

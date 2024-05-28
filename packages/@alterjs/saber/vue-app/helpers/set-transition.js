@@ -12,9 +12,9 @@ export default ({ router }) => {
 
     async function getTransition(route, args) {
       if (
-        !route ||
-        !route.matched.length ||
-        !route.matched[0].components.default
+        !route
+        || !route.matched.length
+        || !route.matched[0].components.default
       ) {
         return
       }
@@ -31,18 +31,18 @@ export default ({ router }) => {
 
       const routeTransition = normalizeTransition(
         RouteComponent.transition,
-        ...args
+        ...args,
       )
 
       let layoutTransition
       if (RouteComponent.layout) {
         const { layouts } = router.app.$options
-        const LayoutComponent =
-          layouts[RouteComponent.layout] || layouts.default
+        const LayoutComponent
+          = layouts[RouteComponent.layout] || layouts.default
         if (LayoutComponent) {
           layoutTransition = normalizeTransition(
             LayoutComponent.transition,
-            ...args
+            ...args,
           )
         }
       }
@@ -50,16 +50,16 @@ export default ({ router }) => {
       return Object.assign(
         {
           name: 'page',
-          mode: 'out-in'
+          mode: 'out-in',
         },
-        routeTransition || layoutTransition
+        routeTransition || layoutTransition,
       )
     }
 
     router.beforeEach(async (to, from, next) => {
       const [toTransition, fromTransition] = await Promise.all([
         getTransition(to, [to, from]),
-        getTransition(from, [to, from])
+        getTransition(from, [to, from]),
       ])
 
       if (fromTransition) {

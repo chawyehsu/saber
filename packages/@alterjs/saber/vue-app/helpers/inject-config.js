@@ -1,4 +1,4 @@
-import { siteConfig, themeConfig, locales } from 'saber/config'
+import { locales, siteConfig, themeConfig } from 'saber/config'
 
 export default ({ Vue }) => {
   const store = Vue.observable({ siteConfig, themeConfig, locales })
@@ -16,8 +16,8 @@ export default ({ Vue }) => {
         for (const path of allLocalePaths) {
           if (path !== '/') {
             if (
-              this.$route.path === path ||
-              this.$route.path.indexOf(`${path}/`) === 0
+              this.$route.path === path
+              || this.$route.path.indexOf(`${path}/`) === 0
             ) {
               localePath = path
             }
@@ -34,8 +34,8 @@ export default ({ Vue }) => {
       },
       $themeConfig() {
         return getMatchedConfig(this.$localePath, 'themeConfig')
-      }
-    }
+      },
+    },
   })
 
   if (module.hot) {
