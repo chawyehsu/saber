@@ -1,4 +1,4 @@
-const slugo = require('slugo')
+const slugo = require('../utils/slugo')
 
 function uniqueSlug(slug, slugs) {
   let i = 2
@@ -17,8 +17,8 @@ function permalinkRenderer(slug, {
   permalinkHref,
   permalinkComponent,
 }, // options
-{ Token }, // markdown state
-{ children }) {
+  { Token }, // markdown state
+  { children }) {
   const space = new Token('text', '', 0)
   space.content = ' '
 

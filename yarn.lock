@@ -12345,11 +12345,6 @@ slice-ansi@0.0.4:
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
   integrity sha512-up04hB2hR92PgjpyU3y/eg91yIBILyjVY26NvvciY3EVVPjybkMszMpXQ9QAkcS3I5rtJBDLoTxxg+qvW8c7rw==
 
-slugo@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/slugo/-/slugo-0.4.0.tgz#600e279eef61cc2079292d08d24ea032a1cc455d"
-  integrity sha512-WENYU9JlHuU2vIxtsmY/6N9HxgXFG+tpkHtl8yP0a5y7FvjKDRjTtMWU/CLpX4qOZDlGhOLGOhiD4L+GqhZjRQ==
-
 smart-buffer@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"

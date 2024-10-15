@@ -1,4 +1,25 @@
-const slugify = require('slugo')
+/**
+ *
+ * @param {string} input
+ * @returns {string}
+ */
+function slugo(input) {
+  return (
+    input
+      // Remove html tags
+      .replace(/<(?:.|\n)*?>/gm, '')
+      // Remove special characters
+      .replace(/[!\"#$%&'\(\)\*\+,\/:;<=>\?\@\[\\\]\^`\{\|\}~]/g, '') // eslint-disable-line no-useless-escape
+      // Replace dots and spaces with a short dash
+      .replace(/(\s|\.)/g, '-')
+      // Replace multiple dashes with a single dash
+      .replace(/-{2,}/g, '-')
+      // Replace long dash with two short dashes
+      .replace(/—/g, '--')
+      // Make the whole thing lowercase
+      .toLowerCase()
+  )
+}
 
 function paginate(arr, options) {
   options = Object.assign({ perPage: 30 }, options)
@@ -21,7 +42,7 @@ function getIdFromMap(map, name) {
   if (map[name]) {
     id = map[name]
   } else {
-    id = slugify(name.replace(/\//g, '-'))
+    id = slugo(name.replace(/\//g, '-'))
     map[name] = id
   }
 
