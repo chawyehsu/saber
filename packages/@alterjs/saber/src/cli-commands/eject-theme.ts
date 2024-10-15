@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 import fs from 'fs-extra'
-import normalizeRepo from 'normalize-repo'
+import normalizeRepo from '../utils/normalizeRepo'
 import type { CAC } from 'cac'
 import configLoader from '../utils/configLoader'
 import { log } from '../utils'
