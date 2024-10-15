@@ -6,7 +6,8 @@
     "outDir": "dist",
     "lib": ["ES2020", "DOM"],
     "module": "CommonJS",
-    "declaration": false
+    "declaration": true,
+    "declarationDir": "types",
   },
   "exclude": ["**/**.test.js"]
 }

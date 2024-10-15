@@ -13,7 +13,7 @@
     "prepublishOnly": "yarn build",
     "build": "rimraf dist && tsc",
     "lint": "eslint src",
-    "build:typedoc": "typedoc types/index.d.ts --out ../../website/public/typedoc --readme none --exclude \"**/src/**\" --theme minimal --mode file --includeDeclarations --excludeExternals --excludePrivate --excludeProtected"
+    "build:typedoc": "typedoc"
   },
   "bin": {
     "saber": "bin/saber.js"
