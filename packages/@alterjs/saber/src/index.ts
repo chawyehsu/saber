@@ -22,6 +22,7 @@ import type { ValidatedSaberConfig } from './utils/validateConfig'
 import { validateConfig } from './utils/validateConfig'
 import serveDir from './utils/serveDir'
 import { publicUtils } from './utils'
+import { Configuration } from 'webpack'
 
 export interface SaberConstructorOptions {
   cwd?: string
@@ -495,7 +496,12 @@ export class Saber {
     return this.resolveCwd(this.config.build.outDir, ...args)
   }
 
-  async getWebpackConfig(opts: WebpackContext) {
+  /**
+   *
+   * @param {WebpackContext} opts Webpack context
+   * @returns {Promise<Configuration>} Webpack configuration
+   */
+  async getWebpackConfig(opts: WebpackContext): Promise<Configuration> {
     opts = Object.assign({ type: 'client' }, opts)
     const chain = (await import('./webpack/webpack.config')).default(this, opts)
     this.hooks.chainWebpack.call(chain, opts)

@@ -441,13 +441,14 @@ export class VueRenderer {
     this.api.hooks.onCreateServer.call(server)
 
     const clientConfig = await this.api.getWebpackConfig({ type: 'client' })
+    const hmrPlugin = new webpack.HotModuleReplacementPlugin()
 
-    clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
+    clientConfig.plugins ? clientConfig.plugins.push(hmrPlugin) : clientConfig.plugins = [hmrPlugin]
 
     const clientCompiler = webpack(clientConfig)
 
     const devMiddleware = webpackDevMiddleware(clientCompiler, {
-      publicPath: clientConfig.output.publicPath,
+      publicPath: clientConfig.output?.publicPath,
     })
 
     const hotMiddleware = webpackHotMiddleware(clientCompiler, {
