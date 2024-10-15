@@ -4,7 +4,7 @@
  * @param {string} input The string to convert
  * @returns {string} The slug
  */
-function slugo(input) {
+module.exports = function slugo(input) {
   return (
     input
       // Remove html tags
@@ -21,11 +21,3 @@ function slugo(input) {
       .toLowerCase()
   )
 }
-
-if (typeof module !== 'undefined') {
-  // For CommonJS default export support
-  module.exports = slugo
-  module.exports.default = slugo
-}
-
-export default slugo
