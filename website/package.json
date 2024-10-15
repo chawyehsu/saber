@@ -21,7 +21,7 @@
     "headroom.js": "^0.9.4",
     "markdown-it-footnote": "^3.0.3",
     "nprogress": "0.2.0",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.27.0"
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"
