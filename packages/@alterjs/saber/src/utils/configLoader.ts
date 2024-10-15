@@ -2,6 +2,7 @@ import path from 'node:path'
 import fs from 'node:fs'
 import process from 'node:process'
 import JoyCon from 'joycon'
+import type { Options } from 'joycon'
 
 export const CONFIG_FILES = [
   'saber-config.json',
@@ -29,17 +30,17 @@ joycon.addLoader({
 export default {
   /**
    * Load config files synchronously
-   * @param {import('joycon').Options} opts
+   * @param {Options} opts
    */
-  load(opts: any) {
+  load(opts: Options) {
     joycon.clearCache()
     return joycon.loadSync(opts)
   },
   /**
    * Resolve config files synchronously
-   * @param {import('joycon').Options} opts
+   * @param {Options} opts
    */
-  resolve(opts: any) {
+  resolve(opts: Options) {
     joycon.clearCache()
     return joycon.resolveSync(opts)
   },
