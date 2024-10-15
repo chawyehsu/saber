@@ -9,7 +9,7 @@
     "!dist/**/__test__"
   ],
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --run",
     "prepublishOnly": "yarn build",
     "build": "rimraf dist && tsc",
     "lint": "eslint src",
