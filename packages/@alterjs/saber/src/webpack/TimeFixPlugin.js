@@ -4,15 +4,14 @@ module.exports = class TimeFixPlugin {
   }
 
   apply(compiler) {
-    const context = this
     const watch = compiler.watch
     let watching
     let fixed
 
     // Modify the time for first run
-    compiler.watch = function () {
-      watching = watch.apply(this, arguments)
-      watching.startTime += context.watchOffset
+    compiler.watch = function (...args) {
+      watching = watch.apply(this, args)
+      watching.startTime += this.watchOffset
       return watching
     }
 
@@ -24,7 +23,7 @@ module.exports = class TimeFixPlugin {
     })
 
     // Reset time
-    compiler.hooks.done.tap('time-fix-plugin', stats => {
+    compiler.hooks.done.tap('time-fix-plugin', (stats) => {
       if (watching && !fixed) {
         // webpack 5: #3
         if (stats.compilation.startTime) {

@@ -17,8 +17,8 @@ function permalinkRenderer(slug, {
   permalinkHref,
   permalinkComponent,
 }, // options
-  { Token }, // markdown state
-  { children }) {
+{ Token }, // markdown state
+{ children }) {
   const space = new Token('text', '', 0)
   space.content = ' '
 

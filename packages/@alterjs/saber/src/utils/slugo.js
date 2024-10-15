@@ -1,15 +1,16 @@
 /**
+ * Convert a string to a slug.
  *
- * @param {string} input
- * @returns {string}
+ * @param {string} input The string to convert
+ * @returns {string} The slug
  */
 function slugo(input) {
   return (
     input
       // Remove html tags
-      .replace(/<(?:.|\n)*?>/gm, '')
+      .replace(/<(?:.|\n)*?>/g, '')
       // Remove special characters
-      .replace(/[!\"#$%&'\(\)\*\+,\/:;<=>\?\@\[\\\]\^`\{\|\}~]/g, '') // eslint-disable-line no-useless-escape
+      .replace(/[!"#$%&'()*+,/:;<=>?@[\\\]^`{|}~]/g, '')
       // Replace dots and spaces with a short dash
       .replace(/(\s|\.)/g, '-')
       // Replace multiple dashes with a single dash

@@ -1,9 +1,9 @@
 import path from 'node:path'
 import Config from 'webpack-chain'
-import timeFixPlugin from './TimeFixPlugin'
 import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
 import type { Saber } from '..'
+import timeFixPlugin from './TimeFixPlugin'
 import PrintStatusPlugin from './PrintStatusPlugin'
 
 export default function webpackConfig(api: Saber, { type }: { type: string }): Config {
