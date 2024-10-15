@@ -1,7 +1,7 @@
 import path from 'node:path'
-import hash from 'hash-sum'
 import merge from 'lodash.merge'
 import { log, slash } from './utils'
+import hash from './utils/hashsum'
 import getPermalink from './utils/getPermalink'
 import getPageType from './utils/getPageType'
 import { prefixAssets } from './utils/assetsAttribute'
