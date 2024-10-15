@@ -30,7 +30,13 @@ function runCompiler(compiler: Compiler) {
   })
 }
 
-function resolveVueApp(...args: string[]) {
+/**
+ * Resolve file path of Vue client app
+ *
+ * @param {...string} args - Path segments
+ * @returns {string} - Resolved path
+ */
+function resolveVueApp(...args: string[]): string {
   return path.join(__dirname, '../../vue-app', ...args)
 }
 

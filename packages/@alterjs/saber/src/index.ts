@@ -294,7 +294,6 @@ export class Saber {
               log.verbose(msg)
             }
 
-            // @ts-expect-error - unknown
             return fn(...args)
           }
 
@@ -398,7 +397,7 @@ export class Saber {
     }
 
     // Load user plugins
-    await this.hooks.beforePlugins.promise()
+    await this.hooks.beforePlugins.promise(0)
 
     const userPlugins = this.getUserPlugins()
     if (userPlugins.length > 0) {
@@ -413,7 +412,7 @@ export class Saber {
       await this.applyPlugin(plugin, plugin.options, plugin.location)
     }
 
-    await this.hooks.afterPlugins.promise()
+    await this.hooks.afterPlugins.promise(0)
   }
 
   async applyPlugin(
@@ -431,7 +430,7 @@ export class Saber {
     )
   }
 
-  getUserPlugins() {
+  getUserPlugins(): ResolvedSaberPlugin[] {
     // Plugins that are specified in user config, a.k.a. saber-config.js etc
     const plugins: ResolvedSaberPlugin[]
       = this.configDir && this.config.plugins
@@ -497,6 +496,7 @@ export class Saber {
   }
 
   /**
+   * Get Webpack Config
    *
    * @param {WebpackContext} opts Webpack context
    * @returns {Promise<Configuration>} Webpack configuration
@@ -556,9 +556,9 @@ export class Saber {
       )
     }
 
-    await this.hooks.beforeRun.promise()
+    await this.hooks.beforeRun.promise(0)
 
-    await this.hooks.emitRoutes.promise()
+    await this.hooks.emitRoutes.promise(0)
   }
 
   // Build app in production mode
@@ -569,11 +569,11 @@ export class Saber {
 
     if (!skipCompilation) {
       await this.renderer.build()
-      await this.hooks.afterBuild.promise()
+      await this.hooks.afterBuild.promise(0)
     }
 
     await this.renderer.generate()
-    await this.hooks.afterGenerate.promise()
+    await this.hooks.afterGenerate.promise(0)
   }
 
   async serve() {

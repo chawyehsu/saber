@@ -7,7 +7,7 @@ import getFileNames from '../utils/getFileNames'
 import type { Saber } from '..'
 import PrintStatusPlugin from './PrintStatusPlugin'
 
-export default function webpackConfig(api: Saber, { type }: { type: string }) {
+export default function webpackConfig(api: Saber, { type }: { type: string }): Config {
   const config = new Config()
 
   config.mode(api.dev ? 'development' : 'production')

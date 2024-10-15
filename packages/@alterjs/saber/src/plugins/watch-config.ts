@@ -60,7 +60,7 @@ const WatchConfigPlugin: SaberPlugin = {
           const prevConfig = api.config
           checkIfConfigChanged(newConfig, prevConfig)
           api.setConfig(newConfig, newConfigPath)
-          await api.hooks.onUpdateConfigFile.promise()
+          await api.hooks.onUpdateConfigFile.promise(0)
           await emit(newConfig)
         }
         watcher.on('all', () => {

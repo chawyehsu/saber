@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { colors, log } from '../utils/log'
-import type { SaberPlugin } from '..'
+import type { Saber, SaberPlugin } from '..'
 import type { hooks } from '../hooks'
 
 const ID = 'builtin:extend-node-api'
@@ -14,7 +14,7 @@ type HookName = keyof typeof hooks
 
 const extendNodeApiPlugin: SaberPlugin = {
   name: ID,
-  apply: (api) => {
+  apply: (api: Saber) => {
     const handleNodeApiFile = (nodeApiFile: string, nodeApiId: string) => {
       let nodeApi: any = {}
 
@@ -33,9 +33,10 @@ const extendNodeApiPlugin: SaberPlugin = {
       const addHook = (hookName: HookName) => {
         const hook = api.hooks[hookName]
         if (hook) {
-          // @ts-expect-error unknown
+          // @ts-expect-error todo: fix this
           const tapType = hook.call ? 'tap' : 'tapPromise'
-          hook[tapType](nodeApiId, (...args) => {
+          // @ts-expect-error todo: fix this
+          hook[tapType](nodeApiId, (...args: any[]) => {
             const hookHandler = getHookHandler(hookName)
             if (hookHandler.name !== '__noopHandler__') {
               log.verbose(() => `${hookName} ${colors.dim(`(${nodeApiId})`)}`)
@@ -81,11 +82,11 @@ const extendNodeApiPlugin: SaberPlugin = {
             }),
           )
           // All pages are created
-          await api.hooks.onCreatePages.promise()
+          await api.hooks.onCreatePages.promise(0)
           // Emit pages
-          await api.hooks.emitPages.promise()
+          await api.hooks.emitPages.promise(0)
           // Emit route file
-          await api.hooks.emitRoutes.promise()
+          await api.hooks.emitRoutes.promise(0)
           log.warn(
             `${action[0].toUpperCase()}${action.substring(1)} ${nodeApiFile}`,
           )

@@ -99,7 +99,7 @@ const sourcePagesPlugin: SaberPlugin = {
         )
       })
 
-      await api.hooks.initPages.promise()
+      await api.hooks.initPages.promise(0)
 
       await Promise.all(
         files.map(async (file) => {
@@ -109,8 +109,8 @@ const sourcePagesPlugin: SaberPlugin = {
         }),
       )
 
-      await api.hooks.onCreatePages.promise()
-      await api.hooks.emitPages.promise()
+      await api.hooks.onCreatePages.promise(0)
+      await api.hooks.emitPages.promise(0)
 
       if (api.dev) {
         const watcher = chokidar.watch(filePatterns, {
@@ -140,9 +140,9 @@ const sourcePagesPlugin: SaberPlugin = {
             await api.hooks.manipulatePage.promise({ action: 'create', page })
           }
 
-          await api.hooks.onCreatePages.promise()
-          await api.hooks.emitPages.promise()
-          await api.hooks.emitRoutes.promise()
+          await api.hooks.onCreatePages.promise(0)
+          await api.hooks.emitPages.promise(0)
+          await api.hooks.emitRoutes.promise(0)
         }
 
         watcher.on('add', (filename: string) => {
