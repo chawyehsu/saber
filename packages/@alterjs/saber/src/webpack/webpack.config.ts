@@ -1,7 +1,6 @@
 import path from 'node:path'
 import Config from 'webpack-chain'
-// @ts-expect-error - no types
-import timeFixPlugin from 'time-fix-plugin'
+import timeFixPlugin from './TimeFixPlugin'
 import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
 import type { Saber } from '..'
