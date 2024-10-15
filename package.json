@@ -4,11 +4,10 @@
   "scripts": {
     "test": "npm run lint && lerna run test",
     "lint": "lerna run lint",
-    "commit": "git-cz",
-    "prepare": "lerna run prepublishOnly"
+    "prepare": "husky install && lerna run prepublishOnly"
   },
   "repository": {
-    "url": "saberland/saber",
+    "url": "https://github.com/chawyehsu/saber",
     "type": "git"
   },
   "author": "egoist<0x142857@gmail.com>",
@@ -16,12 +15,10 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.18.1",
     "@types/node": "^20.5.1",
-    "commitizen": "^4.3.0",
     "conf": "6.2.0",
-    "cz-conventional-changelog": "^3.3.0",
     "enquirer": "^2.4.1",
     "eslint": "^9.3.0",
-    "husky": "3.0.9",
+    "husky": "5.2.0",
     "lerna": "5.1.8",
     "lint-staged": "8.2.1",
     "prettier": "^3.0.2",
@@ -29,11 +26,6 @@
     "typedoc": "^0.26.9",
     "typescript": "^5.6.3",
     "vitest": "^1.6.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "linters": {
@@ -57,11 +49,6 @@
     "website",
     "examples/*"
   ],
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
   "volta": {
     "node": "18.20.4"
   }
