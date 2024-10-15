@@ -5,6 +5,7 @@ import fs from 'fs-extra'
 import resolveFrom from 'resolve-from'
 import merge from 'lodash.merge'
 import getPort from 'get-port'
+import type { Configuration } from 'webpack'
 import { colors, log } from './utils/log'
 import type { Log } from './utils/log'
 import type { CreatePageInput } from './Pages'
@@ -22,7 +23,6 @@ import type { ValidatedSaberConfig } from './utils/validateConfig'
 import { validateConfig } from './utils/validateConfig'
 import serveDir from './utils/serveDir'
 import { publicUtils } from './utils'
-import { Configuration } from 'webpack'
 
 export interface SaberConstructorOptions {
   cwd?: string
