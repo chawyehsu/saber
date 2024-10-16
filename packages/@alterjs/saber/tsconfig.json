@@ -9,5 +9,5 @@
     "declaration": true,
     "declarationDir": "types",
   },
-  "exclude": ["**/**.test.js"]
+  "exclude": ["**/**.test.js", "**/__test__"]
 }
