@@ -1,0 +1,6 @@
+plugins:
+  - resolve: ../
+
+siteConfig:
+  url: https://example.com
+  author: Your Name

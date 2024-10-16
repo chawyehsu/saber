@@ -1,11 +1,11 @@
-# saber-plugin-query-posts
+# @alterjs/saber-plugin-query-posts
 
 Query posts and inject them to specific pages. Useful when you're writing a blog.
 
 ## Install
 
 ```bash
-yarn add saber-plugin-query-posts
+yarn add @alterjs/saber-plugin-query-posts
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-query-posts
+  - resolve: '@alterjs/saber-plugin-query-posts'
 ```
 
 Then this plugin will inject all posts to pages whose attribute `injectAllPosts` is set to `true`, for instance you can create a `pages/index.md`:

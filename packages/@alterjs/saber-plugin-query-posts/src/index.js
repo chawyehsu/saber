@@ -1,10 +1,5 @@
-const urlJoin = require('url-join')
-const {
-  paginate,
-  getIdFromMap,
-  getNameFromMap,
-  renderPermalink
-} = require('./utils')
+import urlJoin from 'url-join'
+import { paginate, getIdFromMap, getNameFromMap, renderPermalink } from './utils'
 
 const ID = 'query-posts'
 
