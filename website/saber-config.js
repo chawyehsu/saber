@@ -97,7 +97,7 @@ const config = {
     { resolve: '@alterjs/saber-plugin-search' },
     { resolve: '@alterjs/saber-plugin-image' },
     {
-      resolve: '@alterjs/saber-plugin-code-copy',
+      resolve: 'saber-plugin-code-copy',
       options: {
         buttonStyle: {
           border: 'none',

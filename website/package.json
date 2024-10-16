@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@alterjs/saber": "^0.12.0",
-    "@alterjs/saber-plugin-code-copy": "^0.12.0",
     "@alterjs/saber-plugin-image": "^0.12.0",
     "@alterjs/saber-plugin-prismjs": "^0.12.0",
     "@alterjs/saber-plugin-pwa": "^0.12.0",
@@ -20,7 +19,8 @@
     "headroom.js": "^0.9.4",
     "markdown-it-footnote": "^3.0.3",
     "nprogress": "0.2.0",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.29.0",
+    "saber-plugin-code-copy": "0.3.2"
   },
   "devDependencies": {
     "postcss-preset-env": "6.6.0"
