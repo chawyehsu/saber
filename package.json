@@ -1,13 +1,13 @@
 {
-  "private": true,
   "name": "saber",
+  "private": true,
+  "author": "egoist<0x142857@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "test": "npm run lint && lerna run test",
     "lint": "lerna run lint",
     "prepare": "husky install && lerna run prepublishOnly"
   },
-  "author": "egoist<0x142857@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "@antfu/eslint-config": "^2.18.1",
     "@types/node": "^20.5.1",

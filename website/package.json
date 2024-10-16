@@ -1,10 +1,11 @@
 {
-  "private": true,
-  "version": "0.0.0",
   "name": "website",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "saber",
-    "build": "saber build"
+    "build": "saber build",
+    "lint": "eslint --ext .js,.vue,.ts src"
   },
   "dependencies": {
     "@alterjs/saber": "^0.12.0",
