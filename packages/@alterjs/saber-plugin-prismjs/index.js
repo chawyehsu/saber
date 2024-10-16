@@ -1,14 +1,16 @@
-const loadLanguages = require('./loadLanguages')
 const Prism = require('prismjs')
+const loadLanguages = require('./loadLanguages')
 
 const languageAlias = {
   vue: 'html',
   sh: 'bash',
-  styl: 'stylus'
+  styl: 'stylus',
 }
 
 function highlighter(code, lang) {
-  if (!lang) return Prism.highlight(code, {})
+  if (!lang) {
+    return Prism.highlight(code, {})
+  }
 
   lang = lang.toLowerCase()
 
@@ -34,10 +36,10 @@ const ID = 'prismjs'
 const prismjsPlugin = {
   name: ID,
   apply(api) {
-    api.hooks.chainMarkdown.tap(ID, config => {
+    api.hooks.chainMarkdown.tap(ID, (config) => {
       config.options.highlight(highlighter)
     })
-  }
+  },
 }
 
 module.exports = prismjsPlugin

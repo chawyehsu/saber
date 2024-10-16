@@ -12,6 +12,9 @@
     "url": "https://github.com/chawyehsu/saber",
     "type": "git"
   },
+  "scripts": {
+    "lint": "eslint ./*.js"
+  },
   "publishConfig": {
     "access": "public"
   },

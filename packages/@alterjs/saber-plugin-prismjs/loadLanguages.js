@@ -2,14 +2,16 @@ const Prism = require('prismjs')
 const prismComponents = require('prismjs/components')
 
 // Get the real name of a language given it or an alias
-const getBaseLanguageName = (nameOrAlias, components = prismComponents) => {
+function getBaseLanguageName(nameOrAlias, components = prismComponents) {
   if (components.languages[nameOrAlias]) {
     return nameOrAlias
   }
 
-  return Object.keys(components.languages).find(language => {
+  return Object.keys(components.languages).find((language) => {
     const { alias } = components.languages[language]
-    if (!alias) return false
+    if (!alias) {
+      return false
+    }
     if (Array.isArray(alias)) {
       return alias.includes(nameOrAlias)
     }
