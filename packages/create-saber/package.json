@@ -1,18 +1,25 @@
 {
   "name": "create-saber",
-  "version": "0.12.1",
+  "type": "module",
+  "version": "0.12.2",
   "description": "Create a Saber Alter project in seconds",
-  "files": [
-    "index.js",
-    "dist/index.mjs",
-    "template"
-  ],
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/chawyehsu/saber",
+    "type": "git"
+  },
+  "main": "index.js",
   "bin": {
     "create-saber": "./index.js"
   },
-  "main": "index.js",
-  "type": "module",
-  "license": "MIT",
+  "files": [
+    "dist/index.mjs",
+    "index.js",
+    "template"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "prepublishOnly": "npm run build"
@@ -22,8 +29,5 @@
     "kleur": "^4.1.5",
     "ncp": "2.0.0",
     "rollup": "^3.28.1"
-  },
-  "engines": {
-    "node": ">=16"
   }
 }

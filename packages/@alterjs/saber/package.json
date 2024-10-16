@@ -2,21 +2,24 @@
   "name": "@alterjs/saber",
   "version": "0.12.2",
   "description": "A simple yet powerful static site generator",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/chawyehsu/saber"
   },
-  "license": "MIT",
   "main": "dist/index.js",
   "bin": {
     "saber": "bin/saber.js"
   },
   "files": [
+    "!dist/**/__test__",
     "bin",
     "dist",
-    "vue-app",
-    "!dist/**/__test__"
+    "vue-app"
   ],
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "build:typedoc": "typedoc",
@@ -79,9 +82,6 @@
     "@types/webpack": "4.41.38",
     "@vue/compiler-sfc": "^3.4.27",
     "@vue/runtime-dom": "^3.4.27"
-  },
-  "engines": {
-    "node": ">=16"
   },
   "publishConfig": {
     "access": "public"

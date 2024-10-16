@@ -2,11 +2,11 @@
   "name": "@alterjs/saber-markdown",
   "version": "0.12.2",
   "description": "A custom build of markdown-it for Saber",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/chawyehsu/saber"
   },
-  "license": "MIT",
   "exports": {
     ".": {
       "import": "./dist/index.min.mjs",
