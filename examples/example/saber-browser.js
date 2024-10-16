@@ -1,1 +1,1 @@
-export default context => {}
+export default (_context) => {}

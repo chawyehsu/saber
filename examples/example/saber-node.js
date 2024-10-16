@@ -1,4 +1,4 @@
-exports.onCreatePage = function(page) {
+exports.onCreatePage = function (page) {
   if (page.permalink === '/') {
     page.foo = 'ass'
   }
