@@ -1,15 +1,15 @@
 /**
  *
- * @param {string} input
- * @returns {string}
+ * @param {string} input the input string
+ * @returns {string} the slug
  */
 function slugo(input) {
   return (
     input
       // Remove html tags
-      .replace(/<(?:.|\n)*?>/gm, '')
+      .replace(/<(?:.|\n)*?>/g, '')
       // Remove special characters
-      .replace(/[!\"#$%&'\(\)\*\+,\/:;<=>\?\@\[\\\]\^`\{\|\}~]/g, '') // eslint-disable-line no-useless-escape
+      .replace(/[!"#$%&'()*+,/:;<=>?@[\\\]^`{|}~]/g, '')
       // Replace dots and spaces with a short dash
       .replace(/(\s|\.)/g, '-')
       // Replace multiple dashes with a single dash
@@ -76,5 +76,5 @@ module.exports = {
   paginate,
   getIdFromMap,
   getNameFromMap,
-  renderPermalink
+  renderPermalink,
 }

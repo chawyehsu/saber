@@ -1,5 +1,5 @@
 import urlJoin from 'url-join'
-import { paginate, getIdFromMap, getNameFromMap, renderPermalink } from './utils'
+import { getIdFromMap, getNameFromMap, paginate, renderPermalink } from './utils'
 
 const ID = 'query-posts'
 
@@ -8,7 +8,7 @@ exports.name = ID
 exports.apply = (api, options = {}) => {
   api.hooks.onCreatePages.tap(ID, () => {
     const allLocalePaths = new Set(
-      ['/'].concat(Object.keys(api.config.locales || {}))
+      ['/'].concat(Object.keys(api.config.locales || {})),
     )
     for (const currentLocalePath of allLocalePaths) {
       injectPosts({
@@ -17,15 +17,15 @@ exports.apply = (api, options = {}) => {
         categoriesMap: options.categoriesMap,
         paginationOptions: {
           perPage: options.perPage || 30,
-          firstPageOnly: options.firstPageOnly
+          firstPageOnly: options.firstPageOnly,
         },
         permalinks: Object.assign(
           {
             category: '/categories/:slug',
-            tag: '/tags/:slug'
+            tag: '/tags/:slug',
           },
-          options.permalinks
-        )
+          options.permalinks,
+        ),
       })
     }
   })
@@ -35,7 +35,7 @@ exports.apply = (api, options = {}) => {
     tagsMap,
     paginationOptions,
     categoriesMap,
-    permalinks
+    permalinks,
   }) {
     const allPosts = new Set()
     const injectPostsToPages = new Set()
@@ -74,8 +74,8 @@ exports.apply = (api, options = {}) => {
               name: tag,
               permalink: renderPermalink(permalinks.tag, {
                 name: tagSlug,
-                slug: tagSlug
-              })
+                slug: tagSlug,
+              }),
             })
             const posts = allTagPosts.get(tagSlug) || new Set()
             posts.add(pagePublicFields)
@@ -104,8 +104,8 @@ exports.apply = (api, options = {}) => {
                 name: category[index],
                 permalink: renderPermalink(permalinks.category, {
                   name: categorySlug,
-                  slug: categorySlug
-                })
+                  slug: categorySlug,
+                }),
               })
               const posts = allCategoryPosts.get(categorySlug) || new Set()
               posts.add(pagePublicFields)
@@ -130,20 +130,20 @@ exports.apply = (api, options = {}) => {
             layout: 'tag',
             permalink: renderPermalink(permalinks.tag, {
               name: tag,
-              slug: tag
+              slug: tag,
             }),
             slug: tag,
             internal: {
               id: `internal_blog__tag__${tag}`,
               // So that this page will be removed before next `onCreatePages` hook in watch mode
-              parent: true
-            }
-          }
+              parent: true,
+            },
+          },
         ]),
         tagPosts,
         {
-          tag: getNameFromMap(tagsMap, tag)
-        }
+          tag: getNameFromMap(tagsMap, tag),
+        },
       )
     }
 
@@ -156,23 +156,23 @@ exports.apply = (api, options = {}) => {
             layout: 'category',
             permalink: renderPermalink(permalinks.category, {
               name: category,
-              slug: category
+              slug: category,
             }),
             slug: category,
             internal: {
               id: `internal_blog__category__${category}`,
               // So that this page will be removed before next `onCreatePages` hook in watch mode
-              parent: true
-            }
-          }
+              parent: true,
+            },
+          },
         ]),
         categoryPosts,
         {
           category: category
             .split('/')
             .map(v => getNameFromMap(categoriesMap, v))
-            .join('/')
-        }
+            .join('/'),
+        },
       )
     }
 
@@ -188,13 +188,13 @@ exports.apply = (api, options = {}) => {
         for (const page of pages) {
           const paginatedPosts = paginate(
             sortedPosts,
-            Object.assign({}, paginationOptions, page.injectAllPosts)
+            Object.assign({}, paginationOptions, page.injectAllPosts),
           )
           const totalPages = paginatedPosts.length
 
           for (const [index, posts] of paginatedPosts.entries()) {
-            const permalink =
-              index === 0
+            const permalink
+              = index === 0
                 ? page.permalink
                 : urlJoin(page.permalink, `page/${index + 1}`)
             const newPage = Object.assign({}, page, {
@@ -204,8 +204,8 @@ exports.apply = (api, options = {}) => {
                     ? page.internal.id
                     : `${page.internal.id}__page__${index}`,
                 parent:
-                  page.internal.parent ||
-                  (index === 0 ? undefined : page.internal.id)
+                  page.internal.parent
+                  || (index === 0 ? undefined : page.internal.id),
               }),
               permalink,
               createdAt: page.createdAt || date,
@@ -217,8 +217,8 @@ exports.apply = (api, options = {}) => {
                 total: totalPages,
                 current: index + 1,
                 prevLink: getPaginationLink(index + 2, page.permalink),
-                nextLink: getPaginationLink(index, page.permalink)
-              }
+                nextLink: getPaginationLink(index, page.permalink),
+              },
             })
             Object.assign(newPage, pageProp)
             api.pages.createPage(newPage)
