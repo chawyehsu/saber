@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import isAbsoluteUrl from 'is-absolute-url'
+import isAbsoluteUrl from '../utils/isAbsoluteUrl'
 import { slash } from '.'
 
 /**
