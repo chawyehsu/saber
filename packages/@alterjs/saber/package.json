@@ -1,7 +1,16 @@
 {
   "name": "@alterjs/saber",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "A simple yet powerful static site generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chawyehsu/saber"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "bin": {
+    "saber": "bin/saber.js"
+  },
   "files": [
     "bin",
     "dist",
@@ -9,19 +18,11 @@
     "!dist/**/__test__"
   ],
   "scripts": {
-    "test": "vitest --run",
-    "prepublishOnly": "yarn build",
     "build": "rimraf dist && tsc",
+    "build:typedoc": "typedoc",
     "lint": "eslint src",
-    "build:typedoc": "typedoc"
-  },
-  "bin": {
-    "saber": "bin/saber.js"
-  },
-  "main": "dist/index.js",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
+    "prepublishOnly": "npm run build",
+    "test": "vitest --run"
   },
   "dependencies": {
     "@alterjs/saber-markdown": "^0.12.0",
@@ -81,5 +82,8 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

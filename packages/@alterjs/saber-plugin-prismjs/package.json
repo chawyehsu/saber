@@ -1,22 +1,20 @@
 {
   "name": "@alterjs/saber-plugin-prismjs",
   "version": "0.12.2",
+  "description": "A syntax highlighting plugin for Saber, using prismjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chawyehsu/saber"
+  },
   "license": "MIT",
+  "main": "index.js",
   "files": [
     "default.css",
     "index.js",
     "loadLanguages.js"
   ],
-  "main": "index.js",
-  "repository": {
-    "url": "https://github.com/chawyehsu/saber",
-    "type": "git"
-  },
   "scripts": {
     "lint": "eslint ./*.js"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "devDependencies": {
     "prismjs": "^1.29.0"
@@ -24,5 +22,8 @@
   "peerDependencies": {
     "@alterjs/saber": ">=0.12.2",
     "prismjs": "^1.29.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
