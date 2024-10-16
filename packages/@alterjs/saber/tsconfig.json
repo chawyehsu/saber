@@ -1,13 +1,13 @@
 {
   "extends": "../../../tsconfig.base.json",
-  "include": ["src"],
   "compilerOptions": {
-    "allowJs": true,
-    "outDir": "dist",
     "lib": ["ES2020", "DOM"],
     "module": "CommonJS",
+    "allowJs": true,
     "declaration": true,
     "declarationDir": "types",
+    "outDir": "dist"
   },
+  "include": ["src"],
   "exclude": ["**/**.test.js", "**/__test__"]
 }

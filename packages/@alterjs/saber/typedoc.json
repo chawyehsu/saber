@@ -5,5 +5,5 @@
   "readme": "none",
   "excludeExternals": true,
   "excludePrivate": true,
-  "excludeProtected": true,
+  "excludeProtected": true
 }
