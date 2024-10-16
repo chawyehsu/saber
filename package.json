@@ -6,10 +6,6 @@
     "lint": "lerna run lint",
     "prepare": "husky install && lerna run prepublishOnly"
   },
-  "repository": {
-    "url": "https://github.com/chawyehsu/saber",
-    "type": "git"
-  },
   "author": "egoist<0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
