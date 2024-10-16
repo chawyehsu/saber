@@ -1,12 +1,12 @@
 // @ts-check
-const { URL } = require('url')
+import { URL } from 'node:url'
 
 /**
  * Get feed path
  * @param {string|boolean|undefined} feedPath
  * @param {string} defaultPath
  */
-exports.getFeedPath = (feedPath, defaultPath) => {
+export function getFeedPath(feedPath, defaultPath) {
   if (feedPath === true) {
     return defaultPath
   }
@@ -19,10 +19,11 @@ exports.getFeedPath = (feedPath, defaultPath) => {
 }
 
 /**
+ * Resolve URL
  * @param {string} base
  * @param {string} pathname
- * @returns {string}
+ * @returns {string} Resolved URL
  */
-exports.resolveURL = (base, pathname) => {
+export function resolveURL(base, pathname) {
   return new URL(pathname, base).href
 }

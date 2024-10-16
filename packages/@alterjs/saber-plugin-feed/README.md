@@ -1,11 +1,11 @@
-# saber-plugin-feed
+# @alterjs/saber-plugin-feed
 
 Generate feed in Atom 1.0 or RSS 2.0 or JSON format.
 
 ## Install
 
 ```bash
-yarn add saber-plugin-feed
+yarn add @alterjs/saber-plugin-feed
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-feed
+  - resolve: '@alterjs/saber-plugin-feed'
     options:
       # Generate atom.xml
       atomFeed: true

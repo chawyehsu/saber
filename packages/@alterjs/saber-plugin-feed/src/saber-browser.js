@@ -1,11 +1,10 @@
-/* eslint-disable */
 import Vue from 'vue'
-import { jsonFeedPath, atomFeedPath, rss2FeedPath } from 'saber/variables'
+import { atomFeedPath, jsonFeedPath, rss2FeedPath } from 'saber/variables'
 
-const getPermalink = (localePath, feedPath) => {
+function getPermalink(localePath, feedPath) {
   return `${localePath === '/' ? '' : localePath}/${feedPath.replace(
     /^\.?\//,
-    ''
+    '',
   )}`
 }
 
@@ -17,15 +16,15 @@ Vue.mixin({
       const type = allFeeds.atom ? 'atom' : allFeeds.rss2 ? 'rss2' : 'json'
       return {
         permalink,
-        type
+        type,
       }
     },
     $allFeeds() {
       return {
         atom: atomFeedPath && getPermalink(this.$localePath, atomFeedPath),
         rss2: rss2FeedPath && getPermalink(this.$localePath, rss2FeedPath),
-        json: jsonFeedPath && getPermalink(this.$localePath, jsonFeedPath)
+        json: jsonFeedPath && getPermalink(this.$localePath, jsonFeedPath),
       }
-    }
-  }
+    },
+  },
 })

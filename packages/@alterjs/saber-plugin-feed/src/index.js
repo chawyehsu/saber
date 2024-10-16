@@ -1,6 +1,6 @@
-const path = require('path')
-const { Feed } = require('feed')
-const { getFeedPath, resolveURL } = require('./utils')
+import path from 'node:path'
+import { Feed } from 'feed'
+import { getFeedPath, resolveURL } from './utils'
 
 const ID = 'generate-feed'
 
@@ -12,9 +12,9 @@ exports.apply = (api, options = {}) => {
     {
       limit: 30,
       generator: 'Saber',
-      copyright: 'All rights reserved'
+      copyright: 'All rights reserved',
     },
-    options
+    options,
   )
 
   const { siteConfig } = api.config
@@ -26,11 +26,11 @@ exports.apply = (api, options = {}) => {
   const atomFeedPath = getFeedPath(options.atomFeed, 'atom.xml')
   const rss2FeedPath = getFeedPath(options.rss2Feed, 'rss2.xml')
 
-  api.hooks.defineVariables.tap(ID, variables => {
+  api.hooks.defineVariables.tap(ID, (variables) => {
     return Object.assign(variables, {
       jsonFeedPath,
       atomFeedPath,
-      rss2FeedPath
+      rss2FeedPath,
     })
   })
 
@@ -38,10 +38,10 @@ exports.apply = (api, options = {}) => {
 
   api.hooks.afterGenerate.tapPromise(ID, async () => {
     const allLocalePaths = new Set(
-      ['/'].concat(Object.keys(api.config.locales || {}))
+      ['/'].concat(Object.keys(api.config.locales || {})),
     )
     await Promise.all(
-      [...allLocalePaths].map(localePath => generateFeed(localePath))
+      [...allLocalePaths].map(localePath => generateFeed(localePath)),
     )
   })
 
@@ -50,7 +50,7 @@ exports.apply = (api, options = {}) => {
     const posts = []
 
     await Promise.all(
-      [...api.pages.values()].map(async page => {
+      [...api.pages.values()].map(async (page) => {
         if (page.type !== 'post' || page.draft) {
           return
         }
@@ -68,12 +68,12 @@ exports.apply = (api, options = {}) => {
           link: resolveURL(siteConfig.url, page.permalink),
           // Strip HTML tags in excerpt and use it as description (a.k.a. summary)
           description:
-            page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/gm, ''),
+            page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/g, ''),
           content,
           date: page.updatedAt,
-          published: page.createdAt
+          published: page.createdAt,
         })
-      })
+      }),
     )
 
     // Order by published
@@ -94,16 +94,16 @@ exports.apply = (api, options = {}) => {
       author: {
         name: siteConfig.author,
         email: siteConfig.email,
-        link: siteConfig.url
+        link: siteConfig.url,
       },
       feedLinks: {
         json: jsonFeedPath && resolveURL(siteConfig.url, jsonFeedPath),
-        atom: atomFeedPath && resolveURL(siteConfig.url, atomFeedPath)
-      }
+        atom: atomFeedPath && resolveURL(siteConfig.url, atomFeedPath),
+      },
     })
 
     // Add posts to feed
-    items.forEach(post => {
+    items.forEach((post) => {
       feed.addItem(post)
     })
 
@@ -118,12 +118,12 @@ exports.apply = (api, options = {}) => {
     }
 
     await Promise.all([
-      jsonFeedPath &&
-        writeFeed(path.join('./', localePath, jsonFeedPath), feed.json1()),
-      atomFeedPath &&
-        writeFeed(path.join('./', localePath, atomFeedPath), feed.atom1()),
-      rss2FeedPath &&
-        writeFeed(path.join('./', localePath, rss2FeedPath), feed.rss2())
+      jsonFeedPath
+      && writeFeed(path.join('./', localePath, jsonFeedPath), feed.json1()),
+      atomFeedPath
+      && writeFeed(path.join('./', localePath, atomFeedPath), feed.atom1()),
+      rss2FeedPath
+      && writeFeed(path.join('./', localePath, rss2FeedPath), feed.rss2()),
     ])
   }
 }
