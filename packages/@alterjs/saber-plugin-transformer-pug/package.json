@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "extract-sfc-blocks": "^0.0.2",
-    "pug": "^2.0.3",
+    "pug": "^3.0.3",
     "pug-plain-loader": "^1.0.0"
   },
   "publishConfig": {
