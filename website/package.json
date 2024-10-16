@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "saber",
-    "build": "saber build",
-    "lint": "eslint --ext .js,.vue,.ts src"
+    "build": "saber build"
   },
   "dependencies": {
     "@alterjs/saber": "^0.12.0",

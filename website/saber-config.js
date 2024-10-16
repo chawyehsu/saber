@@ -2,14 +2,14 @@ const config = {
   siteConfig: {
     title: 'Saber',
     description: 'A framework for building modern static websites.',
-    lang: 'en'
+    lang: 'en',
   },
   theme: './src',
   markdown: {
     headings: {
-      permalink: true
+      permalink: true,
     },
-    plugins: [{ resolve: 'markdown-it-footnote' }]
+    plugins: [{ resolve: 'markdown-it-footnote' }],
   },
   build: { lazy: true, extractCSS: true },
   permalinks: { post: '/blog/:slug.html' },
@@ -29,20 +29,20 @@ const config = {
           { title: 'Markdown Features', link: '/docs/markdown-features.html' },
           {
             title: 'Using Vue in Markdown',
-            link: '/docs/using-vue-in-markdown.html'
+            link: '/docs/using-vue-in-markdown.html',
           },
           {
             title: 'Manipulating <head>',
-            link: '/docs/manipulating-head.html'
+            link: '/docs/manipulating-head.html',
           },
           { title: 'Page Transition', link: '/docs/page-transition.html' },
           { title: 'Internationalization', link: '/docs/i18n.html' },
           {
             title: 'Working with Webpack',
-            link: '/docs/working-with-webpack.html'
+            link: '/docs/working-with-webpack.html',
           },
-          { title: 'Deployment', link: '/docs/deployment.html' }
-        ]
+          { title: 'Deployment', link: '/docs/deployment.html' },
+        ],
       },
       {
         title: 'Styles and Assets',
@@ -50,15 +50,15 @@ const config = {
           { title: 'Using CSS Modules', link: '/docs/css-modules.html' },
           {
             title: 'Using CSS Preprocessors',
-            link: '/docs/css-preprocessors.html'
+            link: '/docs/css-preprocessors.html',
           },
           { title: 'Using PostCSS', link: '/docs/postcss.html' },
           {
             title: 'Using Images, Fonts and Files',
-            link: '/docs/images-fonts-and-files.html'
+            link: '/docs/images-fonts-and-files.html',
           },
-          { title: 'Using the Static Folder', link: '/docs/static-folder.html' }
-        ]
+          { title: 'Using the Static Folder', link: '/docs/static-folder.html' },
+        ],
       },
       {
         title: 'References',
@@ -69,10 +69,10 @@ const config = {
           { title: 'Saber Instance', link: '/docs/saber-instance.html' },
           { title: 'Saber Browser APIs', link: '/docs/browser-apis.html' },
           { title: 'Saber Node APIs', link: '/docs/node-apis.html' },
-          { title: 'Page Interface', link: '/docs/page-interface.html' }
-        ]
-      }
-    ]
+          { title: 'Page Interface', link: '/docs/page-interface.html' },
+        ],
+      },
+    ],
   },
   plugins: [
     { resolve: '@alterjs/saber-plugin-query-posts' },
@@ -84,15 +84,15 @@ const config = {
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/fonts\.googleapis\.com\/css/,
-              handler: 'StaleWhileRevalidate'
+              handler: 'StaleWhileRevalidate',
             },
             {
               urlPattern: /^https:\/\/fonts\.gstatic\.com\/s\//,
-              handler: 'StaleWhileRevalidate'
-            }
-          ]
-        }
-      }
+              handler: 'StaleWhileRevalidate',
+            },
+          ],
+        },
+      },
     },
     { resolve: '@alterjs/saber-plugin-search' },
     { resolve: '@alterjs/saber-plugin-image' },
@@ -100,14 +100,14 @@ const config = {
       resolve: '@alterjs/saber-plugin-code-copy',
       options: {
         buttonStyle: {
-          border: 'none'
-        }
-      }
-    }
+          border: 'none',
+        },
+      },
+    },
   ],
   template: {
-    openLinkInNewTab: true
-  }
+    openLinkInNewTab: true,
+  },
 }
 
 module.exports = config
