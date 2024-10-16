@@ -9,7 +9,6 @@
   "dependencies": {
     "@alterjs/saber": "^0.12.0",
     "@alterjs/saber-plugin-code-copy": "^0.12.0",
-    "@alterjs/saber-plugin-google-analytics": "^0.12.0",
     "@alterjs/saber-plugin-image": "^0.12.0",
     "@alterjs/saber-plugin-prismjs": "^0.12.0",
     "@alterjs/saber-plugin-pwa": "^0.12.0",

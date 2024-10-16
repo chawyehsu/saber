@@ -75,10 +75,6 @@ const config = {
     ]
   },
   plugins: [
-    {
-      resolve: '@alterjs/saber-plugin-google-analytics',
-      options: { trackId: 'UA-54857209-16' }
-    },
     { resolve: '@alterjs/saber-plugin-query-posts' },
     { resolve: '@alterjs/saber-plugin-prismjs' },
     {
