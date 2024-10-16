@@ -1,28 +1,31 @@
-import colors from 'kleur'
-import ncp from 'ncp'
+#!/usr/bin/env node
+/* eslint-disable no-console */
+
 import fs from 'node:fs'
 import path from 'node:path'
+import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 import { promisify } from 'node:util'
+import ncp from 'ncp'
+import colors from 'kleur'
 
 const args = process.argv.slice(2)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-export function createSite() {
+function createSite() {
   if (
-    args.length === 0 ||
-    ['-h', '--help'].some(helpFlag => args.includes(helpFlag))
+    args.length === 0
+    || ['-h', '--help'].some(helpFlag => args.includes(helpFlag))
   ) {
-
     const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../', 'package.json')))
 
     console.log(
       `create-saber v${pkg.version}
 
   Usage: create-saber <dir>
-    `.trim()
+    `.trim(),
     )
     process.exit(1)
   }
@@ -32,9 +35,9 @@ export function createSite() {
     process.exit(1)
   }
 
-  if (parseInt(process.versions.node, 10) < 16) {
+  if (Number.parseInt(process.versions.node, 10) < 16) {
     console.log(
-      `Node.js ${process.versions.node} isn't supported, you need Node.js 16 or above.`
+      `Node.js ${process.versions.node} isn't supported, you need Node.js 16 or above.`,
     )
     process.exit(1)
   }
@@ -52,7 +55,7 @@ export function createSite() {
   promisify(ncp)(path.join(__dirname, '../', 'template'), dir)
     .then(() => {
       console.log(
-        colors.green(`Successfully created at ${colors.underline(dir)}`)
+        colors.green(`Successfully created at ${colors.underline(dir)}`),
       )
       console.log(colors.bold(`To start dev server, run:`))
       console.log(colors.cyan(`$ cd ${path.relative(process.cwd(), dir)}`))
@@ -68,3 +71,5 @@ export function createSite() {
     })
     .catch(console.error)
 }
+
+createSite()

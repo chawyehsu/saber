@@ -8,13 +8,12 @@
     "url": "https://github.com/chawyehsu/saber",
     "type": "git"
   },
-  "main": "index.js",
+  "main": "./dist/index.mjs",
   "bin": {
-    "create-saber": "./index.js"
+    "create-saber": "./'dist/index.mjs"
   },
   "files": [
     "dist/index.mjs",
-    "index.js",
     "template"
   ],
   "engines": {

@@ -5,10 +5,10 @@ export default {
   input: './src/index.js',
   output: {
     file: './dist/index.mjs',
-    format: 'es'
+    format: 'es',
   },
   plugins: [
     commonjs(),
     nodeResolve(),
-  ]
+  ],
 }
