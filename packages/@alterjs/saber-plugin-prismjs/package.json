@@ -1,6 +1,6 @@
 {
   "name": "@alterjs/saber-plugin-prismjs",
-  "version": "0.12.0",
+  "version": "0.12.2",
   "license": "MIT",
   "files": [
     "default.css",
@@ -8,6 +8,10 @@
     "loadLanguages.js"
   ],
   "main": "index.js",
+  "repository": {
+    "url": "https://github.com/chawyehsu/saber",
+    "type": "git"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -15,7 +19,7 @@
     "prismjs": "^1.29.0"
   },
   "peerDependencies": {
-    "@alterjs/saber": ">=0.12.0",
+    "@alterjs/saber": ">=0.12.2",
     "prismjs": "^1.29.0"
   }
 }
