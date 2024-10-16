@@ -20,7 +20,7 @@
     "husky": "5.2.0",
     "lerna": "7.4.2",
     "lint-staged": "12.5.0",
-    "prettier": "^3.0.2",
+    "prettier": "^3.3.3",
     "rimraf": "^5.0.1",
     "typedoc": "^0.26.9",
     "typescript": "^5.6.3",
