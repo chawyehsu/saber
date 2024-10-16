@@ -1,15 +1,15 @@
 {
   "name": "create-saber",
-  "version": "0.12.0",
-  "description": "Create a Saber project in seconds",
-  "bin": {
-    "create-saber": "./index.js"
-  },
+  "version": "0.12.1",
+  "description": "Create a Saber Alter project in seconds",
   "files": [
     "index.js",
     "dist/index.mjs",
     "template"
   ],
+  "bin": {
+    "create-saber": "./index.js"
+  },
   "main": "index.js",
   "type": "module",
   "license": "MIT",
@@ -23,14 +23,7 @@
     "ncp": "2.0.0",
     "rollup": "^3.28.1"
   },
-  "author": {
-    "name": "EGOIST",
-    "email": "0x142857@gmail.com"
-  },
   "engines": {
     "node": ">=16"
-  },
-  "volta": {
-    "node": "16.20.2"
   }
 }
