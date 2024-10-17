@@ -8,6 +8,7 @@
     "url": "https://github.com/chawyehsu/saber"
   },
   "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "bin": {
     "saber": "bin/saber.js"
   },
@@ -15,6 +16,7 @@
     "!dist/**/__test__",
     "bin",
     "dist",
+    "types",
     "vue-app"
   ],
   "engines": {
