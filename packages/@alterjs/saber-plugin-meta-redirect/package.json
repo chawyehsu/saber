@@ -4,23 +4,20 @@
   "description": "Generates meta redirect html files for redirecting on any static file host",
   "license": "MIT",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "dev:example": "saber example",
     "build:example": "saber build example"
   },
-  "files": [
-    "lib"
-  ],
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "url-join": "4.0.1"
   },
   "peerDependencies": {
     "@alterjs/saber": ">=0.12.0"
   },
-  "volta": {
-    "node": "16.20.2"
+  "dependencies": {
+    "url-join": "4.0.1"
   }
 }
