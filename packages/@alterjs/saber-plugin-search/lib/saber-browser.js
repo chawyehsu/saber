@@ -2,7 +2,7 @@
 /* globals __PUBLIC_URL__ */
 
 export default ({ Vue }) => {
-  Vue.prototype.$fetchSearchDatabase = function() {
+  Vue.prototype.$fetchSearchDatabase = function () {
     const locale = this.$localePath.slice(1) || 'default'
     return window
       .fetch(`${__PUBLIC_URL__}_saber/plugin-search/${locale}.json`)

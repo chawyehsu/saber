@@ -1,4 +1,4 @@
-const { join } = require('path')
+const { join } = require('node:path')
 
 const ID = 'search'
 
@@ -13,9 +13,9 @@ function getLocale(locale) {
 exports.apply = (api, options) => {
   const { index } = Object.assign(
     {
-      index: ['type', 'title', 'excerpt', 'permalink']
+      index: ['type', 'title', 'excerpt', 'permalink'],
     },
-    options
+    options,
   )
 
   const { fs } = api.utils
@@ -24,7 +24,7 @@ exports.apply = (api, options) => {
     const pages = []
 
     await Promise.all(
-      [...api.pages.values()].map(async page => {
+      [...api.pages.values()].map(async (page) => {
         if (page.draft || !page.type) {
           return
         }
@@ -41,7 +41,7 @@ exports.apply = (api, options) => {
           if (value !== undefined) {
             if (element === 'content') {
               item.content = await api.renderer.renderPageContent(
-                page.permalink
+                page.permalink,
               )
             } else {
               item[element] = page[element]
@@ -50,7 +50,7 @@ exports.apply = (api, options) => {
         }
 
         pages.push(item)
-      })
+      }),
     )
 
     return pages
@@ -60,7 +60,7 @@ exports.apply = (api, options) => {
     const allLocalePaths = ['/'].concat(Object.keys(api.config.locales || {}))
 
     const results = await Promise.all(
-      allLocalePaths.map(localePath => generateLocale(localePath))
+      allLocalePaths.map(localePath => generateLocale(localePath)),
     )
 
     const localDb = {}
@@ -75,13 +75,13 @@ exports.apply = (api, options) => {
   api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
   if (api.dev) {
-    api.hooks.onCreateServer.tap(ID, server => {
+    api.hooks.onCreateServer.tap(ID, (server) => {
       server.get('/_saber/plugin-search/:locale.json', async (req, res) => {
         db = await generateDatabase()
         const dbByLocale = getLocale(req.params.locale)
         if (dbByLocale) {
           res.writeHead(200, {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           })
           return res.end(JSON.stringify(dbByLocale))
         }
@@ -98,7 +98,7 @@ exports.apply = (api, options) => {
         const path = api.resolveOutDir(
           '_saber',
           'plugin-search',
-          `${locale}.json`
+          `${locale}.json`,
         )
         await fs.ensureDir(api.resolveOutDir('_saber', 'plugin-search'))
         await fs.writeJson(path, items)
