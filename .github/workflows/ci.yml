@@ -33,3 +33,8 @@ jobs:
 
     - name: Invoke Test
       run: yarn test
+
+    - name: Test website Build
+      run: |
+        cd website
+        yarn build
