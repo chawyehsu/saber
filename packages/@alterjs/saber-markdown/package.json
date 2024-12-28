@@ -1,5 +1,6 @@
 {
   "name": "@alterjs/saber-markdown",
+  "type": "module",
   "version": "0.12.2",
   "description": "A custom build of markdown-it for Saber",
   "license": "MIT",
@@ -20,6 +21,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && rollup -c",
+    "lint": "eslint src",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
@@ -31,6 +33,7 @@
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.1",
+    "@types/babel-core": "^6.25.10",
     "@types/markdown-it": "^14.1.1",
     "builtin-modules": "^3.3.0",
     "markdown-it": "^14.1.0",

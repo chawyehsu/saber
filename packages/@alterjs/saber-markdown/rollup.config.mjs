@@ -5,10 +5,10 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
 import builtinModules from 'builtin-modules'
 import typescript from '@rollup/plugin-typescript'
-import pkg from './package.json' assert { type: "json" }
+import pkg from './package.json' assert { type: 'json' }
 
 export default {
-  input: './index.ts',
+  input: './src/index.ts',
   output: [
     {
       file: pkg.exports['.'].import,
@@ -27,9 +27,9 @@ export default {
     typescript(),
     babel({
       babelHelpers: 'bundled',
-      plugins: ['./babel-plugin-vue-features.mjs']
+      plugins: ['./src/babel-plugin-vue-features.js'],
     }),
-    terser()
+    terser(),
   ],
-  external: builtinModules
+  external: builtinModules,
 }
