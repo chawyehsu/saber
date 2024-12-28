@@ -1,6 +1,7 @@
 {
   "[json]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": true
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
