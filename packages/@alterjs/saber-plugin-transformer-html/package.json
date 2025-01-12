@@ -4,20 +4,20 @@
   "description": "Write pages in HTML",
   "license": "MIT",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "dev:example": "saber example",
     "build:example": "saber build example"
   },
-  "files": [
-    "lib"
-  ],
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "extract-sfc-blocks": "^0.0.2"
-  },
   "peerDependencies": {
     "@alterjs/saber": ">=0.12.0"
+  },
+  "dependencies": {
+    "extract-sfc-blocks": "^0.0.2"
   }
 }

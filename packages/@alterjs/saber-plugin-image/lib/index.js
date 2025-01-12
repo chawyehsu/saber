@@ -1,5 +1,5 @@
-const { join } = require('path')
-const { parse } = require('querystring')
+const { join } = require('node:path')
+const { parse } = require('node:querystring')
 
 const ID = 'images'
 
@@ -11,24 +11,24 @@ exports.apply = (api, options = {}) => {
       lazyLoad: true,
       placeholder: true,
       blendIn: true,
-      markdownImages: true
+      markdownImages: true,
     },
-    options
+    options,
   )
 
   api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
-  api.renderer.hooks.getVueLoaderOptions.tap(ID, options => {
+  api.renderer.hooks.getVueLoaderOptions.tap(ID, (options) => {
     options.transformAssetUrls = Object.assign({}, options.transformAssetUrls, {
-      'saber-image': ['src']
+      'saber-image': ['src'],
     })
     return options
   })
 
   if (options.markdownImages) {
-    api.hooks.chainMarkdown.tap(ID, config => {
-      config.plugin(ID).use(md => {
-        md.core.ruler.push(ID, state => {
+    api.hooks.chainMarkdown.tap(ID, (config) => {
+      config.plugin(ID).use((md) => {
+        md.core.ruler.push(ID, (state) => {
           const { tokens } = state
 
           for (const token of tokens) {
@@ -43,10 +43,14 @@ exports.apply = (api, options = {}) => {
 
                   const src = child.attrGet('src')
                   const querystring = parse(src.split('?')[1])
-                  Object.keys(querystring).forEach(key => {
+                  Object.keys(querystring).forEach((key) => {
                     const query = querystring[key]
-                    if (query === 'true') querystring[key] = true
-                    if (query === 'false') querystring[key] = false
+                    if (query === 'true') {
+                      querystring[key] = true
+                    }
+                    if (query === 'false') {
+                      querystring[key] = false
+                    }
                   })
                   child.attrSet('data-lazy', JSON.stringify(querystring))
 
@@ -54,7 +58,7 @@ exports.apply = (api, options = {}) => {
                   children.splice(
                     children.indexOf(child) + 1,
                     0,
-                    new state.Token('image_close', 'saber-image', -1)
+                    new state.Token('image_close', 'saber-image', -1),
                   )
                 }
               }
@@ -65,11 +69,11 @@ exports.apply = (api, options = {}) => {
     })
   }
 
-  api.hooks.chainWebpack.tap(ID, config => {
+  api.hooks.chainWebpack.tap(ID, (config) => {
     config.plugin('constants').tap(([constants]) => [
       Object.assign(constants, {
-        __SABER_IMAGE_OPTIONS__: options
-      })
+        __SABER_IMAGE_OPTIONS__: options,
+      }),
     ])
 
     config.module.rule('image').exclude.add(/\.(jpe?g|png)$/i)

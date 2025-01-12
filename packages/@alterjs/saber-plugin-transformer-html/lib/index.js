@@ -2,12 +2,12 @@ const extractSFCBlocks = require('extract-sfc-blocks')
 
 exports.name = 'transformer-html'
 
-exports.apply = api => {
+exports.apply = (api) => {
   api.transformers.add('html', {
     extensions: ['html'],
     parse(page) {
       const { body, frontmatter } = api.transformers.parseFrontmatter(
-        page.content
+        page.content,
       )
       const { html, blocks } = extractSFCBlocks(body)
       Object.assign(page, frontmatter)
@@ -21,6 +21,6 @@ exports.apply = api => {
         </layout-manager>
       </template>
       `
-    }
+    },
   })
 }

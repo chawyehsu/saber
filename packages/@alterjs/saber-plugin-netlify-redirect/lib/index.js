@@ -1,11 +1,11 @@
-const path = require('path')
+const path = require('node:path')
 const urlJoin = require('url-join')
 
 const ID = 'netlify-redirect'
 
 exports.name = ID
 
-exports.apply = api => {
+exports.apply = (api) => {
   api.hooks.afterGenerate.tapPromise(ID, async () => {
     const { log } = api
     /** @type {{fs: import('fs-extra') }} */
@@ -15,18 +15,18 @@ exports.apply = api => {
 
     const getAbsoluteLink = link => urlJoin(api.config.build.publicUrl, link)
 
-    const getRedirectFileContent = redirectRoutes => {
+    const getRedirectFileContent = (redirectRoutes) => {
       let content = ''
       for (const config of redirectRoutes.values()) {
         content += `${getAbsoluteLink(config.fromPath)} ${getAbsoluteLink(
-          config.toPath
+          config.toPath,
         )} ${config.isPermanent ? '301' : '302'}\n`
       }
 
       return content
     }
 
-    const generateRedirects = async redirectRoutes => {
+    const generateRedirects = async (redirectRoutes) => {
       const redirectFilePath = path.join(outDir, '_redirects')
       const content = getRedirectFileContent(redirectRoutes)
       if (await fs.pathExists(redirectFilePath)) {
@@ -46,12 +46,12 @@ exports.apply = api => {
         const hasRedirect = api.pages.redirectRoutes.has(fromPath)
         // The fromPath is already an existing permalink
         const hasPermalink = allPermalinks.some(
-          r => r.replace(/\/$/, '') === fromPath
+          r => r.replace(/\/$/, '') === fromPath,
         )
         if (!hasRedirect && !hasPermalink) {
           api.pages.createRedirect({
             fromPath,
-            toPath: permalink
+            toPath: permalink,
           })
         }
       }

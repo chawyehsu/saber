@@ -1,32 +1,32 @@
-const path = require('path')
+const path = require('node:path')
 const urlJoin = require('url-join')
 
 const ID = 'meta-redirect'
 
 exports.name = ID
 
-exports.apply = api => {
+exports.apply = (api) => {
   api.hooks.afterGenerate.tapPromise(ID, async () => {
     const { log } = api
     const { fs } = api.utils
 
     const outDir = api.resolveOutDir()
 
-    const getFileNameFromLink = link => {
+    const getFileNameFromLink = (link) => {
       const filename = link.endsWith('.html')
         ? link
         : link.replace(/\/?$/, '/index.html')
       return path.join(outDir, filename)
     }
 
-    const getPageContent = toPath => {
+    const getPageContent = (toPath) => {
       return `<!DOCTYPE html><meta http-equiv="refresh" content="0;url=${urlJoin(
         api.config.build.publicUrl,
-        toPath
+        toPath,
       )}" />`
     }
 
-    const writePage = async config => {
+    const writePage = async (config) => {
       const fileName = getFileNameFromLink(config.fromPath)
       log.info(`Generating ${path.relative(outDir, fileName)}`)
       await fs.outputFile(fileName, getPageContent(config.toPath), 'utf8')

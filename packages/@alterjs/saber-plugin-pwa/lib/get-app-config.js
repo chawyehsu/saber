@@ -1,11 +1,11 @@
 const defaults = {
   name: 'Saber PWA App',
   themeColor: '#ffffff',
-  assetsVersion: ''
+  assetsVersion: '',
 }
 
 module.exports = (config = {}) => {
   return Object.assign({}, defaults, config, {
-    name: config.name || defaults.name
+    name: config.name || defaults.name,
   })
 }

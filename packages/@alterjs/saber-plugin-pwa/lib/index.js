@@ -1,5 +1,5 @@
-const path = require('path')
-const fs = require('fs')
+const path = require('node:path')
+const fs = require('node:fs')
 const generateManifest = require('./generate-manifest')
 const getAppConfig = require('./get-app-config')
 const createElement = require('./create-element')
@@ -10,28 +10,28 @@ exports.name = ID
 
 exports.apply = (
   api,
-  { notifyUpdates = true, generateSWOptions = {}, ...appConfig } = {}
+  { notifyUpdates = true, generateSWOptions = {}, ...appConfig } = {},
 ) => {
   if (api.dev) {
     // Uninstall server-worker.js in dev mode
-    api.hooks.onCreateServer.tap(ID, server => {
+    api.hooks.onCreateServer.tap(ID, (server) => {
       server.use(require('./noop-sw-middleware')())
     })
   } else {
     api.browserApi.add(path.join(__dirname, 'saber-browser.js'))
 
-    api.hooks.chainWebpack.tap(ID, config => {
+    api.hooks.chainWebpack.tap(ID, (config) => {
       config.plugin('constants').tap(([options]) => [
         Object.assign(options, {
           __PWA_OPTIONS__: JSON.stringify({
-            notifyUpdates
-          })
-        })
+            notifyUpdates,
+          }),
+        }),
       ])
     })
 
     const { name, themeColor, assetsVersion, appleTouchIcon } = getAppConfig(
-      Object.assign({ name: api.config.siteConfig.title }, appConfig)
+      Object.assign({ name: api.config.siteConfig.title }, appConfig),
     )
 
     const manifestPath = api.resolveCwd('static/manifest.json')
@@ -46,43 +46,43 @@ exports.apply = (
         importWorkboxFrom: 'local',
         globDirectory: api.resolveOutDir(),
         globPatterns: [
-          '**/*.{js,css,html,png,jpg,jpeg,gif,svg,woff,woff2,eot,ttf,otf}'
-        ].concat(generateSWOptions.globPatterns || [])
+          '**/*.{js,css,html,png,jpg,jpeg,gif,svg,woff,woff2,eot,ttf,otf}',
+        ].concat(generateSWOptions.globPatterns || []),
       })
 
       await generateManifest(api, {
         name,
         themeColor,
-        manifest
+        manifest,
       })
     })
 
     const { publicUrl } = api.config.build
     const assetsVersionStr = assetsVersion ? `?v=${assetsVersion}` : ''
 
-    api.hooks.getDocumentData.tap(ID, data => {
+    api.hooks.getDocumentData.tap(ID, (data) => {
       const appleTouchIcons = appleTouchIcon
         ? [{ src: appleTouchIcon }]
         : manifest.icons
       data.meta += [
         createElement('link', {
           rel: 'manifest',
-          href: `${publicUrl}manifest.json${assetsVersionStr}`
+          href: `${publicUrl}manifest.json${assetsVersionStr}`,
         }),
         createElement('meta', {
           name: 'theme-color',
-          content: themeColor
-        })
+          content: themeColor,
+        }),
       ]
         .concat(
-          appleTouchIcons &&
-            appleTouchIcons.map(icon =>
-              createElement('link', {
-                rel: 'apple-touch-icon',
-                sizes: icon.sizes || false,
-                href: icon.src
-              })
-            )
+          appleTouchIcons
+          && appleTouchIcons.map(icon =>
+            createElement('link', {
+              rel: 'apple-touch-icon',
+              sizes: icon.sizes || false,
+              href: icon.src,
+            }),
+          ),
         )
         .filter(Boolean)
         .join('')

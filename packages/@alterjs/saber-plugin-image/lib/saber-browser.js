@@ -2,9 +2,9 @@ import lozad from 'lozad'
 import styles from './styles.module.css'
 
 export default ({ Vue }) => {
-  const options = __SABER_IMAGE_OPTIONS__ // eslint-disable-line no-undef
-  const blank =
-    'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
+  const options = __SABER_IMAGE_OPTIONS__
+  const blank
+    = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs='
 
   Vue.component('saber-image', {
     props: ['src', 'lazy'],
@@ -13,7 +13,7 @@ export default ({ Vue }) => {
 
       if ($el.dataset.src || $el.dataset.srcset) {
         lozad($el, {
-          loaded: el => {
+          loaded: (el) => {
             el.addEventListener(
               'load',
               () => {
@@ -23,12 +23,12 @@ export default ({ Vue }) => {
                   () => {
                     el.classList.remove(styles.blendIn)
                   },
-                  { once: true }
+                  { once: true },
                 )
               },
-              { once: true }
+              { once: true },
             )
-          }
+          },
         }).observe()
       }
     },
@@ -36,7 +36,7 @@ export default ({ Vue }) => {
       const lazy = Object.assign(
         options,
         JSON.parse(this.$attrs['data-lazy'] || '{}'),
-        this.lazy
+        this.lazy,
       )
 
       const getOption = key =>
@@ -52,9 +52,9 @@ export default ({ Vue }) => {
             attrs: {
               ...$attrs,
               src,
-              srcset: blank,
-              'data-srcset': src
-            }
+              'srcset': blank,
+              'data-srcset': src,
+            },
           })
         }
 
@@ -68,24 +68,24 @@ export default ({ Vue }) => {
           attrs: {
             ...$attrs,
             src,
-            srcset: loading,
+            'srcset': loading,
             'data-srcset': srcSet,
-            width
+            width,
           },
-          class: { [styles.blendIn]: blendIn }
+          class: { [styles.blendIn]: blendIn },
         })
       }
 
       if (typeof this.src === 'string') {
         return h('img', {
-          attrs: { ...$attrs, src: this.src }
+          attrs: { ...$attrs, src: this.src },
         })
       }
 
       const { src, srcSet: srcset } = this.src
       return h('img', {
-        attrs: { ...$attrs, src, srcset }
+        attrs: { ...$attrs, src, srcset },
       })
-    }
+    },
   })
 }

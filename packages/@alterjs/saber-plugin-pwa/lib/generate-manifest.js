@@ -10,12 +10,12 @@ module.exports = async (api, { name, themeColor, manifest }) => {
         start_url: './',
         display: 'standalone',
         theme_color: themeColor,
-        background_color: '#ffffff'
+        background_color: '#ffffff',
       },
-      manifest
+      manifest,
     ),
     null,
-    2
+    2,
   )
 
   log.info(`Generating manifest.json`)
