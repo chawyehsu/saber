@@ -50,7 +50,7 @@
     "joycon": "^3.1.1",
     "lodash.merge": "^4.6.1",
     "log-update": "^3.2.0",
-    "mini-css-extract-plugin": "0.12.0",
+    "mini-css-extract-plugin": "1.6.2",
     "polka": "^0.5.2",
     "posthtml": "^0.11.6",
     "pretty-ms": "7.0.1",
@@ -82,8 +82,7 @@
     "@types/resolve-from": "5.0.1",
     "@types/serve-static": "^1.15.2",
     "@types/webpack": "4.41.38",
-    "@vue/compiler-sfc": "^3.4.27",
-    "@vue/runtime-dom": "^3.4.27"
+    "@vue/compiler-sfc": "^3.4.27"
   },
   "publishConfig": {
     "access": "public"
