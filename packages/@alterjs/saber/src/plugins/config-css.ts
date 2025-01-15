@@ -20,10 +20,9 @@ const configCss: SaberPlugin = {
       const isServer = type === 'server'
       // Disable CSS extraction in dev mode for better build performance(?)
       const shouldExtract = extractCSS && !api.dev
-      // if building for production but not extracting CSS, we need to minimize
-      // the embbeded inline CSS as they will not be going through the optimizing
-      // plugin.
-      const needInlineMinification = !api.dev && !shouldExtract
+      // Minify inline CSS in production mode
+      const needInlineMinification = !api.dev
+
       const fileNames = getFileNames(!api.dev)
 
       const extractOptions = {
@@ -66,9 +65,8 @@ const configCss: SaberPlugin = {
                   }
                 : modules,
               importLoaders:
-                1 // stylePostLoader injected by vue-loader
-                + 1 // postcss-loader
-                + (needInlineMinification ? 1 : 0),
+                1 // postcss-loader
+                + (needInlineMinification ? 1 : 0), // esbuild-loader
             },
             loaderOptions.css,
           )
@@ -84,6 +82,7 @@ const configCss: SaberPlugin = {
               .use('minify-inline-css')
               .loader(require.resolve('esbuild-loader'))
               .options({
+                loader: 'css',
                 minify: true,
               })
           }
@@ -112,13 +111,15 @@ const configCss: SaberPlugin = {
 
         const baseRule = config.module.rule(lang).test(test)
 
-        // rules for <style lang="module">
+        // rules for Vue SFC <style lang="module">
         const vueModulesRule = baseRule
           .oneOf('vue-modules')
-          .resourceQuery(/module/)
+          .resourceQuery((query: any) => {
+            return /\?vue/.test(query) && /module/.test(query)
+          })
         applyLoaders(vueModulesRule, true)
 
-        // rules for <style>
+        // rules for Vue SFC <style>
         const vueNormalRule = baseRule.oneOf('vue').resourceQuery(/\?vue/)
         applyLoaders(vueNormalRule, false)
 
