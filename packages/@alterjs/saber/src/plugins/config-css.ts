@@ -78,15 +78,17 @@ const configCss: SaberPlugin = {
               .use('minify-inline-css')
               .loader(require.resolve('postcss-loader'))
               .options({
-                plugins: [require('cssnano')(cssnanoOptions)],
+                postcssOptions: {
+                  plugins: [require('cssnano')(cssnanoOptions)],
+                },
               })
           }
 
           rule
             .use('postcss-loader')
             .loader(require.resolve('postcss-loader'))
-            .options(
-              Object.assign(
+            .options({
+              postcssOptions: Object.assign(
                 {
                   // FIXME(chawyehsu): https://github.com/webpack-contrib/postcss-loader/issues/204#issuecomment-406774707
                   plugins: [],
@@ -94,7 +96,7 @@ const configCss: SaberPlugin = {
                 },
                 loaderOptions.postcss,
               ),
-            )
+            })
 
           if (loader) {
             rule
