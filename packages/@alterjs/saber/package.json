@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@alterjs/saber-markdown": "^0.12.2",
-    "@babel/parser": "^7.22.11",
-    "@babel/traverse": "^7.22.11",
+    "@babel/parser": "^7.26.5",
+    "@babel/traverse": "^7.26.5",
     "@egoist/postcss-loader": "^3.0.2",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
     "cac": "^6.7.14",
