@@ -1,4 +1,4 @@
-const extractSFCBlocks = require('extract-sfc-blocks')
+import extractSFCBlocks from '@alterjs/extract-sfc-blocks'
 
 exports.name = 'transformer-html'
 

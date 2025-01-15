@@ -3,21 +3,39 @@
   "version": "0.12.0",
   "description": "Write pages in HTML",
   "license": "MIT",
-  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chawyehsu/saber"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.min.mjs",
+      "require": "./dist/index.min.cjs"
+    }
+  },
+  "main": "./dist/index.min.cjs",
+  "module": "./dist/index.min.mjs",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "dev:example": "saber example",
-    "build:example": "saber build example"
-  },
-  "publishConfig": {
-    "access": "public"
+    "build": "rimraf dist && rollup -c",
+    "build:example": "saber build example",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "@alterjs/saber": ">=0.12.0"
   },
   "dependencies": {
-    "extract-sfc-blocks": "^0.0.2"
+    "@alterjs/extract-sfc-blocks": "^0.0.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-terser": "^0.4.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

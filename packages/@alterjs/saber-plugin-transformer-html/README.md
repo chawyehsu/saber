@@ -1,11 +1,11 @@
-# saber-plugin-transformer-html
+# @alterjs/saber-plugin-transformer-html
 
 Write pages in HTML.
 
 ## Install
 
 ```bash
-yarn add saber-plugin-transformer-html
+yarn add @alterjs/saber-plugin-transformer-html
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-transformer-html
+  - resolve: '@alterjs/saber-plugin-transformer-html'
 ```
 
 Try it by populating a `pages/try.html`:
