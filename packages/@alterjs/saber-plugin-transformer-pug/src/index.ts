@@ -1,17 +1,18 @@
 import path from 'node:path'
 import pug from 'pug'
 import extractSFCBlocks from '@alterjs/extract-sfc-blocks'
+import type { Saber } from '@alterjs/saber'
 
 const ID = 'transformer-pug'
 
 exports.name = ID
 
-exports.apply = (api) => {
+exports.apply = (api: Saber) => {
   api.transformers.add('pug', {
     extensions: ['pug'],
-    parse(page) {
+    transform(page) {
       const { body, frontmatter } = api.transformers.parseFrontmatter(
-        page.content,
+        page.content!,
       )
       const { base: basename, dir: dirname } = path.parse(
         page.internal.absolute || '',
@@ -20,9 +21,12 @@ exports.apply = (api) => {
         filename: basename,
         basedir: dirname,
       })
+      // eslint-disable-next-line no-console
+      console.log(html)
       const { html: pageContent, blocks } = extractSFCBlocks(html)
       Object.assign(page, frontmatter)
       page.content = pageContent
+      // @ts-expect-error - hoistedTags is not defined in Page
       page.internal.hoistedTags = blocks
     },
     getPageComponent(page) {
