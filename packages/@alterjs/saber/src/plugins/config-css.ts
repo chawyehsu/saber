@@ -1,7 +1,8 @@
 import merge from 'lodash.merge'
 import type Config from 'webpack-chain'
+import { EsbuildPlugin } from 'esbuild-loader'
 // @ts-expect-error - no types
-import OptimizeCSSPlugin from '@intervolga/optimize-cssnano-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import getFileNames from '../utils/getFileNames'
 import type { SaberPlugin } from '..'
 
@@ -25,18 +26,18 @@ const configCss: SaberPlugin = {
       const needInlineMinification = !api.dev && !shouldExtract
       const fileNames = getFileNames(!api.dev)
 
-      const cssnanoOptions: any = {
-        safe: true,
-        autoprefixer: { disable: true },
-        mergeLonghand: false,
-      }
-      if (sourceMap) {
-        cssnanoOptions.map = { inline: false }
-      }
-
       const extractOptions = {
         filename: fileNames.css,
         chunkFilename: fileNames.css.replace(/\.css$/, '.chunk.css'),
+      }
+
+      // Extracted CSS minification via esbuild
+      if (shouldExtract && !isServer) {
+        config.optimization.minimizer('css').use(EsbuildPlugin, [
+          {
+            css: true,
+          },
+        ])
       }
 
       const createCSSRule = (lang: string, test: RegExp, loader?: string, options?: any) => {
@@ -44,7 +45,7 @@ const configCss: SaberPlugin = {
           if (shouldExtract && !isServer) {
             rule
               .use('extract-css-loader')
-              .loader(require('mini-css-extract-plugin').loader)
+              .loader(MiniCssExtractPlugin.loader)
           } else {
             rule
               .use('vue-style-loader')
@@ -77,14 +78,13 @@ const configCss: SaberPlugin = {
             .loader(require.resolve('css-loader'))
             .options(cssLoaderOptions)
 
+          // Inline CSS minification via esbuild
           if (needInlineMinification) {
             rule
               .use('minify-inline-css')
-              .loader(require.resolve('postcss-loader'))
+              .loader(require.resolve('esbuild-loader'))
               .options({
-                postcssOptions: {
-                  plugins: [require('cssnano')(cssnanoOptions)],
-                },
+                minify: true,
               })
           }
 
@@ -130,7 +130,7 @@ const configCss: SaberPlugin = {
       if (shouldExtract && !isServer) {
         config
           .plugin('extract-css')
-          .use(require('mini-css-extract-plugin'), [extractOptions])
+          .use(MiniCssExtractPlugin, [extractOptions])
 
         const splitChunks = config.optimization.get('splitChunks')
         config.optimization.splitChunks(
@@ -148,9 +148,6 @@ const configCss: SaberPlugin = {
             },
           }),
         )
-
-        const optimizeCss = new OptimizeCSSPlugin({ sourceMap, cssnanoOptions })
-        config.plugin('optimize-css').use(optimizeCss)
       }
 
       createCSSRule('css', /\.css$/)
