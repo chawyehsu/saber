@@ -6,17 +6,19 @@ export default {
     return h(
       'h1',
       { class: this.$style.title },
-      ['lorem ', sum(1, 2)]
+      ['lorem ', sum(1, 2)],
     )
-  }
+  },
 }
 
 export const attributes = {
   title: 'Flat oppai',
-  layout: 'foo'
+  layout: 'foo',
 }
+// eslint-disable-next-line no-console
 console.log('egoist is baka baka baka')
 </script>
 
 <style src="./hehe.css"></style>
+
 <style src="./hehe.module.css" module></style>

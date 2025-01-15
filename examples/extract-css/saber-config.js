@@ -1,5 +1,5 @@
 module.exports = {
   build: {
-    extractCSS: true
-  }
+    extractCSS: true,
+  },
 }
