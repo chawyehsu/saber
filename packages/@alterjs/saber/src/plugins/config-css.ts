@@ -57,13 +57,17 @@ const configCss: SaberPlugin = {
           const cssLoaderOptions = Object.assign(
             {
               sourceMap,
-              modules,
-              localIdentName: '[local]_[hash:base64:5]',
+              modules: modules?.mode
+                ? {
+                    mode: modules.mode,
+                    localIdentName: '[local]_[hash:base64:5]',
+                  }
+                : modules,
               importLoaders:
                 1 // stylePostLoader injected by vue-loader
                 + 1 // postcss-loader
                 + (needInlineMinification ? 1 : 0),
-              exportOnlyLocals: isServer && shouldExtract,
+              onlyLocals: isServer && shouldExtract,
             },
             loaderOptions.css,
           )
@@ -118,6 +122,8 @@ const configCss: SaberPlugin = {
         const vueNormalRule = baseRule.oneOf('vue').resourceQuery(/\?vue/)
         applyLoaders(vueNormalRule, false)
 
+        // FIXME(chawyehsu): can be replaced with modules.auto = true
+        // see: https://github.com/webpack-contrib/css-loader/blob/master/CHANGELOG.md#350-2020-04-06
         // rules for *.module.* files
         const extModulesRule = baseRule
           .oneOf('normal-modules')
