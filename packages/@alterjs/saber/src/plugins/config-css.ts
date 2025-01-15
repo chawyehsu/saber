@@ -1,9 +1,7 @@
-import logUpdate from 'log-update'
 import merge from 'lodash.merge'
 import type Config from 'webpack-chain'
 // @ts-expect-error - no types
 import OptimizeCSSPlugin from '@intervolga/optimize-cssnano-plugin'
-import { colors, log } from '../utils/log'
 import getFileNames from '../utils/getFileNames'
 import type { SaberPlugin } from '..'
 
@@ -78,7 +76,7 @@ const configCss: SaberPlugin = {
           if (needInlineMinification) {
             rule
               .use('minify-inline-css')
-              .loader(require.resolve('@egoist/postcss-loader'))
+              .loader(require.resolve('postcss-loader'))
               .options({
                 plugins: [require('cssnano')(cssnanoOptions)],
               })
@@ -86,20 +84,13 @@ const configCss: SaberPlugin = {
 
           rule
             .use('postcss-loader')
-            .loader(require.resolve('@egoist/postcss-loader'))
+            .loader(require.resolve('postcss-loader'))
             .options(
               Object.assign(
                 {
+                  // FIXME(chawyehsu): https://github.com/webpack-contrib/postcss-loader/issues/204#issuecomment-406774707
+                  plugins: [],
                   sourceMap,
-                  onConfigFile(configFile: any, resourcePath: any) {
-                    if (log.logLevel > 3) {
-                      logUpdate.clear()
-                      log.verbose(
-                        `Applying PostCSS config file ${configFile} to:`,
-                      )
-                      log.verbose(colors.dim(resourcePath))
-                    }
-                  },
                 },
                 loaderOptions.postcss,
               ),
