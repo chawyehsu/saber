@@ -45,7 +45,7 @@ const configCss: SaberPlugin = {
             rule
               .use('extract-css-loader')
               .loader(MiniCssExtractPlugin.loader)
-          } else {
+          } else if (!shouldExtract) {
             rule
               .use('vue-style-loader')
               .loader(require.resolve('vue-style-loader'))
