@@ -1,8 +1,12 @@
 {
-  "name": "extract-sfc-blocks",
+  "name": "@alterjs/extract-sfc-blocks",
   "version": "0.0.2",
   "description": "Extract Vue SFC blocks from HTML",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chawyehsu/saber"
+  },
   "main": "index.js",
   "files": [
     "index.js"
@@ -10,5 +14,8 @@
   "dependencies": {
     "posthtml": "^0.11.3",
     "stringify-attributes": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
