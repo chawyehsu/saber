@@ -38,3 +38,11 @@ jobs:
       run: |
         cd website
         yarn build
+        cd ..
+
+    - name: Test example Build
+      run: |
+        cd examples/extract-css
+        yarn build
+        cd ../..
+
