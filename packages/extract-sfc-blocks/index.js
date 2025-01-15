@@ -12,25 +12,25 @@ function stringifyNode(node) {
     .join('')}</${node.tag}>`
 }
 
-module.exports = input => {
+module.exports = (input) => {
   const blocks = []
   const { html } = posthtml([
     tree =>
-      tree.walk(node => {
+      tree.walk((node) => {
         if (node.tag === 'script' || node.tag === 'style') {
           blocks.push(stringifyNode(node))
           return
         }
 
         return node
-      })
+      }),
   ]).process(input, {
     sync: true,
-    recognizeSelfClosing: true
+    recognizeSelfClosing: true,
   })
 
   return {
     html,
-    blocks
+    blocks,
   }
 }
