@@ -1,24 +1,24 @@
-const path = require('path')
-const pug = require('pug')
-const extractSFCBlocks = require('extract-sfc-blocks')
+import path from 'node:path'
+import pug from 'pug'
+import extractSFCBlocks from '@alterjs/extract-sfc-blocks'
 
 const ID = 'transformer-pug'
 
 exports.name = ID
 
-exports.apply = api => {
+exports.apply = (api) => {
   api.transformers.add('pug', {
     extensions: ['pug'],
     parse(page) {
       const { body, frontmatter } = api.transformers.parseFrontmatter(
-        page.content
+        page.content,
       )
       const { base: basename, dir: dirname } = path.parse(
-        page.internal.absolute || ''
+        page.internal.absolute || '',
       )
       const html = pug.render(body, {
         filename: basename,
-        basedir: dirname
+        basedir: dirname,
       })
       const { html: pageContent, blocks } = extractSFCBlocks(html)
       Object.assign(page, frontmatter)
@@ -32,10 +32,10 @@ exports.apply = api => {
         </layout-manager>
       </template>
       `
-    }
+    },
   })
 
-  api.hooks.chainWebpack.tap(ID, config => {
+  api.hooks.chainWebpack.tap(ID, (config) => {
     config.module
       .rule('pug')
       .test(/\.pug$/)
