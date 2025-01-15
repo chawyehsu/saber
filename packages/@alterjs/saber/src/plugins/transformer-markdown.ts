@@ -1,7 +1,6 @@
 import Markdown from '@alterjs/saber-markdown'
 import ConfigChain from '../config-chain'
 import resolvePackage from '../utils/resolvePackage'
-import parseFrommatter from '../utils/parseFrontmatter'
 import type { Saber, SaberPlugin } from '..'
 import type { Page } from '../Pages'
 
@@ -97,7 +96,7 @@ const transformerMarkdownPlugin: SaberPlugin = {
     api.transformers.add('markdown', {
       extensions: ['md'],
       transform(page) {
-        const { frontmatter, body } = parseFrommatter(
+        const { frontmatter, body } = api.transformers.parseFrontmatter(
           page.content!,
           page.internal.absolute!,
         )

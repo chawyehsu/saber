@@ -1,4 +1,5 @@
 import type { CreatePageInput, Page } from './Pages'
+import parseFrontmatter from './utils/parseFrontmatter'
 
 export interface Transformer {
   extensions: string[]
@@ -11,6 +12,13 @@ export class Transformers {
 
   constructor() {
     this.transformers = new Map()
+  }
+
+  parseFrontmatter(content: string, filepath?: string): {
+    frontmatter: { [k: string]: any }
+    body: string
+  } {
+    return parseFrontmatter(content, filepath)
   }
 
   add(contentType: string, transformer: Transformer) {

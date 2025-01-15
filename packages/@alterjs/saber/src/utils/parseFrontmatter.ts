@@ -15,15 +15,15 @@ const parsers: {
 }
 
 /**
- * Extract front matter from a page
+ * Extract front matter from the given content
  * @param {string} content The content of a page
- * @param {string} filepath The absolute path to the path
+ * @param {string?} filepath The absolute path to the content file
  * @returns {{frontmatter: {[k:string]: any}, body: string}} The extracted front matter and body
  */
-export default (content: string, filepath: string): {
+export default function parseFrontmatter(content: string, filepath?: string): {
   frontmatter: { [k: string]: any }
   body: string
-} => {
+} {
   const getEmpty = () => ({
     frontmatter: {},
     body: content && content.trim(),
