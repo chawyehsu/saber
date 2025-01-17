@@ -1,11 +1,12 @@
-const path = require('node:path')
-const urlJoin = require('url-join')
+import path from 'node:path'
+import type { Saber } from '@alterjs/saber'
+import urlJoin from 'url-join'
 
 const ID = 'netlify-redirect'
 
 exports.name = ID
 
-exports.apply = (api) => {
+exports.apply = (api: Saber) => {
   api.hooks.afterGenerate.tapPromise(ID, async () => {
     const { log } = api
     /** @type {{fs: import('fs-extra') }} */
@@ -13,9 +14,9 @@ exports.apply = (api) => {
 
     const outDir = api.resolveOutDir()
 
-    const getAbsoluteLink = link => urlJoin(api.config.build.publicUrl, link)
+    const getAbsoluteLink = (link: string) => urlJoin(api.config.build.publicUrl, link)
 
-    const getRedirectFileContent = (redirectRoutes) => {
+    const getRedirectFileContent = (redirectRoutes: Map<string, any>) => {
       let content = ''
       for (const config of redirectRoutes.values()) {
         content += `${getAbsoluteLink(config.fromPath)} ${getAbsoluteLink(
@@ -26,7 +27,7 @@ exports.apply = (api) => {
       return content
     }
 
-    const generateRedirects = async (redirectRoutes) => {
+    const generateRedirects = async (redirectRoutes: Map<string, any>) => {
       const redirectFilePath = path.join(outDir, '_redirects')
       const content = getRedirectFileContent(redirectRoutes)
       if (await fs.pathExists(redirectFilePath)) {

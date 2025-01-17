@@ -1,23 +1,36 @@
 {
   "name": "@alterjs/saber-plugin-meta-redirect",
-  "version": "0.12.0",
+  "version": "0.12.2",
   "description": "Generates meta redirect html files for redirecting on any static file host",
   "license": "MIT",
-  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chawyehsu/saber"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.min.mjs",
+      "require": "./dist/index.min.cjs"
+    }
+  },
+  "main": "./dist/index.min.cjs",
+  "module": "./dist/index.min.mjs",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "dev:example": "saber example",
-    "build:example": "saber build example"
-  },
-  "publishConfig": {
-    "access": "public"
+    "build": "rimraf dist && rollup -c",
+    "build:example": "saber build example",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "@alterjs/saber": ">=0.12.0"
   },
-  "dependencies": {
-    "url-join": "4.0.1"
+  "devDependencies": {
+    "url-join": "5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
