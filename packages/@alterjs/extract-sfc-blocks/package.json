@@ -25,10 +25,12 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "posthtml": "^0.16.6",
-    "stringify-attributes": "^4.0.0"
+    "posthtml": "^0.16.6"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "stringify-attributes": "^4.0.0"
   }
 }
