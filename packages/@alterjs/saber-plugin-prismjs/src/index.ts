@@ -1,5 +1,6 @@
-const Prism = require('prismjs')
-const loadLanguages = require('./loadLanguages')
+import Prism from 'prismjs'
+import type { Saber } from '@alterjs/saber'
+import { loadPrismLanguage } from './loadLanguages'
 
 const languageAlias = {
   vue: 'html',
@@ -7,22 +8,22 @@ const languageAlias = {
   styl: 'stylus',
 }
 
-function highlighter(code, lang) {
+function highlighter(code: string, lang: string) {
   if (!lang) {
-    return Prism.highlight(code, {})
+    return Prism.highlight(code, {}, '')
   }
 
   lang = lang.toLowerCase()
 
-  if (lang in languageAlias) {
-    lang = languageAlias[lang]
+  if (lang in Object.keys(languageAlias)) {
+    lang = languageAlias[lang as keyof typeof languageAlias]
   }
 
   if (!Prism.languages[lang]) {
     try {
-      loadLanguages(lang)
+      loadPrismLanguage(lang)
     } catch (error) {
-      return Prism.highlight(code, {})
+      return Prism.highlight(code, {}, '')
     }
   }
 
@@ -35,7 +36,7 @@ const ID = 'prismjs'
 
 const prismjsPlugin = {
   name: ID,
-  apply(api) {
+  apply(api: Saber) {
     api.hooks.chainMarkdown.tap(ID, (config) => {
       config.options.highlight(highlighter)
     })

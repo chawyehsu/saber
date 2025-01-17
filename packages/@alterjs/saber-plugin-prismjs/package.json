@@ -7,20 +7,30 @@
     "type": "git",
     "url": "https://github.com/chawyehsu/saber"
   },
-  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.min.mjs",
+      "require": "./dist/index.min.cjs"
+    }
+  },
+  "main": "./dist/index.min.cjs",
+  "module": "./dist/index.min.mjs",
   "files": [
     "default.css",
-    "index.js",
-    "loadLanguages.js"
+    "dist"
   ],
   "scripts": {
-    "lint": "eslint ./*.js"
+    "build": "rimraf dist && rollup -c",
+    "build:example": "saber build example",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "@alterjs/saber": ">=0.12.2",
     "prismjs": "^1.29.0"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.5",
     "prismjs": "^1.29.0"
   },
   "publishConfig": {

@@ -1,8 +1,8 @@
-const Prism = require('prismjs')
-const prismComponents = require('prismjs/components')
+import Prism from 'prismjs'
+import prismComponents from 'prismjs/components'
 
 // Get the real name of a language given it or an alias
-function getBaseLanguageName(nameOrAlias, components = prismComponents) {
+function getBaseLanguageName(nameOrAlias: string, components = prismComponents) {
   if (components.languages[nameOrAlias]) {
     return nameOrAlias
   }
@@ -20,7 +20,7 @@ function getBaseLanguageName(nameOrAlias, components = prismComponents) {
   })
 }
 
-function loadPrismLanguage(language) {
+export function loadPrismLanguage(language: string) {
   const baseLanguage = getBaseLanguageName(language)
 
   if (!baseLanguage) {
@@ -50,5 +50,3 @@ function loadPrismLanguage(language) {
 
   require(`prismjs/components/prism-${baseLanguage}.js`)
 }
-
-module.exports = loadPrismLanguage
