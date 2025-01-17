@@ -28,12 +28,7 @@
     "@alterjs/saber": ">=0.12.2"
   },
   "dependencies": {
-    "@alterjs/extract-sfc-blocks": "^0.0.2"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-terser": "^0.4.4"
+    "@alterjs/extract-sfc-blocks": "^0.12.2"
   },
   "publishConfig": {
     "access": "public"

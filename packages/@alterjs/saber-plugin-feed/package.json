@@ -28,12 +28,7 @@
     "@alterjs/saber": ">=0.12.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "@rollup/plugin-terser": "^0.4.4",
-    "feed": "^4.2.2",
-    "rollup": "^4.24.0"
+    "feed": "^4.2.2"
   },
   "publishConfig": {
     "access": "public"

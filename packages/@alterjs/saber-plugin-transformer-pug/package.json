@@ -28,14 +28,11 @@
     "@alterjs/saber": ">=0.12.2"
   },
   "dependencies": {
-    "@alterjs/extract-sfc-blocks": "^0.0.2",
+    "@alterjs/extract-sfc-blocks": "^0.12.2",
     "pug": "^3.0.3",
     "pug-plain-loader": "^1.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-terser": "^0.4.4",
     "@types/pug": "^2.0.10"
   },
   "publishConfig": {
