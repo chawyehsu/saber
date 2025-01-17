@@ -2,6 +2,7 @@ import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable'
 import type Config from 'webpack-chain'
 import type { BundleRenderer } from 'vue-server-renderer'
 import type { Configuration } from 'webpack'
+import type ConfigChain from './config-chain'
 import type { ResolvedSaberPlugin, WebpackContext } from '.'
 
 export const hooks = {
@@ -24,8 +25,8 @@ export const hooks = {
    *
    * Use this hook to extend `markdown-it` config
    */
-  chainMarkdown: new SyncHook(['config']),
-  chainTemplate: new SyncHook(['config']),
+  chainMarkdown: new SyncHook<ConfigChain>(['config']),
+  chainTemplate: new SyncHook<ConfigChain>(['config']),
   emitRoutes: new AsyncSeriesHook(),
   // Called after running webpack
   afterBuild: new AsyncSeriesHook(),

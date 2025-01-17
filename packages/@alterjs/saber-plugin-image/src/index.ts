@@ -1,11 +1,19 @@
-const { join } = require('node:path')
-const { parse } = require('node:querystring')
+import { join } from 'node:path'
+import { parse } from 'node:querystring'
+import type { Saber } from '@alterjs/saber'
+
+interface Options {
+  lazyLoad?: boolean
+  placeholder?: boolean
+  blendIn?: boolean
+  markdownImages?: boolean
+}
 
 const ID = 'images'
 
 exports.name = ID
 
-exports.apply = (api, options = {}) => {
+exports.apply = (api: Saber, options: Options = {}) => {
   options = Object.assign(
     {
       lazyLoad: true,
@@ -18,7 +26,7 @@ exports.apply = (api, options = {}) => {
 
   api.browserApi.add(join(__dirname, 'saber-browser.js'))
 
-  api.renderer.hooks.getVueLoaderOptions.tap(ID, (options) => {
+  api.renderer.hooks.getVueLoaderOptions.tap(ID, (options: any) => {
     options.transformAssetUrls = Object.assign({}, options.transformAssetUrls, {
       'saber-image': ['src'],
     })
@@ -27,8 +35,8 @@ exports.apply = (api, options = {}) => {
 
   if (options.markdownImages) {
     api.hooks.chainMarkdown.tap(ID, (config) => {
-      config.plugin(ID).use((md) => {
-        md.core.ruler.push(ID, (state) => {
+      config.plugin(ID).use((md: any) => {
+        md.core.ruler.push(ID, (state: any) => {
           const { tokens } = state
 
           for (const token of tokens) {
@@ -46,10 +54,10 @@ exports.apply = (api, options = {}) => {
                   Object.keys(querystring).forEach((key) => {
                     const query = querystring[key]
                     if (query === 'true') {
-                      querystring[key] = true
+                      querystring[key] = 'true'
                     }
                     if (query === 'false') {
-                      querystring[key] = false
+                      querystring[key] = 'false'
                     }
                   })
                   child.attrSet('data-lazy', JSON.stringify(querystring))

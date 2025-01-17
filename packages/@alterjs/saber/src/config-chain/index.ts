@@ -7,7 +7,7 @@ import resolvePackage from '../utils/resolvePackage'
 import Plugin from './Plugin'
 import Options from './Options'
 
-export default class MarkdownItChain extends ChainedMap {
+export default class ConfigChain extends ChainedMap {
   [x: string]: any
 
   constructor() {
