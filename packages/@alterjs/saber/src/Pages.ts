@@ -88,7 +88,7 @@ export interface Page {
   type: 'page' | 'post'
   content: string
   contentType: string
-  createdAt?: Date
+  createdAt: Date
   updatedAt?: Date
   permalink: string
   slug?: string

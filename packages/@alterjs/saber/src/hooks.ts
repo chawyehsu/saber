@@ -33,7 +33,7 @@ export const hooks = {
   afterGenerate: new AsyncSeriesHook(),
   getDocumentData: new SyncWaterfallHook<[string, string]>(['documentData', 'ssrContext']),
   getDocument: new SyncWaterfallHook<[string, string]>(['document', 'ssrContext']),
-  defineVariables: new SyncWaterfallHook(['variables']),
+  defineVariables: new SyncWaterfallHook<any>(['variables']),
   // Called before creating pages for the first time
   initPages: new AsyncSeriesHook(),
   // Called when a new page is added

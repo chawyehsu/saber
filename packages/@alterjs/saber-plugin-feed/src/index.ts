@@ -1,12 +1,32 @@
 import path from 'node:path'
 import { Feed } from 'feed'
+import type { Saber } from '@alterjs/saber'
 import { getFeedPath, resolveURL } from './utils'
+
+interface Options {
+  limit?: number
+  generator?: string
+  copyright?: string
+  jsonFeed?: string | boolean
+  atomFeed?: string | boolean
+  rss2Feed?: string | boolean
+}
+
+interface FeedPost {
+  title: string
+  id: string
+  link: string
+  description: string
+  content: string
+  date: Date
+  published: Date
+}
 
 const ID = 'generate-feed'
 
 exports.name = ID
 
-exports.apply = (api, options = {}) => {
+exports.apply = (api: Saber, options: Options = {}) => {
   // Plugin options
   options = Object.assign(
     {
@@ -22,9 +42,9 @@ exports.apply = (api, options = {}) => {
     throw new Error(`siteConfig.url is required for saber-plugin-feed`)
   }
 
-  const jsonFeedPath = getFeedPath(options.jsonFeed, 'feed.json')
-  const atomFeedPath = getFeedPath(options.atomFeed, 'atom.xml')
-  const rss2FeedPath = getFeedPath(options.rss2Feed, 'rss2.xml')
+  const jsonFeedPath = getFeedPath('feed.json', options.jsonFeed)
+  const atomFeedPath = getFeedPath('atom.xml', options.atomFeed)
+  const rss2FeedPath = getFeedPath('rss2.xml', options.rss2Feed)
 
   api.hooks.defineVariables.tap(ID, (variables) => {
     return Object.assign(variables, {
@@ -45,9 +65,9 @@ exports.apply = (api, options = {}) => {
     )
   })
 
-  async function generateFeed(localePath) {
+  async function generateFeed(localePath: string) {
     // Prepare posts
-    const posts = []
+    const posts: FeedPost[] = []
 
     await Promise.all(
       [...api.pages.values()].map(async (page) => {
@@ -70,7 +90,7 @@ exports.apply = (api, options = {}) => {
           description:
             page.excerpt && page.excerpt.replace(/<(?:.|\n)*?>/g, ''),
           content,
-          date: page.updatedAt,
+          date: page.updatedAt || page.createdAt,
           published: page.createdAt,
         })
       }),
@@ -79,7 +99,7 @@ exports.apply = (api, options = {}) => {
     // Order by published
     const items = posts
       .sort((a, b) => {
-        return b.published - a.published
+        return b.published.getTime() - a.published.getTime()
       })
       .slice(0, options.limit)
 
@@ -89,7 +109,7 @@ exports.apply = (api, options = {}) => {
       description: siteConfig.description,
       id: siteConfig.url.replace(/\/?$/, '/'), // Ensure that the id ends with a slash
       link: siteConfig.url,
-      copyright: options.copyright,
+      copyright: options.copyright || 'All rights reserved',
       generator: options.generator,
       author: {
         name: siteConfig.author,
@@ -112,7 +132,7 @@ exports.apply = (api, options = {}) => {
 
     const outDir = api.resolveOutDir()
 
-    const writeFeed = async (fileName, content) => {
+    const writeFeed = async (fileName: string, content: string) => {
       log.info(`Generating ${fileName}`)
       await fs.outputFile(path.join(outDir, fileName), content, 'utf8')
     }

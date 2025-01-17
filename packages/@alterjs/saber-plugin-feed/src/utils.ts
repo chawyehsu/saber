@@ -1,12 +1,11 @@
-// @ts-check
 import { URL } from 'node:url'
 
 /**
  * Get feed path
- * @param {string|boolean|undefined} feedPath
  * @param {string} defaultPath
+ * @param {string|boolean|undefined} feedPath
  */
-export function getFeedPath(feedPath, defaultPath) {
+export function getFeedPath(defaultPath: string, feedPath?: string | boolean) {
   if (feedPath === true) {
     return defaultPath
   }
@@ -24,6 +23,6 @@ export function getFeedPath(feedPath, defaultPath) {
  * @param {string} pathname
  * @returns {string} Resolved URL
  */
-export function resolveURL(base, pathname) {
+export function resolveURL(base: string, pathname: string): string {
   return new URL(pathname, base).href
 }
