@@ -1,7 +1,7 @@
 {
   "name": "create-saber",
   "type": "module",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "Create a Saber Alter project in seconds",
   "license": "MIT",
   "repository": {

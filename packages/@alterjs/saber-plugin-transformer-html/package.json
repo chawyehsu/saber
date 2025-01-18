@@ -1,6 +1,6 @@
 {
   "name": "@alterjs/saber-plugin-transformer-html",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "Write pages in HTML",
   "license": "MIT",
   "repository": {
@@ -25,10 +25,10 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@alterjs/saber": ">=0.12.2"
+    "@alterjs/saber": "^0.13.0"
   },
   "dependencies": {
-    "@alterjs/extract-sfc-blocks": "^0.12.2"
+    "@alterjs/extract-sfc-blocks": "^0.13.0"
   },
   "publishConfig": {
     "access": "public"

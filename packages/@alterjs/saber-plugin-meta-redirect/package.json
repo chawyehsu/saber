@@ -1,6 +1,6 @@
 {
   "name": "@alterjs/saber-plugin-meta-redirect",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "Generates meta redirect html files for redirecting on any static file host",
   "license": "MIT",
   "repository": {
@@ -25,7 +25,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@alterjs/saber": ">=0.12.0"
+    "@alterjs/saber": "^0.13.0"
   },
   "devDependencies": {
     "url-join": "5.0.0"
