@@ -1,11 +1,11 @@
-# saber-plugin-netlify-redirect
+# @alterjs/saber-plugin-netlify-redirect
 
 Automatically generate or update `_redirects` file in your public folder for [Netlify](https://www.netlify.com/docs/redirects/).
 
 ## Install
 
 ```bash
-yarn add saber-plugin-netlify-redirect
+yarn add @alterjs/saber-plugin-netlify-redirect
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-netlify-redirect
+  - resolve: '@alterjs/saber-plugin-netlify-redirect'
 ```
 
 Then you can create redirects using the [`pages.createRedirect`](<https://saber.land/docs/saber-instance.html#pages.createredirect(config)>) API.

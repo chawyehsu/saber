@@ -1,11 +1,11 @@
-# saber-plugin-pwa
+# @alterjs/saber-plugin-pwa
 
 Add PWA (progressive web app) support to your Saber app.
 
 ## Install
 
 ```bash
-yarn add saber-plugin-pwa
+yarn add @alterjs/saber-plugin-pwa
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-pwa
+  - resolve: '@alterjs/saber-plugin-pwa'
 ```
 
 Then you need to create a set of icons in `static` folder to make your app installable, for example:

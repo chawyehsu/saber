@@ -1,11 +1,11 @@
-# saber-plugin-transformer-pug
+# @alterjs/saber-plugin-transformer-pug
 
 Write pages in Pug and add support for importing Pug files
 
 ## Install
 
 ```bash
-yarn add saber-plugin-transformer-pug
+yarn add @alterjs/saber-plugin-transformer-pug
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-transformer-pug
+  - resolve: '@alterjs/saber-plugin-transformer-pug'
 ```
 
 Try it by populating a `pages/try.pug`:

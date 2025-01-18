@@ -1,11 +1,11 @@
-# saber-plugin-search
+# @alterjs/saber-plugin-search
 
 Adds a hyper-fast, easy to integrate and highly customizable search to your app.
 
 ## Install
 
 ```bash
-yarn add saber-plugin-search
+yarn add @alterjs/saber-plugin-search
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ In your `saber-config.yml`:
 
 ```yml
 plugins:
-  - resolve: saber-plugin-search
+  - resolve: '@alterjs/saber-plugin-search'
 ```
 
 Then in your Vue components, you can call `this.$fetchSearchDatabase()` to get the database that you can query from, this method returns a Promise which resolves an array of `Page` objects:
