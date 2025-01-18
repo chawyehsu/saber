@@ -55,5 +55,5 @@ export const hooks = {
   /**
    * Called after creating the server
    */
-  onCreateServer: new SyncHook(['server']),
+  onCreateServer: new SyncHook<any>(['server']),
 }

@@ -1,16 +1,25 @@
-const { join } = require('node:path')
+import { join } from 'node:path'
+import type { Saber } from '@alterjs/saber'
+
+interface Db {
+  [locale: string]: any[]
+}
+
+interface Options {
+  index?: string[]
+}
 
 const ID = 'search'
 
 exports.name = ID
 
-let db = {}
+let db: Db = {}
 
-function getLocale(locale) {
+function getLocale(locale: string) {
   return db[locale]
 }
 
-exports.apply = (api, options) => {
+exports.apply = (api: Saber, options: Options) => {
   const { index } = Object.assign(
     {
       index: ['type', 'title', 'excerpt', 'permalink'],
@@ -20,8 +29,8 @@ exports.apply = (api, options) => {
 
   const { fs } = api.utils
 
-  async function generateLocale(localePath) {
-    const pages = []
+  async function generateLocale(localePath: string) {
+    const pages: any[] = []
 
     await Promise.all(
       [...api.pages.values()].map(async (page) => {
@@ -34,7 +43,7 @@ exports.apply = (api, options) => {
           return
         }
 
-        const item = {}
+        const item: any = {}
 
         for (const element of index) {
           const value = page[element]
@@ -56,14 +65,14 @@ exports.apply = (api, options) => {
     return pages
   }
 
-  async function generateDatabase() {
+  async function generateDatabase(): Promise<Db> {
     const allLocalePaths = ['/'].concat(Object.keys(api.config.locales || {}))
 
     const results = await Promise.all(
       allLocalePaths.map(localePath => generateLocale(localePath)),
     )
 
-    const localDb = {}
+    const localDb: Db = {}
     results.forEach((result, i) => {
       const locale = allLocalePaths[i].slice(1) || 'default'
       localDb[locale] = result
@@ -76,7 +85,7 @@ exports.apply = (api, options) => {
 
   if (api.dev) {
     api.hooks.onCreateServer.tap(ID, (server) => {
-      server.get('/_saber/plugin-search/:locale.json', async (req, res) => {
+      server.get('/_saber/plugin-search/:locale.json', async (req: any, res: any) => {
         db = await generateDatabase()
         const dbByLocale = getLocale(req.params.locale)
         if (dbByLocale) {
