@@ -29,6 +29,7 @@ export default class PrintStatusPlugin {
           } due to changes in ${file.replace(os.homedir(), '~')}`,
         ),
       )
+      return d
     })
 
     if (
