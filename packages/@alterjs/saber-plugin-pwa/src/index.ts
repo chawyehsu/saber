@@ -1,6 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import type { Saber } from '@alterjs/saber'
+import { generateSW } from 'workbox-build'
 import generateManifest from './generate-manifest'
 import getAppConfig from './get-app-config'
 import createElement from './create-element'
@@ -61,11 +62,9 @@ exports.apply = (
     const manifest: Manifest = hasManifest ? require(manifestPath) : {}
 
     api.hooks.afterGenerate.tapPromise(ID, async () => {
-      const { generateSW } = require('workbox-build')
       await generateSW({
         ...generateSWOptions,
         swDest: api.resolveOutDir('service-worker.js'),
-        importWorkboxFrom: 'local',
         globDirectory: api.resolveOutDir(),
         globPatterns: [
           '**/*.{js,css,html,png,jpg,jpeg,gif,svg,woff,woff2,eot,ttf,otf}',
