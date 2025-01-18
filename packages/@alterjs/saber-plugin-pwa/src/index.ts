@@ -1,16 +1,38 @@
-const path = require('node:path')
-const fs = require('node:fs')
-const generateManifest = require('./generate-manifest')
-const getAppConfig = require('./get-app-config')
-const createElement = require('./create-element')
+import path from 'node:path'
+import fs from 'node:fs'
+import type { Saber } from '@alterjs/saber'
+import generateManifest from './generate-manifest'
+import getAppConfig from './get-app-config'
+import createElement from './create-element'
+
+interface SWOptions {
+  globPatterns?: string[]
+}
+
+interface ManifestIcon {
+  src: string
+  type?: string
+  sizes?: string
+}
+
+interface Manifest {
+  icons?: ManifestIcon[]
+}
 
 const ID = 'pwa'
 
 exports.name = ID
 
 exports.apply = (
-  api,
-  { notifyUpdates = true, generateSWOptions = {}, ...appConfig } = {},
+  api: Saber,
+  { notifyUpdates = true, generateSWOptions = {}, ...appConfig }: {
+    notifyUpdates?: boolean
+    generateSWOptions?: SWOptions
+    name?: string
+    themeColor?: string
+    assetsVersion?: string
+    appleTouchIcon?: string
+  } = {},
 ) => {
   if (api.dev) {
     // Uninstall server-worker.js in dev mode
@@ -36,7 +58,7 @@ exports.apply = (
 
     const manifestPath = api.resolveCwd('static/manifest.json')
     const hasManifest = fs.existsSync(manifestPath)
-    const manifest = hasManifest ? require(manifestPath) : {}
+    const manifest: Manifest = hasManifest ? require(manifestPath) : {}
 
     api.hooks.afterGenerate.tapPromise(ID, async () => {
       const { generateSW } = require('workbox-build')
@@ -76,13 +98,14 @@ exports.apply = (
       ]
         .concat(
           appleTouchIcons
-          && appleTouchIcons.map(icon =>
-            createElement('link', {
-              rel: 'apple-touch-icon',
-              sizes: icon.sizes || false,
-              href: icon.src,
-            }),
-          ),
+            ? appleTouchIcons.map(icon =>
+              createElement('link', {
+                rel: 'apple-touch-icon',
+                sizes: icon.sizes || false,
+                href: icon.src,
+              }),
+            )
+            : [],
         )
         .filter(Boolean)
         .join('')

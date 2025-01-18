@@ -1,4 +1,5 @@
 export default (context) => {
+  // eslint-disable-next-line node/prefer-global/process
   if (process.browser && 'serviceWorker' in navigator) {
     const { notifyUpdates } = __PWA_OPTIONS__
     const { Workbox } = require('workbox-window')

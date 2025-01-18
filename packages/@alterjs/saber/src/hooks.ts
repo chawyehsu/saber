@@ -3,6 +3,7 @@ import type Config from 'webpack-chain'
 import type { BundleRenderer } from 'vue-server-renderer'
 import type { Configuration } from 'webpack'
 import type ConfigChain from './config-chain'
+import type { DocumentData } from './vue-renderer/get-initial-document'
 import type { ResolvedSaberPlugin, WebpackContext } from '.'
 
 export const hooks = {
@@ -32,7 +33,7 @@ export const hooks = {
   afterBuild: new AsyncSeriesHook(),
   // Called after generate static HTML files
   afterGenerate: new AsyncSeriesHook(),
-  getDocumentData: new SyncWaterfallHook<[string, string]>(['documentData', 'ssrContext']),
+  getDocumentData: new SyncWaterfallHook<[DocumentData, any]>(['documentData', 'ssrContext']),
   getDocument: new SyncWaterfallHook<[string, string]>(['document', 'ssrContext']),
   defineVariables: new SyncWaterfallHook<any>(['variables']),
   // Called before creating pages for the first time

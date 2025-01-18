@@ -1,5 +1,18 @@
 import { prefixSpace } from './utils'
 
+export interface DocumentData {
+  title: string
+  htmlAttrs: string
+  headAttrs: string
+  bodyAttrs: string
+  link: string
+  style: string
+  headScript: string
+  bodyScript: string
+  noscript: string
+  meta: string
+}
+
 /**
  * Get the initial HTML sent from server-side
  * @param {any} documentData
@@ -35,7 +48,7 @@ export function getInitialDocument(documentData: any) {
   `
 }
 
-export function getInitialDocumentData(context: any) {
+export function getInitialDocumentData(context: any): DocumentData {
   if (!context.metaInfo) {
     return {
       title: '',

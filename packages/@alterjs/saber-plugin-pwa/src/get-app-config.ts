@@ -4,7 +4,10 @@ const defaults = {
   assetsVersion: '',
 }
 
-module.exports = (config = {}) => {
+export default function (config: {
+  name?: string
+  appleTouchIcon?: string
+} = {}) {
   return Object.assign({}, defaults, config, {
     name: config.name || defaults.name,
   })

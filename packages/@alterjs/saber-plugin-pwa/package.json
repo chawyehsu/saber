@@ -1,22 +1,39 @@
 {
   "name": "@alterjs/saber-plugin-pwa",
-  "version": "0.12.0",
+  "version": "0.12.2",
   "description": "Add PWA support for your Saber app.",
   "license": "MIT",
-  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chawyehsu/saber"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.min.mjs",
+      "require": "./dist/index.min.cjs"
+    }
+  },
+  "main": "./dist/index.min.cjs",
+  "module": "./dist/index.min.mjs",
   "files": [
-    "lib"
+    "dist"
   ],
-  "publishConfig": {
-    "access": "public"
+  "scripts": {
+    "build": "rimraf dist && rollup -c && node scripts/build.js",
+    "build:example": "saber build example",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@alterjs/saber": ">=0.12.0"
+    "@alterjs/saber": ">=0.12.2"
   },
   "dependencies": {
     "@snackbar/core": "^1.6.0",
-    "stringify-attributes": "^2.0.0",
+    "stringify-attributes": "^4.0.0",
     "workbox-build": "^4.3.1",
     "workbox-window": "^4.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

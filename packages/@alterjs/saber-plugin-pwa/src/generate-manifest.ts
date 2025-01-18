@@ -1,4 +1,10 @@
-module.exports = async (api, { name, themeColor, manifest }) => {
+import type { Saber } from '@alterjs/saber'
+
+export default async function (api: Saber, { name, themeColor, manifest }: {
+  name: string
+  themeColor: string
+  manifest: Record<string, any>
+}) {
   const { log } = api
   const { fs } = api.utils
 
