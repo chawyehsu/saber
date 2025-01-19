@@ -7,7 +7,7 @@ import './css/prism.css'
 import './css/page.css'
 
 export default ({ router, setHead }) => {
-  if (process.browser) {
+  if (typeof window !== "undefined") {
     const nprogress = require('nprogress')
 
     const loaded = Object.create(null)
