@@ -454,6 +454,7 @@ export class VueRenderer {
 
     const devMiddleware = webpackDevMiddleware(clientCompiler, {
       publicPath: clientConfig.output?.publicPath,
+      writeToDisk: true,
     })
 
     const hotMiddleware = webpackHotMiddleware(clientCompiler, {
