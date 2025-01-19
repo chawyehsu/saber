@@ -462,9 +462,6 @@ export class VueRenderer {
 
     const serverConfig = await this.api.getWebpackConfig({ type: 'server' })
     const serverCompiler = webpack(serverConfig)
-    // @ts-expect-error - unknown
-    const mfs = new webpack.MemoryOutputFileSystem()
-    serverCompiler.outputFileSystem = mfs
 
     let serverBundle: string | undefined
     let clientManifest: object
@@ -488,7 +485,6 @@ export class VueRenderer {
       if (status === 'success') {
         serverBundle = readJSON(
           this.api.resolveCache('bundle-manifest/server.json'),
-          mfs.readFileSync.bind(mfs),
         )
         this.initRenderer({ serverBundle, clientManifest })
       }
@@ -498,10 +494,6 @@ export class VueRenderer {
       if (status === 'success') {
         clientManifest = readJSON(
           this.api.resolveCache('bundle-manifest/client.json'),
-          // @ts-expect-error - unknown
-          clientCompiler.outputFileSystem.readFileSync.bind(
-            clientCompiler.outputFileSystem,
-          ),
         )
         this.initRenderer({ serverBundle, clientManifest })
       }
