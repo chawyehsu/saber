@@ -16,7 +16,6 @@ import configLoader from './utils/configLoader'
 import resolvePackage from './utils/resolvePackage'
 import builtinPlugins from './plugins'
 import { Compiler } from './Compiler'
-import { WebpackUtils } from './WebpackUtils'
 import { hooks } from './hooks'
 import { VueRenderer } from './vue-renderer'
 import type { ValidatedSaberConfig } from './utils/validateConfig'
@@ -237,7 +236,6 @@ export class Saber {
   config: ValidatedSaberConfig
   pages: Pages
   browserApi: BrowserApi
-  webpackUtils: WebpackUtils
   log: Log
   colors: typeof colors
   utils: any
@@ -269,7 +267,6 @@ export class Saber {
     this.initialConfig = config
     this.pages = new Pages(this)
     this.browserApi = new BrowserApi(this)
-    this.webpackUtils = new WebpackUtils(this)
     this.log = log
     this.colors = colors
     this.utils = publicUtils

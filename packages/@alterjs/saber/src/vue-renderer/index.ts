@@ -103,14 +103,6 @@ export class VueRenderer {
             transformAssetUrls: {},
             prettify: false,
           },
-          api.webpackUtils.getCacheOptions('vue-loader', () => ({
-            // Increse `key` to invalid cache
-            'key': 0,
-            type,
-            'vue-loader': require('vue-loader/package.json').version,
-            'vue-template-compiler': require('vue-template-compiler/package.json')
-              .version,
-          })),
         ),
       )
 

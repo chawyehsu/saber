@@ -20,6 +20,11 @@ export default function webpackConfig(api: Saber, { type }: { type: string }): C
 
   const fileNames = getFileNames(!api.dev)
 
+  // Disable cache if cache is disabled in saber config
+  if (api.config.build.cache === false) {
+    config.cache(false)
+  }
+
   config.output
     .publicPath(`${api.config.build.publicUrl}_saber/`)
     .filename(fileNames.js)
