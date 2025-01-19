@@ -1,3 +1,4 @@
+// @ts-check
 import { types as t } from '@babel/core'
 import { declare } from '@babel/helper-plugin-utils'
 
@@ -15,8 +16,13 @@ export default declare((api) => {
         },
       ) {
         if (
+          filename
           // removed `/` to make it work under Windows
-          filename.endsWith('html_re.js')
+          && (
+            filename.endsWith('html_re.js')
+            // for markdown-it v14+ which was rewritten in ES module
+            || filename.endsWith('html_re.mjs')
+          )
           && path.node.value === '[a-zA-Z_:][a-zA-Z0-9:._-]*'
         ) {
           // eslint-disable-next-line no-console
@@ -27,6 +33,7 @@ export default declare((api) => {
       ArrayExpression(path) {
         if (
           path.parent.type === 'VariableDeclarator'
+          && path.parent.id.type === 'Identifier'
           && path.parent.id.name === 'HTML_SEQUENCES'
         ) {
           // Using Vue components at top-level
