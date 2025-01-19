@@ -1,7 +1,6 @@
 import merge from 'lodash.merge'
 import type Config from 'rspack-chain'
 import { EsbuildPlugin } from 'esbuild-loader'
-// @ts-expect-error - no types
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import getFileNames from '../utils/getFileNames'
 import type { SaberPlugin } from '..'
