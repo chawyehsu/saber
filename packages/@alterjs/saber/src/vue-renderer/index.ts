@@ -323,7 +323,7 @@ export class VueRenderer {
     ])
   }
 
-  async initRenderer({ clientManifest, serverBundle }: any = {}) {
+  async initRenderer({ clientManifest, serverBundle }: any = {}): Promise<BundleRenderer> {
     const isFirstTime = !this.renderer
 
     if (serverBundle && clientManifest) {
@@ -336,9 +336,9 @@ export class VueRenderer {
       })
     }
 
-    await this.api.hooks.onCreateRenderer.promise(this.renderer, isFirstTime)
+    await this.api.hooks.onCreateRenderer.promise(this.renderer!, isFirstTime)
 
-    return this.renderer
+    return this.renderer!
   }
 
   async renderPageContent(url: string, { scoped = false } = {}) {
@@ -575,7 +575,7 @@ export class VueRenderer {
       const render = async () => {
         log.verbose(`Rendering page ${req.url}`)
 
-        const { html } = await renderHTML(this.renderer, {
+        const { html } = await renderHTML(this.renderer!, {
           url: req.url,
           isProd: false,
           hooks: this.api.hooks,

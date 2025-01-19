@@ -17,7 +17,7 @@ export interface DocumentData {
  * Get the initial HTML sent from server-side
  * @param {any} documentData
  */
-export function getInitialDocument(documentData: any) {
+export function getInitialDocument(documentData: any): string {
   const {
     title,
     meta,

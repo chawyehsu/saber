@@ -4,6 +4,7 @@ import type { BundleRenderer } from 'vue-server-renderer'
 import type { Configuration } from 'webpack'
 import type ConfigChain from './config-chain'
 import type { DocumentData } from './vue-renderer/get-initial-document'
+import type { RenderContext } from './vue-renderer/render-html'
 import type { ResolvedSaberPlugin, WebpackContext } from '.'
 
 export const hooks = {
@@ -33,8 +34,8 @@ export const hooks = {
   afterBuild: new AsyncSeriesHook(),
   // Called after generate static HTML files
   afterGenerate: new AsyncSeriesHook(),
-  getDocumentData: new SyncWaterfallHook<[DocumentData, any]>(['documentData', 'ssrContext']),
-  getDocument: new SyncWaterfallHook<[string, string]>(['document', 'ssrContext']),
+  getDocumentData: new SyncWaterfallHook<[DocumentData, RenderContext]>(['documentData', 'ssrContext']),
+  getDocument: new SyncWaterfallHook<[string, RenderContext]>(['document', 'ssrContext']),
   defineVariables: new SyncWaterfallHook<any>(['variables']),
   // Called before creating pages for the first time
   initPages: new AsyncSeriesHook(),
@@ -47,7 +48,7 @@ export const hooks = {
   // Call this hook to manipulate a page, it's usually used by file watcher
   manipulatePage: new AsyncSeriesHook<any>(['data']),
   // Call when server renderer is created and updated
-  onCreateRenderer: new AsyncSeriesHook<[BundleRenderer | undefined, boolean]>(['renderer', 'isFirstTime']),
+  onCreateRenderer: new AsyncSeriesHook<[BundleRenderer, boolean]>(['renderer', 'isFirstTime']),
   // Called before exporting a page as static HTML file
   beforeExportPage: new AsyncSeriesHook<[any, any]>(['context', 'exportedPage']),
   // Called after exporting a page

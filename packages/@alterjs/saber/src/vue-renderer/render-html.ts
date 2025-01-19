@@ -1,10 +1,17 @@
+import type { BundleRenderer } from 'vue-server-renderer'
+import type { hooks as SaberHooks } from '../hooks'
 import { getInitialDocument, getInitialDocumentData } from './get-initial-document'
 
+export interface RenderContext {
+  url?: string
+  markup?: string
+}
+
 export default async (
-  renderer: any,
-  { url, hooks, isProd }: { url: string, hooks: any, isProd: boolean },
+  renderer: BundleRenderer,
+  { url, hooks, isProd }: { url: string, hooks: typeof SaberHooks, isProd: boolean },
 ) => {
-  const context: any = { url }
+  const context: RenderContext = { url }
   context.markup = await renderer.renderToString(context)
 
   // Get document data that is used to document string
