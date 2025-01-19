@@ -35,9 +35,9 @@ function createSite() {
     process.exit(1)
   }
 
-  if (Number.parseInt(process.versions.node, 10) < 16) {
+  if (Number.parseInt(process.versions.node, 10) < 18) {
     console.log(
-      `Node.js ${process.versions.node} isn't supported, you need Node.js 16 or above.`,
+      `Node.js ${process.versions.node} isn't supported, you need Node.js 18 or above.`,
     )
     process.exit(1)
   }

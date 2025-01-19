@@ -20,7 +20,7 @@
     "vue-app"
   ],
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "build": "rimraf dist && tsc",

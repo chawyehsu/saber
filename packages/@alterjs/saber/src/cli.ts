@@ -7,13 +7,13 @@ import commands from './cli-commands'
 
 function isSupported() {
   const [major] = process.versions.node.split('.', 1).map(Number)
-  return major >= 16
+  return major >= 18
 }
 
 export function start() {
   if (!isSupported()) {
     log.error(
-      `Saber requires Node.js >= 16 to work currently, your current Node.js version is ${process.versions.node}.`,
+      `Saber requires Node.js >= 18 to work currently, your current Node.js version is ${process.versions.node}.`,
     )
     process.exit(1)
   }
