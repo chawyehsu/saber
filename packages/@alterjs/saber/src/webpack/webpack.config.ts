@@ -3,7 +3,7 @@ import Config from 'webpack-chain'
 import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
 import type { Saber } from '..'
-import timeFixPlugin from './TimeFixPlugin'
+// import timeFixPlugin from './TimeFixPlugin'
 import PrintStatusPlugin from './PrintStatusPlugin'
 
 export default function webpackConfig(api: Saber, { type }: { type: string }): Config {
@@ -75,7 +75,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }): C
       target: 'es2015',
     })
 
-  config.plugin('timefix').use(timeFixPlugin)
+  // config.plugin('timefix').use(timeFixPlugin)
 
   config.plugin('envs').use(webpack.DefinePlugin, [
     {
