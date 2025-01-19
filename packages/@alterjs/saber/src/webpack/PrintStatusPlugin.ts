@@ -26,7 +26,7 @@ export default class PrintStatusPlugin {
         colors.dim(
           `(${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}) Rebuilding ${
             this.type
-          } due to changes in ${file.replace(os.homedir(), '~')}`,
+          } due to changes in ${file?.replace(os.homedir(), '~')}`,
         ),
       )
       return d

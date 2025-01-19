@@ -4,7 +4,6 @@ import polka from 'polka'
 import serveStatic from 'serve-static'
 import type { Compiler } from 'webpack'
 import webpack from 'webpack'
-// @ts-expect-error - no types
 import webpackDevMiddleware from 'webpack-dev-middleware'
 // @ts-expect-error - no types
 import webpackHotMiddleware from 'webpack-hot-middleware'
