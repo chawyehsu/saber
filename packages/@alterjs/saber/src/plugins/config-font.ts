@@ -13,10 +13,9 @@ const configFont: SaberPlugin = {
       config.module
         .rule('font')
         .test(/\.(eot|otf|ttf|woff2?)(\?.*)?$/i)
-        .use('file-loader')
-        .loader('file-loader')
-        .options({
-          name: filename,
+        .type('asset/resource')
+        .generator({
+          filename,
         })
     })
   },

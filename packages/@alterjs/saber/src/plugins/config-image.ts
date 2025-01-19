@@ -12,26 +12,16 @@ const configImage: SaberPlugin = {
       config.module
         .rule('image')
         .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.webp$/])
-        .use('url-loader')
-        .loader(require.resolve('url-loader'))
-        .options({
-          esModule: false,
-          name: filename,
-          // inline the file if smaller than 2KB
-          limit: 20000,
+        .type('asset/resource')
+        .generator({
+          filename,
         })
 
+      // allow inline SVGs
       config.module
         .rule('svg')
         .test(/\.(svg)(\?.*)?$/)
-        .use('file-loader')
-        // SVG files use file-loader directly
-        // See https://github.com/facebookincubator/create-react-app/pull/1180
-        .loader(require.resolve('file-loader'))
-        .options({
-          esModule: false,
-          name: filename,
-        })
+        .type('asset/inline')
     })
   },
 }

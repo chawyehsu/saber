@@ -13,9 +13,7 @@ export default function getFileNames(useHash: boolean) {
     // [1]: https://github.com/vuejs/vue/issues/12924
     js: useHash ? '[name].[chunkhash:8].js' : '[name].js',
     css: useHash ? 'css/[name].[chunkhash:8].css' : 'css/[name].css',
-    font: useHash ? 'fonts/[name].[hash:8].[ext]' : 'fonts/[path][name].[ext]',
-    image: useHash
-      ? 'images/[name].[contenthash:8].[ext]'
-      : 'images/[path][name].[ext]',
+    font: useHash ? 'fonts/[name].[contenthash:8][ext]' : 'fonts/[name][ext]',
+    image: useHash ? 'images/[name].[contenthash:8][ext]' : 'images/[name][ext]',
   }
 }
