@@ -1,7 +1,7 @@
 // @ts-expect-error - no types
-import ChainedMap from 'webpack-chain/src/ChainedMap'
+import ChainedMap from 'rspack-chain/src/ChainedMap'
 // @ts-expect-error - no types
-import Orderable from 'webpack-chain/src/Orderable'
+import Orderable from 'rspack-chain/src/Orderable'
 
 export default Orderable(
   class Plugin extends ChainedMap {

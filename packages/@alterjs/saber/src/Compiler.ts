@@ -1,5 +1,5 @@
 import { EventEmitter } from 'node:events'
-import type WebpackChain from 'webpack-chain'
+import type WebpackChain from 'rspack-chain'
 import type { Compiler as WebpackCompiler } from 'webpack'
 import type { Saber } from '.'
 

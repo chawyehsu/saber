@@ -1,5 +1,5 @@
 import path from 'node:path'
-import Config from 'webpack-chain'
+import Config from 'rspack-chain'
 import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
 import type { Saber } from '..'
@@ -55,7 +55,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }): C
   config.module
     .rule('js')
     .test(/\.js$/)
-    .include.add((filepath) => {
+    .include.add((filepath: string) => {
       if (api.browserApi.has(filepath)) {
         return true
       }

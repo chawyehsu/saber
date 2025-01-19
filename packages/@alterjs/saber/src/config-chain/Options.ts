@@ -1,5 +1,5 @@
 // @ts-expect-error - no types
-import ChainedMap from 'webpack-chain/src/ChainedMap'
+import ChainedMap from 'rspack-chain/src/ChainedMap'
 
 export default class extends ChainedMap {
   [x: string]: any

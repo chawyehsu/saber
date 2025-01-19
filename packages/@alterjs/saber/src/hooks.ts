@@ -1,5 +1,5 @@
 import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable'
-import type Config from 'webpack-chain'
+import type Config from 'rspack-chain'
 import type { BundleRenderer } from 'vue-server-renderer'
 import type { Configuration } from 'webpack'
 import type ConfigChain from './config-chain'

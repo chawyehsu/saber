@@ -2,7 +2,7 @@
  * Modified: https://github.com/ulivz/markdown-it-chain/blob/master/src/index.js
  */
 // @ts-expect-error - no types
-import ChainedMap from 'webpack-chain/src/ChainedMap'
+import ChainedMap from 'rspack-chain/src/ChainedMap'
 import resolvePackage from '../utils/resolvePackage'
 import Plugin from './Plugin'
 import Options from './Options'

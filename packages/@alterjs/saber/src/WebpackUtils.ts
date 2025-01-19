@@ -1,5 +1,5 @@
 import path from 'node:path'
-import type { Rule } from 'webpack-chain'
+import type { Rule } from 'rspack-chain'
 import type { Saber } from '.'
 
 export class WebpackUtils {

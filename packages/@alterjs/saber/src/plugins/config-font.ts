@@ -1,4 +1,4 @@
-import type Config from 'webpack-chain'
+import type Config from 'rspack-chain'
 import getFileNames from '../utils/getFileNames'
 import type { Saber, SaberPlugin } from '..'
 

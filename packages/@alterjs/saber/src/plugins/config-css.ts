@@ -1,5 +1,5 @@
 import merge from 'lodash.merge'
-import type Config from 'webpack-chain'
+import type Config from 'rspack-chain'
 import { EsbuildPlugin } from 'esbuild-loader'
 // @ts-expect-error - no types
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
