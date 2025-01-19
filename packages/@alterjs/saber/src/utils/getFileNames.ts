@@ -15,7 +15,7 @@ export default function getFileNames(useHash: boolean) {
     css: useHash ? 'css/[name].[chunkhash:8].css' : 'css/[name].css',
     font: useHash ? 'fonts/[name].[hash:8].[ext]' : 'fonts/[path][name].[ext]',
     image: useHash
-      ? 'images/[name].[hash:8].[ext]'
+      ? 'images/[name].[contenthash:8].[ext]'
       : 'images/[path][name].[ext]',
   }
 }
