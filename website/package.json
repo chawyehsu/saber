@@ -7,8 +7,8 @@
     "build": "saber build"
   },
   "dependencies": {
-    "@alterjs/saber": "^0.13.0",
-    "@alterjs/saber-plugin-image": "^0.13.0",
+    "@alterjs/saber": "^0.14.0",
+    "@alterjs/saber-plugin-image": "^0.14.0",
     "@alterjs/saber-plugin-prismjs": "^0.13.0",
     "@alterjs/saber-plugin-pwa": "^0.13.0",
     "@alterjs/saber-plugin-query-posts": "^0.13.0",
