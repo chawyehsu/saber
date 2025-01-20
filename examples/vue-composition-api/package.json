@@ -2,16 +2,12 @@
   "name": "vue-composition-api",
   "version": "0.0.0",
   "private": true,
-  "description": "How to use the module @vue/composition-api with Saber",
+  "description": "How to use Vue Composition API in Saber",
   "scripts": {
     "dev": "saber",
     "build": "saber build"
   },
   "dependencies": {
-    "@alterjs/saber": "^0.13.0",
-    "@vue/composition-api": "^0.3.2"
-  },
-  "volta": {
-    "node": "16.20.2"
+    "@alterjs/saber": "^0.13.0"
   }
 }
