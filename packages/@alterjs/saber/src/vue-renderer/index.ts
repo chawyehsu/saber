@@ -49,11 +49,15 @@ function removeTrailingSlash(input: string) {
 
 const ID = 'vue-renderer'
 
+export interface VueRendererHooks {
+  getVueLoaderOptions: SyncWaterfallHook<any>
+}
+
 export class VueRenderer {
   api: Saber
   visitedRoutes: Set<unknown>
   builtRoutes: Set<unknown>
-  hooks: any
+  hooks: VueRendererHooks
   private _writingRoutes: boolean | undefined
   prevRoutes: string | undefined
   renderer: BundleRenderer | undefined
@@ -65,7 +69,7 @@ export class VueRenderer {
     this.builtRoutes = new Set()
 
     this.hooks = {
-      getVueLoaderOptions: new SyncWaterfallHook(['options']),
+      getVueLoaderOptions: new SyncWaterfallHook<any>(['options']),
     }
 
     this.api.hooks.chainWebpack.tap(ID, (config: Config, { type }) => {
