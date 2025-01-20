@@ -1,6 +1,6 @@
 {
   "name": "@alterjs/saber-plugin-image",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@alterjs/saber": "^0.13.0",
+    "@alterjs/saber": "^0.14.0",
     "jimp": "^0.22.12",
     "sharp": "^0.33.5"
   },

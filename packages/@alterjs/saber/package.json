@@ -1,6 +1,6 @@
 {
   "name": "@alterjs/saber",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "A simple yet powerful static site generator",
   "license": "MIT",
   "repository": {
@@ -30,7 +30,7 @@
     "test": "vitest --run"
   },
   "dependencies": {
-    "@alterjs/saber-markdown": "^0.13.0",
+    "@alterjs/saber-markdown": "^0.13.1",
     "@babel/parser": "^7.26.5",
     "@babel/traverse": "^7.26.5",
     "cac": "^6.7.14",
