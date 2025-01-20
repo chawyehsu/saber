@@ -55,6 +55,9 @@ const configCss: SaberPlugin = {
 
           const cssLoaderOptions = Object.assign(
             {
+              // vue-loader/vue-style-loader do not support ES modules CSS interop
+              // FIXME(chawyehsu): https://github.com/vuejs/vue-style-loader/issues?q=esmodule
+              esModule: false,
               sourceMap,
               modules: modules?.mode
                 ? {
