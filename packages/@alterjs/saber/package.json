@@ -62,7 +62,6 @@
     "vue-router": "3.6.5",
     "vue-router-prefetch": "^1.6.3",
     "vue-server-renderer": "2.7.16",
-    "vue-template-compiler": "2.7.16",
     "webpack": "^5.97.1",
     "webpack-dev-middleware": "^7.4.2",
     "webpack-hot-middleware": "2.26.1",
