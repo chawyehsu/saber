@@ -1,6 +1,6 @@
 {
   "name": "@alterjs/saber-plugin-prismjs",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "A syntax highlighting plugin for Saber, using prismjs",
   "license": "MIT",
   "repository": {
