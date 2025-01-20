@@ -1,6 +1,7 @@
-import { locales, siteConfig, themeConfig } from 'saber/config'
+import saberConfig from 'saber/config'
 
 export default ({ Vue }) => {
+  const { siteConfig, themeConfig, locales } = saberConfig
   const store = Vue.observable({ siteConfig, themeConfig, locales })
 
   const getMatchedConfig = (localePath, key) => {
