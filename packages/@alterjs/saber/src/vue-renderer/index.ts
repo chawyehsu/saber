@@ -98,17 +98,9 @@ export class VueRenderer {
       // Transform js files in vue-app folder
       config.module.rule('js').include.add(resolveVueApp())
 
-      const vueLoaderOptions = this.hooks.getVueLoaderOptions.call(
-        Object.assign(
-          {
-            compilerOptions: {
-              modules: [],
-            },
-            transformAssetUrls: {},
-            prettify: false,
-          },
-        ),
-      )
+      const vueLoaderOptions = this.hooks.getVueLoaderOptions.call({
+        prettify: false,
+      })
 
       const pageLoaderOptions = {
         getPageById: (pageId: string) => api.pages.get(pageId),
@@ -177,7 +169,6 @@ export class VueRenderer {
         .use('vue-loader')
         .loader('vue-loader')
         .options(vueLoaderOptions)
-        .end()
 
       // Handle `<page-prop>` block in .vue file
       config.module
@@ -261,9 +252,7 @@ export class VueRenderer {
             ${
               this.api.lazy && !this.visitedRoutes.has(page.permalink)
                 ? `return Promise.resolve({render: function(h){return h('div', {}, ['Please refresh..'])}})`
-                : `
-            return import(${chunkNameComment}${JSON.stringify(componentPath)})
-            `
+                : `return import(${chunkNameComment}${JSON.stringify(componentPath)})`
             }
           }
         }`
