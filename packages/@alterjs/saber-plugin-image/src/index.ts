@@ -114,14 +114,17 @@ const PluginImage: SaberPlugin = {
 
       config.module.rule('image').exclude.add(/\.(jpe?g|png)$/i)
 
+      const filename = api.dev
+        ? 'images/[name]-[width].[ext]'
+        : 'images/[name]-[width].[contenthash:8].[ext]'
+
       config.module
         .rule(ID)
         .test(/\.(jpe?g|png)$/i)
-        .type('asset/resource')
         .use('responsive-loader')
         .loader(require.resolve('responsive-loader'))
         .options({
-          name: 'images/[name]-[width].[contenthash:8].[ext]',
+          name: filename,
           ...options,
         })
     })
