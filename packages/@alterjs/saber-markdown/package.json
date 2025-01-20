@@ -1,7 +1,7 @@
 {
   "name": "@alterjs/saber-markdown",
   "type": "module",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "A custom build of markdown-it for Saber",
   "license": "MIT",
   "repository": {
