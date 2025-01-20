@@ -11,8 +11,5 @@
     "@alterjs/saber": "^0.13.0",
     "@alterjs/saber-plugin-query-posts": "^0.13.0",
     "saber-theme-minima": "latest"
-  },
-  "volta": {
-    "node": "16.20.2"
   }
 }

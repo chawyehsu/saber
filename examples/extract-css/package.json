@@ -9,8 +9,5 @@
   },
   "dependencies": {
     "@alterjs/saber": "^0.13.0"
-  },
-  "volta": {
-    "node": "16.20.2"
   }
 }
