@@ -125,14 +125,14 @@ export class VueRenderer {
           plugins: TemplatePlugins(api),
         })
 
-      // Add `saber-page` rule under `js` rule to handle .js pages
-      // prettier-ignore
+      // `saber-page` rule for `.js` pages
       config.module
-        .rule('js')
-        .oneOf('saber-page')
-        .before('normal')
+        .rule('saber-page')
+        .test(/\.js$/)
+        .oneOf('saber-page-js')
         .resourceQuery((query: any) => {
-          return /saberPage/.test(query) && !/type=script/.test(query)
+          return /saberPage/.test(query)
+            && !/type=script/.test(query)
         })
         .use('vue-loader')
         .loader('vue-loader')
@@ -142,31 +142,17 @@ export class VueRenderer {
         .loader(require.resolve('./saber-page-loader'))
         .options(pageLoaderOptions)
 
-      // Handle .vue components and .vue pages
-      // prettier-ignore
-      config.module.rule('vue')
-        .test(/\.vue$/)
-        .use('vue-loader')
-        .loader('vue-loader')
-        .options(vueLoaderOptions)
-        .end()
-        // saber-page-loader will return original content
-        // if the resource query doesn't contain `saberPage`
-        .use('saber-page-loader')
-        .loader(require.resolve('./saber-page-loader'))
-        .options(pageLoaderOptions)
-
-      // Get the available extensions for pages
-      // Excluding .vue and .js pages because we handled them in their own rules
+      // `saber-page` rule for non-js (.md, .vue, .pug, .html, etc.,) pages
       const { supportedExtensions } = api.transformers
       const pageExtensions = supportedExtensions
+        .filter(ext => ext !== 'js')
         .map(ext => new RegExp(`\\.${ext}$`))
-        .filter(re => !re.test('.js') && !re.test('.vue'))
         .concat(/\.saberpage$/)
 
       config.module
         .rule('saber-page')
         .test(pageExtensions)
+        .oneOf('saber-page-non-js')
         .resourceQuery((query: any) => {
           return /saberPage/.test(query)
         })
@@ -177,6 +163,17 @@ export class VueRenderer {
         .use('saber-page-loader')
         .loader(require.resolve('./saber-page-loader'))
         .options(pageLoaderOptions)
+
+      // General .vue components
+      config.module.rule('vue')
+        .test(/\.vue$/)
+        .resourceQuery((query: any) => {
+          return !/saberPage/.test(query)
+        })
+        .use('vue-loader')
+        .loader('vue-loader')
+        .options(vueLoaderOptions)
+        .end()
 
       // Handle `<page-prop>` block in .vue file
       config.module
