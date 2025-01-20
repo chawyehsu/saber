@@ -1,5 +1,7 @@
 import Vue from 'vue'
-import { atomFeedPath, jsonFeedPath, rss2FeedPath } from 'saber/variables'
+import saberVariables from 'saber/variables'
+
+const { atomFeedPath, jsonFeedPath, rss2FeedPath } = saberVariables
 
 function getPermalink(localePath, feedPath) {
   return `${localePath === '/' ? '' : localePath}/${feedPath.replace(
