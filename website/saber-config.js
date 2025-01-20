@@ -95,7 +95,12 @@ const config = {
       },
     },
     { resolve: '@alterjs/saber-plugin-search' },
-    { resolve: '@alterjs/saber-plugin-image' },
+    {
+      resolve: '@alterjs/saber-plugin-image',
+      options: {
+        adapter: 'sharp',
+      }
+    },
     {
       resolve: 'saber-plugin-code-copy',
       options: {
