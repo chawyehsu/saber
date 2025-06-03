@@ -6,8 +6,6 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
-import { promisify } from 'node:util'
-import ncp from 'ncp'
 import colors from 'kleur'
 
 const args = process.argv.slice(2)
@@ -52,7 +50,7 @@ function createSite() {
     hasYarn = true
   } catch (error) {}
 
-  promisify(ncp)(path.join(__dirname, '../', 'template'), dir)
+  fs.promises.cp(path.join(__dirname, '../', 'template'), dir, { recursive: true })
     .then(() => {
       console.log(
         colors.green(`Successfully created at ${colors.underline(dir)}`),
