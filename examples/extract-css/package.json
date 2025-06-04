@@ -8,6 +8,6 @@
     "build": "saber build"
   },
   "dependencies": {
-    "@alterjs/saber": "^0.14.0"
+    "@alterjs/saber": "workspace:*"
   }
 }

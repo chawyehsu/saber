@@ -8,8 +8,8 @@
     "build": "saber build"
   },
   "dependencies": {
-    "@alterjs/saber": "^0.14.0",
-    "@alterjs/saber-plugin-query-posts": "^0.13.0",
+    "@alterjs/saber": "workspace:*",
+    "@alterjs/saber-plugin-query-posts": "workspace:*",
     "saber-theme-minima": "latest"
   }
 }

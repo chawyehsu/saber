@@ -27,23 +27,23 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+        cache: 'pnpm'
 
     - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+      run: pnpm install
 
     - name: Invoke Test
-      run: yarn test
+      run: pnpm test
 
     - name: Test website Build
       run: |
         cd website
-        yarn build
+        pnpm build
         cd ..
 
     - name: Test example Build
       run: |
         cd examples/extract-css
-        yarn build
+        pnpm build
         cd ../..
 
