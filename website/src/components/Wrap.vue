@@ -1,8 +1,54 @@
+<script>
+import format from 'date-fns/format'
+import Header from './Header.vue'
+import Sidebar from './Sidebar.vue'
+import Toc from './Toc.vue'
+
+export default {
+  components: {
+    Header,
+    Sidebar,
+    Toc,
+  },
+
+  props: {
+    page: {
+      type: Object,
+      required: true,
+    },
+    showSidebar: {
+      type: Boolean,
+      default: true,
+    },
+    showEditInfo: {
+      type: Boolean,
+      default: true,
+    },
+    mainWidth: {
+      type: String,
+    },
+  },
+
+  computed: {
+    updatedDate() {
+      return format(this.page.updatedAt, 'MMMM DD, YYYY')
+    },
+
+    editLink() {
+      const { slug, type } = this.page
+      return `https://github.com/saberland/saber/blob/master/website/pages/${
+        type === 'post' ? '_posts/' : ''
+      }${slug}.md`
+    },
+  },
+}
+</script>
+
 <template>
   <div
     class="wrap"
-    :style="{'--main-width': mainWidth || 'inherit'}"
-    :class="{'no-sidebar': !showSidebar}"
+    :style="{ '--main-width': mainWidth || 'inherit' }"
+    :class="{ 'no-sidebar': !showSidebar }"
   >
     <Header />
     <Toc
@@ -17,7 +63,7 @@
     <div class="page">
       <div class="main">
         <slot name="default" />
-        <div class="edit-info" v-if="showEditInfo">
+        <div v-if="showEditInfo" class="edit-info">
           <!-- <span class="last-edited">Last Edited on {{ updatedDate }}</span> -->
           <a class="edit-link" target="_blank" :href="editLink">Edit This Page on GitHub</a>
         </div>
@@ -25,52 +71,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import format from 'date-fns/format'
-import Header from './Header.vue'
-import Sidebar from './Sidebar.vue'
-import Toc from './Toc.vue'
-
-export default {
-  components: {
-    Header,
-    Sidebar,
-    Toc
-  },
-
-  props: {
-    page: {
-      type: Object,
-      required: true
-    },
-    showSidebar: {
-      type: Boolean,
-      default: true
-    },
-    showEditInfo: {
-      type: Boolean,
-      default: true
-    },
-    mainWidth: {
-      type: String
-    }
-  },
-
-  computed: {
-    updatedDate() {
-      return format(this.page.updatedAt, 'MMMM DD, YYYY')
-    },
-
-    editLink() {
-      const { slug, type } = this.page
-      return `https://github.com/saberland/saber/blob/master/website/pages/${
-        type === 'post' ? '_posts/' : ''
-      }${slug}.md`
-    }
-  }
-}
-</script>
 
 <style scoped>
 .edit-info {

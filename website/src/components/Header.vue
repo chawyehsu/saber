@@ -1,13 +1,66 @@
+<script>
+// import SiteSearch from './SiteSearch.vue'
+import SiteNav from './SiteNav.vue'
+import Logo from './Logo.vue'
+
+export default {
+  components: {
+    // SiteSearch,
+    SiteNav,
+    Logo,
+  },
+
+  mounted() {
+    const Headroom = require('headroom.js')
+    const toggleBodyClass = (addClass, removeClass) => {
+      document.body.classList.add(addClass)
+      document.body.classList.remove(removeClass)
+    }
+    this.headroom = new Headroom(this.$el, {
+      onPin() {
+        toggleBodyClass('header-pinned', 'header-unpinned')
+      },
+      onUnpin() {
+        toggleBodyClass('header-unpinned', 'header-pinned')
+      },
+      onTop() {
+        toggleBodyClass('header-top', 'header-not-top')
+      },
+      onNotTop() {
+        toggleBodyClass('header-not-top', 'header-top')
+      },
+    })
+    this.headroom.init()
+  },
+
+  beforeUnmount() {
+    if (this.headroom) {
+      this.headroom.destroy()
+    }
+  },
+
+  methods: {
+    toggleSidebar() {
+      if (document.body.classList.contains('show-sidebar')) {
+        document.body.classList.remove('show-sidebar')
+      } else {
+        document.body.classList.add('show-sidebar')
+      }
+    },
+  },
+}
+</script>
+
 <template>
   <header class="header">
     <div class="container">
       <div class="header-left">
         <div
           class="toggle"
-          @click="toggleSidebar"
           role="button"
           aria-label="Toggle Sidebar"
           tabindex="0"
+          @click="toggleSidebar"
         >
           <svg viewBox="0 0 512 512">
             <path
@@ -30,59 +83,6 @@
     </div>
   </header>
 </template>
-
-<script>
-// import SiteSearch from './SiteSearch.vue'
-import SiteNav from './SiteNav.vue'
-import Logo from './Logo.vue'
-
-export default {
-  components: {
-    // SiteSearch,
-    SiteNav,
-    Logo
-  },
-
-  methods: {
-    toggleSidebar() {
-      if (document.body.classList.contains('show-sidebar')) {
-        document.body.classList.remove('show-sidebar')
-      } else {
-        document.body.classList.add('show-sidebar')
-      }
-    }
-  },
-
-  mounted() {
-    const Headroom = require('headroom.js')
-    const toggleBodyClass = (addClass, removeClass) => {
-      document.body.classList.add(addClass)
-      document.body.classList.remove(removeClass)
-    }
-    this.headroom = new Headroom(this.$el, {
-      onPin() {
-        toggleBodyClass('header-pinned', 'header-unpinned')
-      },
-      onUnpin() {
-        toggleBodyClass('header-unpinned', 'header-pinned')
-      },
-      onTop() {
-        toggleBodyClass('header-top', 'header-not-top')
-      },
-      onNotTop() {
-        toggleBodyClass('header-not-top', 'header-top')
-      }
-    })
-    this.headroom.init()
-  },
-
-  beforeDestroy() {
-    if (this.headroom) {
-      this.headroom.destroy()
-    }
-  }
-}
-</script>
 
 <style scoped>
 .header {

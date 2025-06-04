@@ -1,13 +1,97 @@
+<script>
+import SiteNav from './SiteNav.vue'
+
+function addOrRemove(arr, value) {
+  const index = arr.indexOf(value)
+  if (index === -1) {
+    return [...arr, value]
+  }
+  return arr.filter((_, i) => i !== index)
+}
+
+export default {
+  components: {
+    SiteNav,
+  },
+
+  props: {
+    items: {
+      type: Array,
+      default: [],
+    },
+    hide: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      openLinks: [this.$route.path],
+    }
+  },
+
+  computed: {
+    flatItems() {
+      const res = []
+      for (const item of this.items) {
+        res.push({ disabled: true, title: item.title })
+        for (const child of item.children) {
+          res.push({ ...child, disabled: false })
+        }
+      }
+      return res
+    },
+  },
+
+  methods: {
+    isActive(link) {
+      if (!link) {
+        return false
+      }
+      return link[0] === '#'
+        ? link === this.$route.hash
+        : link === this.$route.path
+    },
+
+    isExpanded(items) {
+      return items.some((item) => {
+        return this.openLinks.includes(item.link)
+      })
+    },
+
+    toggleOpenLink(children) {
+      let closed = false
+
+      for (const openLink of this.openLinks) {
+        const isChildLinkActive = children.some(
+          child => child.link === openLink,
+        )
+        if (isChildLinkActive) {
+          this.openLinks = this.openLinks.filter(link => link !== openLink)
+          closed = true
+          break
+        }
+      }
+
+      if (!closed) {
+        this.openLinks.push(children[0].link)
+      }
+    },
+  },
+}
+</script>
+
 <template>
-  <div class="sidebar" :class="{'is-hidden': hide}">
+  <div class="sidebar" :class="{ 'is-hidden': hide }">
     <SiteNav class="show-on-mobile" />
 
-    <slot name="content" v-if="$slots.content"></slot>
-    <div class="items" v-else>
-      <div class="item" v-for="(item, i) in items" :key="i">
+    <slot v-if="$slots.content" name="content" />
+    <div v-else class="items">
+      <div v-for="(item, i) in items" :key="i" class="item">
         <div
           class="item-title"
-          :class="{'is-expanded': isExpanded(item.children)}"
+          :class="{ 'is-expanded': isExpanded(item.children) }"
           @click="toggleOpenLink(item.children)"
         >
           <span>{{ item.title }}</span>
@@ -27,11 +111,11 @@
           </svg>
         </div>
         <transition name="fade">
-          <div class="item-children" v-if="isExpanded(item.children)">
-            <div class="item-child" v-for="(childItem, i) in item.children" :key="i">
+          <div v-if="isExpanded(item.children)" class="item-children">
+            <div v-for="(childItem, i) in item.children" :key="i" class="item-child">
               <a
                 :href="childItem.link"
-                :class="{active: isActive(childItem.link)}"
+                :class="{ active: isActive(childItem.link) }"
               >{{ childItem.title }}</a>
             </div>
           </div>
@@ -40,88 +124,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import SiteNav from './SiteNav.vue'
-
-const addOrRemove = (arr, value) => {
-  const index = arr.indexOf(value)
-  if (index === -1) {
-    return [...arr, value]
-  }
-  return arr.filter((_, i) => i !== index)
-}
-
-export default {
-  components: {
-    SiteNav
-  },
-
-  props: {
-    items: {
-      type: Array,
-      default: []
-    },
-    hide: {
-      type: Boolean,
-      default: false
-    }
-  },
-
-  data() {
-    return {
-      openLinks: [this.$route.path]
-    }
-  },
-
-  computed: {
-    flatItems() {
-      const res = []
-      for (const item of this.items) {
-        res.push({ disabled: true, title: item.title })
-        for (const child of item.children) {
-          res.push({ ...child, disabled: false })
-        }
-      }
-      return res
-    }
-  },
-
-  methods: {
-    isActive(link) {
-      if (!link) return false
-      return link[0] === '#'
-        ? link === this.$route.hash
-        : link === this.$route.path
-    },
-
-    isExpanded(items) {
-      return items.some(item => {
-        return this.openLinks.indexOf(item.link) > -1
-      })
-    },
-
-    toggleOpenLink(children) {
-      let closed = false
-
-      for (const openLink of this.openLinks) {
-        const isChildLinkActive = children.some(
-          child => child.link === openLink
-        )
-        if (isChildLinkActive) {
-          this.openLinks = this.openLinks.filter(link => link !== openLink)
-          closed = true
-          break
-        }
-      }
-
-      if (!closed) {
-        this.openLinks.push(children[0].link)
-      }
-    }
-  }
-}
-</script>
 
 <style scoped>
 .fade-enter-active,

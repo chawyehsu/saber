@@ -1,41 +1,10 @@
-<template>
-  <div class="toc" :class="{show}">
-    <div class="toc-trigger" @click="show = !show">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="list"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><circle cx="4" cy="7" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="17" r="1"/><rect x="7" y="11" width="14" height="2" rx=".94" ry=".94"/><rect x="7" y="16" width="14" height="2" rx=".94" ry=".94"/><rect x="7" y="6" width="14" height="2" rx=".94" ry=".94"/></g></g></svg>
-    </div>
-    <div class="toc-title">Contents</div>
-    <div class="toc-headings">
-      <a
-        :data-level="heading.level"
-        :class="{'toc-heading': true, 'active-hash': `#${heading.slug}` === currentHash}"
-        v-for="heading in filteredHeadings"
-        :key="heading.slug"
-        :href="{hash: heading.slug}"
-      >{{ heading.text }}</a>
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   props: {
     headings: {
       type: Array,
-      required: true
-    }
-  },
-
-  computed: {
-    filteredHeadings() {
-      return this.headings.filter(heading => heading.level < 4)
-    }
-  },
-
-  watch: {
-    $route() {
-      this.isRoute = true
-      this.currentHash = this.$route.hash
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -44,8 +13,21 @@ export default {
       observer: null,
       isRoute: false,
       justMounted: true,
-      show: false
+      show: false,
     }
+  },
+
+  computed: {
+    filteredHeadings() {
+      return this.headings.filter(heading => heading.level < 4)
+    },
+  },
+
+  watch: {
+    $route() {
+      this.isRoute = true
+      this.currentHash = this.$route.hash
+    },
   },
 
   mounted() {
@@ -54,8 +36,8 @@ export default {
         this.isRoute = false
         this.justMounted = false
       } else if (
-        firstEntry.boundingClientRect.bottom <=
-        firstEntry.intersectionRect.bottom
+        firstEntry.boundingClientRect.bottom
+        <= firstEntry.intersectionRect.bottom
       ) {
         const hash = `#${firstEntry.target.id}`
         history.replaceState(null, null, hash)
@@ -64,15 +46,35 @@ export default {
     })
 
     this.filteredHeadings.forEach(heading =>
-      this.observer.observe(document.querySelector(`#${heading.slug}`))
+      this.observer.observe(document.querySelector(`#${heading.slug}`)),
     )
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.observer.disconnect()
-  }
+  },
 }
 </script>
+
+<template>
+  <div class="toc" :class="{ show }">
+    <div class="toc-trigger" @click="show = !show">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="list"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" /><circle cx="4" cy="7" r="1" /><circle cx="4" cy="12" r="1" /><circle cx="4" cy="17" r="1" /><rect x="7" y="11" width="14" height="2" rx=".94" ry=".94" /><rect x="7" y="16" width="14" height="2" rx=".94" ry=".94" /><rect x="7" y="6" width="14" height="2" rx=".94" ry=".94" /></g></g></svg>
+    </div>
+    <div class="toc-title">
+      Contents
+    </div>
+    <div class="toc-headings">
+      <a
+        v-for="heading in filteredHeadings"
+        :key="heading.slug" :data-level="heading.level"
+        class="toc-heading"
+        :class="{ 'active-hash': `#${heading.slug}` === currentHash }"
+        :href="{ hash: heading.slug }"
+      >{{ heading.text }}</a>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .toc {

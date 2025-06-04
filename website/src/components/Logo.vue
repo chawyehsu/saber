@@ -1,3 +1,14 @@
+<script>
+export default {
+  props: {
+    size: {
+      type: String,
+      default: '32',
+    },
+  },
+}
+</script>
+
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" viewBox="0 0 402 402">
     <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
@@ -34,14 +45,3 @@
     </g>
   </svg>
 </template>
-
-<script>
-export default {
-  props: {
-    size: {
-      type: String,
-      default: '32'
-    }
-  }
-}
-</script>
