@@ -1,7 +1,9 @@
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'ClientOnly',
   functional: true,
-  render(h, { parent, children }) {
+  render(_, { parent, children }) {
     if (parent._isMounted) {
       return children
     }
@@ -10,4 +12,4 @@ export default {
       parent.$forceUpdate()
     })
   },
-}
+})

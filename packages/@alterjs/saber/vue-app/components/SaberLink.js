@@ -1,3 +1,4 @@
+import { defineComponent } from 'vue'
 import isAbsoluteUrl from '../utils/is-absolute-url'
 
 function setAttribute(attrs, name, value) {
@@ -8,7 +9,7 @@ function setAttribute(attrs, name, value) {
 
 const HTTP_RE = /^https?:\/\//
 
-export default {
+export default defineComponent({
   name: 'SaberLink',
 
   functional: true,
@@ -55,4 +56,4 @@ export default {
       children,
     )
   },
-}
+})
