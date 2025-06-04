@@ -1,14 +1,6 @@
 <script>
 import SiteNav from './SiteNav.vue'
 
-function addOrRemove(arr, value) {
-  const index = arr.indexOf(value)
-  if (index === -1) {
-    return [...arr, value]
-  }
-  return arr.filter((_, i) => i !== index)
-}
-
 export default {
   components: {
     SiteNav,
