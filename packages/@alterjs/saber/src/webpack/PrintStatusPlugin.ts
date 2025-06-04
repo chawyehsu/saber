@@ -42,15 +42,15 @@ export default class PrintStatusPlugin {
           = per === 1
             ? null
             : `${(per * 100).toFixed(2)}% ${message} ${args
-                .map((arg) => {
-                  const message = arg.replace(os.homedir(), '~')
-                  return message.length > 40
-                    ? `...${message.substr(
-                        message.length - 39 - this.type.length - 2,
-                      )}`
-                    : message
-                })
-                .join(' ')}`
+              .map((arg) => {
+                const message = arg.replace(os.homedir(), '~')
+                return message.length > 40
+                  ? `...${message.substr(
+                    message.length - 39 - this.type.length - 2,
+                  )}`
+                  : message
+              })
+              .join(' ')}`
         progressLogs.set(this.type, msg)
         const messages = [...progressLogs.keys()]
           .filter(type => progressLogs.get(type))

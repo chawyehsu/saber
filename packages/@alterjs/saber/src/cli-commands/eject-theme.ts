@@ -36,7 +36,7 @@ export default function (cli: CAC) {
 
         const config
           = configLoader.load({ cwd, files: configLoader.CONFIG_FILES }).data
-          || {}
+            || {}
         if (!config.theme) {
           log.error('No theme specified in config.')
           process.exit(1)

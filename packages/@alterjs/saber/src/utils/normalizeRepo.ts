@@ -90,7 +90,7 @@ function normalizeRepo(repo: RepositoryObject | string): NormalizedRepo {
     )
 
     const url = `https://${hostname}/${provider === 'gist' ? owner : `${owner}/${name}`
-      }.git`
+    }.git`
 
     return { url, shortcut: repo, provider, owner, name }
   }

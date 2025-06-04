@@ -2,11 +2,11 @@ import process from 'node:process'
 
 let enabled
   = process.env.FORCE_COLOR
-  || process.platform === 'win32'
-  || (process.stdout
-  && process.stdout.isTTY
-  && process.env.TERM
-  && process.env.TERM !== 'dumb')
+    || process.platform === 'win32'
+    || (process.stdout
+      && process.stdout.isTTY
+      && process.env.TERM
+      && process.env.TERM !== 'dumb')
 
 function rawInit(open: string, close: string, searchRegex: RegExp, replaceValue: string) {
   return (s: string) =>
@@ -15,7 +15,7 @@ function rawInit(open: string, close: string, searchRegex: RegExp, replaceValue:
       + (~(s).indexOf(close, 4) // skip opening \x1b[
         ? s.replace(searchRegex, replaceValue)
         : s)
-        + close
+      + close
       : s
 }
 

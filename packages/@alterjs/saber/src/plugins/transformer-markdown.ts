@@ -1,3 +1,4 @@
+// @ts-expect-error no types for @alterjs/saber-markdown
 import Markdown from '@alterjs/saber-markdown'
 import ConfigChain from '../config-chain'
 import resolvePackage from '../utils/resolvePackage'

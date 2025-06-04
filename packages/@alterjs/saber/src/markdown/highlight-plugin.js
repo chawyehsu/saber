@@ -12,11 +12,11 @@ function parseOptions(str) {
 
 function generateLineNumbers(code, lineStart) {
   return `<span aria-hidden="true" class="saber-highlight-line-numbers" style="counter-reset: linenumber ${lineStart}">${
-  code
-    .trim()
-    .split('\n')
-    .map(() => `<span></span>`)
-    .join('')
+    code
+      .trim()
+      .split('\n')
+      .map(() => `<span></span>`)
+      .join('')
   }</span>`
 }
 
@@ -50,15 +50,15 @@ module.exports = (
     const highlightLines = fenceOptions.highlightLines
       ? fenceOptions.highlightLines.map(v =>
           `${v}`.split('-').map(v => Number.parseInt(v, 10)),
-      )
+        )
       : []
 
     const codeMask
       = highlightLines.length === 0
         ? ''
         : `<div class="saber-highlight-mask${
-            langClass ? ` ${langClass}` : ''
-          }">${
+          langClass ? ` ${langClass}` : ''
+        }">${
           md.utils
             .escapeHtml(token.content)
             .split('\n')
@@ -82,7 +82,7 @@ module.exports = (
               return `<div class="code-line">${split}</div>`
             })
             .join('')
-          }</div>`
+        }</div>`
 
     const renderAttrs = attrs => self.renderAttrs({ attrs })
     const shouldGenerateLineNumbers

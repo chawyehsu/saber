@@ -14,7 +14,7 @@ module.exports = function (source) {
 
   const pageId
     = loaderContext.resourceQuery
-    && qs.parse(loaderContext.resourceQuery.slice(1)).saberPage
+      && qs.parse(loaderContext.resourceQuery.slice(1)).saberPage
 
   if (!pageId) {
     return source
