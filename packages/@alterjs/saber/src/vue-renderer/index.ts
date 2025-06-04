@@ -5,7 +5,6 @@ import serveStatic from 'serve-static'
 import type { Compiler } from 'webpack'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
-// @ts-expect-error - no types
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import type { BundleRenderer } from 'vue-server-renderer'
 import { createBundleRenderer } from 'vue-server-renderer'

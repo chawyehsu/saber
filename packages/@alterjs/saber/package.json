@@ -62,7 +62,7 @@
     "vue-router": "3.6.5",
     "vue-router-prefetch": "^1.6.3",
     "vue-server-renderer": "2.7.16",
-    "webpack": "^5.97.1",
+    "webpack": "^5.99.9",
     "webpack-dev-middleware": "^7.4.2",
     "webpack-hot-middleware": "2.26.1",
     "webpack-node-externals": "3.0.0"
@@ -76,6 +76,7 @@
     "@types/polka": "^0.5.4",
     "@types/resolve-from": "5.0.1",
     "@types/serve-static": "^1.15.2",
+    "@types/webpack-hot-middleware": "^2.25.9",
     "@vue/compiler-sfc": "^3.4.27"
   },
   "publishConfig": {
