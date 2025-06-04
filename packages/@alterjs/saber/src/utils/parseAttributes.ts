@@ -20,8 +20,8 @@ export default (content: string, filepath: string): object => {
     ObjectExpression(path: any) {
       const name
         = path.parent
-          && path.parent.type === 'VariableDeclarator'
-          && path.parent.id.name
+        && path.parent.type === 'VariableDeclarator'
+        && path.parent.id.name
 
       // Only extract `export const [data|attributes] = {...}`
       if (!['attributes', 'data'].includes(name)) {
@@ -36,7 +36,7 @@ export default (content: string, filepath: string): object => {
 
       const isExport
         = path.parentPath.parentPath
-          && path.parentPath.parentPath.parent.type === 'ExportNamedDeclaration'
+        && path.parentPath.parentPath.parent.type === 'ExportNamedDeclaration'
       if (!isExport) {
         return
       }

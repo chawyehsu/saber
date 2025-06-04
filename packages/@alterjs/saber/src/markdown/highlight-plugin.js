@@ -50,7 +50,7 @@ module.exports = (
     const highlightLines = fenceOptions.highlightLines
       ? fenceOptions.highlightLines.map(v =>
           `${v}`.split('-').map(v => Number.parseInt(v, 10)),
-        )
+      )
       : []
 
     const codeMask

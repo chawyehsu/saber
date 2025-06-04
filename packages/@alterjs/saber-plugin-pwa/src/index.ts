@@ -98,12 +98,12 @@ exports.apply = (
         .concat(
           appleTouchIcons
             ? appleTouchIcons.map(icon =>
-                createElement('link', {
-                  rel: 'apple-touch-icon',
-                  sizes: icon.sizes || false,
-                  href: icon.src,
-                }),
-              )
+              createElement('link', {
+                rel: 'apple-touch-icon',
+                sizes: icon.sizes || false,
+                href: icon.src,
+              }),
+            )
             : [],
         )
         .filter(Boolean)

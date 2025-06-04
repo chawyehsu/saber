@@ -178,11 +178,11 @@ export class Pages extends Map<string, Page> {
 
     page.assets = page.assets
       ? prefixAssets(
-          page.assets,
-          page.internal.absolute
-            ? path.dirname(page.internal.absolute)
-            : api.opts.cwd,
-        )
+        page.assets,
+        page.internal.absolute
+          ? path.dirname(page.internal.absolute)
+          : api.opts.cwd,
+      )
       : {}
 
     // Ensure this page is not saved

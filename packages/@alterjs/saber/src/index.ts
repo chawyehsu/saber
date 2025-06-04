@@ -432,20 +432,20 @@ export class Saber {
     const plugins: ResolvedSaberPlugin[]
       = this.configDir && this.config.plugins
         ? this.config.plugins.map((p) => {
-            if (typeof p === 'string') {
-              p = { resolve: p }
-            }
+          if (typeof p === 'string') {
+            p = { resolve: p }
+          }
 
-            const location = resolveFrom(this.configDir as string, p.resolve)
+          const location = resolveFrom(this.configDir as string, p.resolve)
 
-            const resolvedPlugin = {
-              ...require(location),
-              location,
-              options: p.options,
-            }
+          const resolvedPlugin = {
+            ...require(location),
+            location,
+            options: p.options,
+          }
 
-            return resolvedPlugin
-          })
+          return resolvedPlugin
+        })
         : []
 
     const applyFilterPlugins = (
