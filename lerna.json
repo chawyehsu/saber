@@ -1,6 +1,9 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "packages": ["packages/*", "packages/@alterjs/*"],
+  "packages": [
+    "packages/*",
+    "packages/@alterjs/*"
+  ],
   "version": "independent",
-  "npmClient": "yarn"
+  "npmClient": "pnpm"
 }
