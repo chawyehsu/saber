@@ -1,13 +1,9 @@
-<template>
-  <Search inputId="site--search" :fitHeader="true" @hook:mounted="onMounted" />
-</template>
-
 <script>
 import Search from './Search.vue'
 
 export default {
   components: {
-    Search
+    Search,
   },
 
   methods: {
@@ -20,19 +16,23 @@ export default {
         indexName: 'saber',
         inputSelector: '#site--search',
         autocompleteOptions: {
-          openOnFocus: true
+          openOnFocus: true,
         },
         handleSelected: (input, event, suggestion) => {
           this.$router.push(
-            suggestion.url.replace(/^https:\/\/saber\.land/, '')
+            suggestion.url.replace(/^https:\/\/saber\.land/, ''),
           )
         },
-        debug: 'debugSearch' in this.$route.query
+        debug: 'debugSearch' in this.$route.query,
       })
-    }
-  }
+    },
+  },
 }
 </script>
+
+<template>
+  <Search input-id="site--search" :fit-header="true" @hook:mounted="onMounted" />
+</template>
 
 <style src="docsearch.js/dist/cdn/docsearch.min.css"></style>
 
