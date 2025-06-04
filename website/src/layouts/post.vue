@@ -1,13 +1,3 @@
-<template>
-  <Wrap :page="page" :showSidebar="false">
-    <h1 class="page-title">{{ page.title }}</h1>
-    <PostMeta :page="page"/>
-    <div class="page-content">
-      <slot name="default"/>
-    </div>
-  </Wrap>
-</template>
-
 <script>
 import Wrap from '../components/Wrap.vue'
 import PostMeta from '../components/PostMeta.vue'
@@ -15,7 +5,7 @@ import PostMeta from '../components/PostMeta.vue'
 export default {
   components: {
     Wrap,
-    PostMeta
+    PostMeta,
   },
 
   props: ['page'],
@@ -26,22 +16,34 @@ export default {
       meta: [
         {
           name: 'twitter:card',
-          content: 'summary'
+          content: 'summary',
         },
         {
           name: 'twitter:site',
-          content: '@saber_land'
+          content: '@saber_land',
         },
         {
           name: 'twitter:title',
-          content: this.page.title
+          content: this.page.title,
         },
         {
           name: 'twitter:description',
-          content: this.page.subtitle || this.$siteConfig.description
-        }
-      ]
+          content: this.page.subtitle || this.$siteConfig.description,
+        },
+      ],
     }
-  }
+  },
 }
 </script>
+
+<template>
+  <Wrap :page="page" :show-sidebar="false">
+    <h1 class="page-title">
+      {{ page.title }}
+    </h1>
+    <PostMeta :page="page" />
+    <div class="page-content">
+      <slot name="default" />
+    </div>
+  </Wrap>
+</template>

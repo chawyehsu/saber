@@ -1,38 +1,19 @@
-<template>
-  <Wrap :page="page">
-    <div class="page-title">{{ page.title }}</div>
-    <div class="page-content">
-      <slot name="default"/>
-    </div>
-    <div class="prev-next-page">
-      <a class="prev-page" v-if="prevNextPage.prev" :href="prevNextPage.prev.link">
-        <span class="arrow">←</span>
-        {{ prevNextPage.prev.title }}
-      </a>
-      <a class="next-page" v-if="prevNextPage.next" :href="prevNextPage.next.link">
-        {{ prevNextPage.next.title }}
-        <span class="arrow">→</span>
-      </a>
-    </div>
-  </Wrap>
-</template>
-
 <script>
 import DocMixin from '../mixins/doc'
 import Wrap from '../components/Wrap.vue'
 
 export default {
   components: {
-    Wrap
+    Wrap,
   },
-
-  props: ['page'],
 
   mixins: [DocMixin],
 
+  props: ['page'],
+
   head() {
     return {
-      title: `${this.page.title} - Saber`
+      title: `${this.page.title} - Saber`,
     }
   },
 
@@ -48,15 +29,36 @@ export default {
         if (item.link === this.$route.path) {
           return {
             prev: this.flatSidebarItems[index - 1],
-            next: this.flatSidebarItems[index + 1]
+            next: this.flatSidebarItems[index + 1],
           }
         }
       }
       return {}
-    }
-  }
+    },
+  },
 }
 </script>
+
+<template>
+  <Wrap :page="page">
+    <div class="page-title">
+      {{ page.title }}
+    </div>
+    <div class="page-content">
+      <slot name="default" />
+    </div>
+    <div class="prev-next-page">
+      <a v-if="prevNextPage.prev" class="prev-page" :href="prevNextPage.prev.link">
+        <span class="arrow">←</span>
+        {{ prevNextPage.prev.title }}
+      </a>
+      <a v-if="prevNextPage.next" class="next-page" :href="prevNextPage.next.link">
+        {{ prevNextPage.next.title }}
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </Wrap>
+</template>
 
 <style scoped>
 .prev-next-page {

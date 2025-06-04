@@ -1,9 +1,3 @@
-<template>
-  <Wrap :page="page" :showSidebar="false" :showEditInfo="false">
-    <PostList :posts="page.posts"/>
-  </Wrap>
-</template>
-
 <script>
 import Wrap from '../components/Wrap.vue'
 import PostList from '../components/PostList.vue'
@@ -11,7 +5,7 @@ import PostList from '../components/PostList.vue'
 export default {
   components: {
     Wrap,
-    PostList
+    PostList,
   },
 
   props: ['page'],
@@ -21,8 +15,14 @@ export default {
     return {
       title: title
         ? `${title} - ${this.$siteConfig.title}`
-        : this.$siteConfig.title
+        : this.$siteConfig.title,
     }
-  }
+  },
 }
 </script>
+
+<template>
+  <Wrap :page="page" :show-sidebar="false" :show-edit-info="false">
+    <PostList :posts="page.posts" />
+  </Wrap>
+</template>

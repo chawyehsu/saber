@@ -7,7 +7,7 @@ import './css/prism.css'
 import './css/page.css'
 
 export default ({ router, setHead }) => {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     const nprogress = require('nprogress')
 
     const loaded = Object.create(null)
@@ -21,7 +21,7 @@ export default ({ router, setHead }) => {
       next()
     })
 
-    router.afterEach(to => {
+    router.afterEach((to) => {
       loaded[to.path] = true
       nprogress.done()
 
@@ -34,15 +34,15 @@ export default ({ router, setHead }) => {
       {
         name: 'description',
         hid: 'description',
-        content: vm.$siteConfig.description
-      }
+        content: vm.$siteConfig.description,
+      },
     ],
     link: [
       {
         rel: 'icon',
         type: 'image/png',
-        href: '/img/icons/icon_128x128.png'
-      }
-    ]
+        href: '/img/icons/icon_128x128.png',
+      },
+    ],
   }))
 }
