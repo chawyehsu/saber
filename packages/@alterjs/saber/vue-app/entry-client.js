@@ -2,7 +2,7 @@ import createApp from './create-app'
 
 const { app, router } = createApp()
 
-if (process.env.NODE_ENV === 'development') {
+if (__DEV__) {
   require('./dev-client').init({ router })
 }
 

@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { env } from 'node:process'
 import Config from 'rspack-chain'
 import webpack from 'webpack'
 import getFileNames from '../utils/getFileNames'
@@ -84,7 +85,7 @@ export default function webpackConfig(api: Saber, { type }: { type: string }): C
 
   config.plugin('envs').use(webpack.DefinePlugin, [
     {
-      'process.env.NODE_ENV': JSON.stringify(config.get('mode')),
+      'process.env.NODE_ENV': JSON.stringify(env.NODE_ENV),
     },
   ])
 
