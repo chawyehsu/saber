@@ -1,51 +1,23 @@
-<template>
-  <div class="search" :class="{'is-focused': focused, 'fit-header': fitHeader, fullWidth}">
-    <div class="search--icon" @click="handleFocus(true)">
-      <svg
-        width="13"
-        height="13"
-        viewBox="0 0 13 13"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-      >
-        <path
-          d="M8.87 8.16l3.25 3.25-.7.71-3.26-3.25a5 5 0 1 1 .7-.7zM5 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
-        ></path>
-      </svg>
-    </div>
-    <input
-      type="text"
-      class="search--input"
-      ref="input"
-      @focus="handleFocus(true)"
-      @blur="handleFocus(false)"
-      @input="e => $emit('change', e.target.value)"
-      :id="inputId"
-      :placeholder="placeholder"
-    >
-  </div>
-</template>
-
 <script>
 export default {
   props: {
     inputId: {
-      type: String
+      type: String,
     },
     fitHeader: {
-      type: Boolean
+      type: Boolean,
     },
     fullWidth: {
-      type: Boolean
+      type: Boolean,
     },
     placeholder: {
-      type: String
-    }
+      type: String,
+    },
   },
 
   data() {
     return {
-      focused: false
+      focused: false,
     }
   },
 
@@ -56,10 +28,38 @@ export default {
         await this.$nextTick()
         this.$refs.input.focus()
       }
-    }
-  }
+    },
+  },
 }
 </script>
+
+<template>
+  <div class="search" :class="{ 'is-focused': focused, 'fit-header': fitHeader, fullWidth }">
+    <div class="search--icon" @click="handleFocus(true)">
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 13 13"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+      >
+        <path
+          d="M8.87 8.16l3.25 3.25-.7.71-3.26-3.25a5 5 0 1 1 .7-.7zM5 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+        />
+      </svg>
+    </div>
+    <input
+      :id="inputId"
+      ref="input"
+      type="text"
+      class="search--input"
+      :placeholder="placeholder"
+      @focus="handleFocus(true)"
+      @blur="handleFocus(false)"
+      @input="e => $emit('change', e.target.value)"
+    >
+  </div>
+</template>
 
 <style scoped>
 .search {

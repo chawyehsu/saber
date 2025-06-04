@@ -1,26 +1,26 @@
-<template>
-  <div class="posts">
-    <div class="post" v-for="post in posts" :key="post.permalink">
-      <h2 class="post-title">
-        <a :href="post.permalink">{{ post.title }}</a>
-      </h2>
-      <PostMeta :page="post" />
-      <div class="post-excerpt" v-html="post.excerpt"></div>
-    </div>
-  </div>
-</template>
-
 <script>
 import PostMeta from './PostMeta.vue'
 
 export default {
   components: {
-    PostMeta
+    PostMeta,
   },
 
-  props: ['posts']
+  props: ['posts'],
 }
 </script>
+
+<template>
+  <div class="posts">
+    <div v-for="post in posts" :key="post.permalink" class="post">
+      <h2 class="post-title">
+        <a :href="post.permalink">{{ post.title }}</a>
+      </h2>
+      <PostMeta :page="post" />
+      <div class="post-excerpt" v-html="post.excerpt" />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .post-title {
@@ -35,4 +35,3 @@ export default {
   }
 }
 </style>
-
