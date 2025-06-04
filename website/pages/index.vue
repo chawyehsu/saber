@@ -1,3 +1,19 @@
+<script>
+import Logo from '@/src/components/Logo.vue'
+import Vercel from '@/src/components/Vercel.vue'
+
+export const attributes = {
+  layout: 'index',
+}
+
+export default {
+  components: {
+    Logo,
+    Vercel,
+  },
+}
+</script>
+
 <template>
   <div class="page-index">
     <section class="home-section">
@@ -7,7 +23,7 @@
         </div>
         <div class="slogan">
           Build static sites in Vue.js,
-          <br />without the hassle.
+          <br>without the hassle.
         </div>
         <div class="actions">
           <a class="button" style="margin-right: 10px" href="./docs/index.md">Getting Started</a>
@@ -21,22 +37,34 @@
     </section>
     <section class="home-section features">
       <div class="feature">
-        <div class="feature-title">Zero Setup</div>
+        <div class="feature-title">
+          Zero Setup
+        </div>
         <div
           class="feature-content"
-        >Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.</div>
+        >
+          Automatic code splitting, file-system based routing, hot code reloading and built-in Markdown support.
+        </div>
       </div>
       <div class="feature">
-        <div class="feature-title">Bring Your Own Data</div>
+        <div class="feature-title">
+          Bring Your Own Data
+        </div>
         <div
           class="feature-content"
-        >Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.</div>
+        >
+          Build sites with the data you want: Pull data from headless CMS, SaaS services, APIs, your file-system, and more.
+        </div>
       </div>
       <div class="feature">
-        <div class="feature-title">Fully Extensible</div>
+        <div class="feature-title">
+          Fully Extensible
+        </div>
         <div
           class="feature-content"
-        >With Saber's powerful APIs and plugin system, you can customize almost everything.</div>
+        >
+          With Saber's powerful APIs and plugin system, you can customize almost everything.
+        </div>
       </div>
     </section>
     <section class="home-section footer">
@@ -50,23 +78,6 @@
     </section>
   </div>
 </template>
-
-
-<script>
-import Logo from '@/src/components/Logo.vue'
-import Vercel from '@/src/components/Vercel.vue'
-
-export const attributes = {
-  layout: 'index'
-}
-
-export default {
-  components: {
-    Logo,
-    Vercel
-  }
-}
-</script>
 
 <style scoped>
 .page-index {
